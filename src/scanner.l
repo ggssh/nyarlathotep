@@ -28,9 +28,9 @@ if|then|begin|end|procedure|function        {
 
 "+"|"-"|"*"|"/"|":"|"="|";"|"<"|">"|"!"|"."   printf( "An operator: %s\n", yytext );
 
-"{"[^}\n]*"}"     /* eat up one-line comments */
+"{"[^}\n]*"}"     /* 吃掉单行注释 */
 
-[ \t\n]+          /* eat up whitespace */
+[ \t\n]+          /* 吃掉空格及字符 */
 
 ","         printf( "An comma\n",yytext);
 .           printf( "Unrecognized character: %s\n", yytext );
