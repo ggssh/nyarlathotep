@@ -3,6 +3,7 @@
 %{
 /* need this for the call to atof() below */
 #include <math.h>
+#include <stdio.h>
 %}
 
 DIGIT    [0-9]
