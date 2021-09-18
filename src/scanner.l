@@ -1,53 +1,61 @@
-/* scanner for a toy Pascal-like language */
-
 %{
-/* need this for the call to atof() below */
-#include <math.h>
+#define YYSTYPE char *
 #include <stdio.h>
 %}
 
-DIGIT    [0-9]
-ID       [A-Za-z][A-Za-z0-9]*
+DIGIT 		[0-9]+
+IDENTIFIER 	[a-zA-Z][a-zA-Z0-9]*
+OP			["+"|"-"|"*"|"/"|":"|"="|"!"|">"|"<"]
+COMMA		","
+SEMICOLON	";"
+DOT			"."
+/*
+CONST		"CONST"|
+VAR			[]
+PROCEDURE
+CALL
+BEGIN
+END
+IF
+THEN
+WHILE
+DO
+ODD
+*/
 
 %%
+"CONST"|"VAR"|"PROCEDURE"|"CALL"|"BEGIN"|"END"|"IF"|"THEN"|"WHILE"|"DO"|"ODD"      printf( "A keyword: %s\n", yytext );
 
-{DIGIT}+    {
-            printf( "An integer: %s (%d)\n", yytext,
-                    atoi( yytext ) );
-            }
+"const"|"var"|"procedure"|"call"|"begin"|"end"|"if"|"then"|"while"|"do"|"odd"      printf( "A keyword: %s\n", yytext );
 
-{DIGIT}+"."{DIGIT}*        {
-            printf( "A float: %s (%g)\n", yytext,
-                    atof( yytext ) );
-            }
+{DIGIT}     printf( "An integer: %s\n", yytext);
 
-if|then|begin|end|procedure|function        {
-            printf( "A keyword: %s\n", yytext );
-            }
+{IDENTIFIER}        printf( "An identifier: %s\n", yytext );
 
-{ID}        printf( "An identifier: %s\n", yytext );
+{OP}        printf( "An operator: %s\n", yytext );
 
-"+"|"-"|"*"|"/"|":"|"="|";"|"<"|">"|"!"|"."   printf( "An operator: %s\n", yytext );
+[ \t\n]+	/*吃掉空格*/
 
-"{"[^}\n]*"}"     /* 吃掉单行注释 */
+{COMMA}		printf( "An comma: %s\n", yytext);
 
-[ \t\n]+          /* 吃掉空格及字符 */
+{SEMICOLON} printf( "An semicolon: %s\n", yytext);
 
-","         printf( "An comma\n",yytext);
-.           printf( "Unrecognized character: %s\n", yytext );
+{DOT}		printf( "An dot: %s\n", yytext);
 
+.			printf("Unregonized words : %s\n",yytext);
 %%
 
-int main( argc, argv )
-int argc;
-char **argv;
-    {
-    ++argv, --argc;  /* skip over program name */
-    if ( argc > 0 )
-            yyin = fopen( argv[0], "r" );
-    else
-            yyin = stdin;
+int main(int argc, char ** argv){
+	if(argc<0){
+		yyin = stdin;
+	}else{
+		yyin = fopen(argv[1],"r");
+	}
 
-    yylex();
-    return 0;
-    }
+	yylex();
+}
+
+int yywrap(void)
+{
+	return 1;
+}

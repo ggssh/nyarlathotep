@@ -1,21 +1,15 @@
-.PHONY: all build test clean
-
-all: build test clean
-
-# 编译构建
+default:build check
 build:
-	flex src/scanner.l
-	gcc -o lexical lex.yy.c -lfl
+# bison -d src/parsing.y
+	flex -o scanner.c src/scanner.l
+	gcc -o scanner scanner.c -lfl
+check:
+# ./lexical < test/testcase.pl0
+	./scanner < test/test2.pl0
+# ./scanner < test/test2.pl0
+# ./scanner < test/test3.pl0
+# ./scanner < test/test4.pl0
 
-# 样例测试
-test:
-	@echo test1.pl0
-	@./lexical < test/test1.pl0
-# @echo test2.pl0
-# @./lexical < test/test2.pl0
-# @echo test3.pl0
-# @./lexical < test/test3.pl0
-
-# 清除生成的文件
 clean:
-	@rm -rf lex.yy.c lexical
+	rm scanner*
+.PHONY:default build check clean
