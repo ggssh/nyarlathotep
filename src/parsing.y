@@ -3,39 +3,26 @@
     int yylex(void);
 %}
 
+%start Program
+// , ; . :=  =
+%token COMMA SEMICOLON DOT ASSIGN CONST_DEF 
+// 运算符 + - * /
+%token ADD SUB MUL DIV 
+// 比较符 < > <= >=
+%token LESS GREATER LESS_EQU GREATER_EQU
+%token BEGIN END IF THEN WHILE DO CONST VAR CALL PROCEDURE ODD
 
-%token<token>     ID ASSIGN WHILE BEGIn END DO IF THEN ELSE SEMI NUMBER ADD SUB MUL DIV EOL
+// 算符优先级
+%left ADD SUB
+%left MUL DIV
 
 
 %%
+Program : BLOCK DOT ;
 
-stm :
-    |ID ASSIGN ID
-    |WHILE ID DO stm
-    |BEGIn stmlist END
-    |IF ID THEN stm
-    |IF ID THEN stm ELSE stm
-    |MATH
-    ;
-stmlist :
-        |stm
-        |stmlist SEMI stm
-        ;
-MATH :
-     |MATH TERM EOL
-     ;
-TERM :
-     |TERM ADD FACTOR
-     |TERM SUB FACTOR
-     ;
-FACTOR :
-       |FACTOR MUL CELL
-       |FACTOR DIV CELL
-       ;
-CELL :NUMBER
-     |ASSIGN CELL
-     ;
+BLOCK : 
 %%
+
 int main()
 {
     return yyparse();

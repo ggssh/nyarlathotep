@@ -1,6 +1,7 @@
 %{
 #define YYSTYPE char *
 #include <stdio.h>
+#include "parse.tab.hpp"
 %}
 
 /*整型*/
@@ -20,23 +21,25 @@ CALL		"CALL"|"call"
 PROCEDURE	"PROCEDURE"|"procedure"
 ODD			"ODD"|"odd"
 /*运算符和界符 14个*/
-PLUS		"+"
-MINUS		"-"
-MULTIPLE	"*"
-DIVIDE		"/"
-EQUAL		"="
-NUMBER_SIGN	"#"
-LARROW		"<"
-RARROW		">"
-ASSIGN		":="
-LPAREN		"("
-RPAREN		")"
-COMMA		","
-DOT			"."
-SEMICOLON	";"
+ADD				"+"
+SUB				"-"
+MUL				"*"
+DIV				"/"
+CONST_DEF		"="
+NUMBER_SIGN		"#"
+LESS			"<"
+GREATER			">"
+LESS_EQU		"<="
+GREATER_EQU		">="
+ASSIGN			":="
+LPAREN			"("
+RPAREN			")"
+COMMA			","
+DOT				"."
+SEMICOLON		";"
 
 
-// TODO 将获得的TOKEN返回给语法分析器
+ // TODO 将获得的TOKEN返回给语法分析器
 %%
  /*关键字*/
 {BEGIN}  			printf( "An Keyword: %s\n", yytext);
@@ -59,7 +62,7 @@ SEMICOLON	";"
 
 [ \t\n]+			/*吃掉空格*/
 
-{PLUS}|{MINUS}|{MULTIPLE}|{DIVIDE}|{EQUAL}|{NUMBER_SIGN}|{ASSIGN} printf( "An op: %s\n", yytext);
+{PLUS}|{MINUS}|{MULTIPLE}|{DIVIDE}|{CONST_DECL}|{NUMBER_SIGN}|{ASSIGN} printf( "An op: %s\n", yytext);
 
 {LARROW}|{RARROW}|{LPAREN}|{RPAREN} printf( "An bracket: %s\n", yytext);
 
