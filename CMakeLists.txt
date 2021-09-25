@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 file(GLOB_RECURSE DIR_SRC "src/*.cpp")
 message(STATUS "ANTLR生成的文件已找到")
 file(GLOB_RECURSE DIR_LIB_SRC "third_party/*.cpp" "dist/*.cpp")
-message(STATUS "第三方库已找到")
+message(STATUS "ANTLR Runtime已找到")
 
 #aux_source_directory(dist/src GRAMMAR)
 
