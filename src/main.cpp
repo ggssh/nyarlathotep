@@ -9,20 +9,19 @@
 using namespace std;
 using namespace antlr4;
 
-class TreeShapeListener : public MyGrammarBaseListener
-{
-  public:
+class TreeShapeListener : public MyGrammarBaseListener {
+public:
 //    void enterKey(ParserRuleContext *ctx) override
 //    {
 //        cout << "enter" << endl;
 //    }
     void enterEveryRule(antlr4::ParserRuleContext *context) override {
         MyGrammarBaseListener::enterEveryRule(context);
-        cout<<"enter"<<context->getText()<<endl;
+        cout << "enter" << context->getText() << endl;
     }
 };
 
-int main(int argc, const char* argv[]){
+int main(int argc, const char *argv[]) {
     ifstream stream;
     stream.open(argv[1]);
     ANTLRInputStream input(stream);

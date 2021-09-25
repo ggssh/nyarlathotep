@@ -1,11 +1,20 @@
+# Cmake最低版本要求
+cmake_minimum_required(VERSION 3.19)
+# 项目名
 project(silly_pl0)
+# 设置c++版本
+set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_STANDARD 14)
+file(GLOB_RECURSE DIR_SRC "src/*.cpp")
+message(STATUS "ANTLR生成的文件已找到")
+file(GLOB_RECURSE DIR_LIB_SRC "third_party/*.cpp" "dist/*.cpp")
+message(STATUS "第三方库已找到")
 
+#aux_source_directory(dist/src GRAMMAR)
+
+# 导入头文件
 include_directories(dist/src)
 include_directories(third_party/antlr4-runtime)
-
-add_executable(silly_pl0
-                dist/src
-                third_party/antlr4-runtime
-                src/main.cpp)
+# 指定生成目标
+add_executable(main
+        ${DIR_SRC} ${DIR_LIB_SRC})
