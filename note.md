@@ -9,3 +9,5 @@ antlr4 -Dlanguage=Cpp src/MyGrammar.g4 -visitor -o dist/
 
 clean:
 rm -rf build
+
+python3 ./asdl_cpp.py -h AST.h -c AST.cpp AST.asdl
