@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Ubuntu18.04LTS (c2763314-49d0-4a9a-9622-81e83b3855a0)" createEmptyFolders="true" autoUploadExternalChanges="true">
+  <component name="PublishConfigData" autoUpload="Always" createEmptyFolders="true" autoUploadExternalChanges="true">
     <serverData>
       <paths name="Remote Host (cd7c4ffe-1f7f-46af-ae57-121eb6fc0d29)">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/ubuntu/cpp_projects/sillylang" local="$PROJECT_DIR$" />
           </mappings>
-        </serverdata>
-      </paths>
-      <paths name="Ubuntu18.04LTS (c2763314-49d0-4a9a-9622-81e83b3855a0)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/u18/cpp_projects/sillylang" local="$PROJECT_DIR$" web="/" />
-          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

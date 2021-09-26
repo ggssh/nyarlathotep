@@ -78,12 +78,10 @@ public:
     }
 
     std::any visitIntLit(AST::IntLit_t node) override {
-//        return nullptr;
         return node->n;
     }
 
     std::any visitOperator(AST::operator_t value) override {
-//        return nullptr;
         return 0;
     }
 };
