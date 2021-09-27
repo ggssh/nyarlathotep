@@ -1,13 +1,13 @@
 # Cmake最低版本要求
 cmake_minimum_required(VERSION 3.19)
 # 项目名
-project(silly_pl0)
+project(sillylang)
 # 设置c++版本
 set(CMAKE_CXX_STANDARD 17)
 #set(ANTLR4_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr-4.9-complete.jar)
 
 file(GLOB_RECURSE DIR_SRC "src/*.cpp")
-message(STATUS "ANTLR生成的文件已找到")
+message(STATUS "ANTLR生成的Grammar文件已找到")
 file(GLOB_RECURSE DIR_LIB_SRC "third_party/*.cpp" "dist/*.cpp")
 message(STATUS "ANTLR Runtime已找到")
 

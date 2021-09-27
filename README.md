@@ -1,12 +1,12 @@
 # sillylang compiler
 
 ## environment
-* ubuntu 20.04LTS
+* ubuntu 18.04LTS
 * antlr4-runtime-4.9
 * openjdk 1.8.0_292
-* gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)
+* gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)
 * cmake 3.19.0
-* uuid-dev 2.34-0.1ubuntu9.1
+* uuid-dev 2.31.1-0.4ubuntu3.7
 * python or python3 (for ASDL)
 
 ## Todo-List

@@ -1,3 +1,4 @@
 .antlr/
 build/
 cmake-build-debug/
+.idea/
