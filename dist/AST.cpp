@@ -8,7 +8,7 @@
 namespace AST {
 
 typedef std::string identifier;
-typedef void* pointer;
+typedef void *pointer;
 
 expr_t BinOp(expr_t left, operator_t op, expr_t right) {
     return new BinOp_(left, op, right);
@@ -18,10 +18,8 @@ expr_t IntLit(int n) {
     return new IntLit_(n);
 }
 
-
 class ToStringVisitor : public BaseVisitor {
-
-    std::string to_string(std::string& value) {
+    std::string to_string(std::string &value) {
         return value;
     }
     template <class T>
@@ -35,13 +33,13 @@ class ToStringVisitor : public BaseVisitor {
         return std::any_cast<std::string>(visit(value));
     }
     template <class T>
-    std::string to_string(T* value) {
+    std::string to_string(T *value) {
         std::ostringstream oss;
         oss << value;
         return oss.str();
     }
     template <class T>
-    std::string to_string(std::vector<T>& values) {
+    std::string to_string(std::vector<T> &values) {
         std::string result = "[";
         if (!values.empty()) {
             result += to_string(values[0]);
@@ -57,20 +55,19 @@ class ToStringVisitor : public BaseVisitor {
     std::string follow(T value) {
         return std::string();
     }
-    std::set<void*> already_visited_;
+    std::set<void *> already_visited_;
     template <class T>
-    std::string follow(T* value) {
+    std::string follow(T *value) {
         bool placed = already_visited_.insert(value).second;
-        return (placed && value) ? std::any_cast<std::string>(visit(value))
-                                 : std::string();
+        return (placed && value) ? std::any_cast<std::string>(visit(value)) : std::string();
     }
-    std::string follow(void* value) {
+    std::string follow(void *value) {
         return std::string();
     }
     template <class T>
-    std::string follow(std::vector<T>& values) {
+    std::string follow(std::vector<T> &values) {
         std::string result;
-        for (auto& value: values) {
+        for (auto &value : values) {
             result += follow(value);
         }
         return result;
@@ -83,13 +80,11 @@ class ToStringVisitor : public BaseVisitor {
         }
         return result;
     }
-        
+
 public:
     std::any visitBinOp(BinOp_t node) override {
         std::string result = spaces() + to_string(node) + " BinOp(";
-        result += "left=" + to_string(node->left) + ", " + "op=" +
-                  to_string(node->op) + ", " + "right=" +
-                  to_string(node->right);
+        result += "left=" + to_string(node->left) + ", " + "op=" + to_string(node->op) + ", " + "right=" + to_string(node->right);
         result += ")\n";
 
         depth += 2;
@@ -114,22 +109,21 @@ public:
     std::any visitOperator(operator_t value) override {
         std::string result;
         switch (value) {
-            case operator_t::kAdd:
-                result = "Add";
-                break;
-            case operator_t::kSub:
-                result = "Sub";
-                break;
-            case operator_t::kMult:
-                result = "Mult";
-                break;
-            case operator_t::kDiv:
-                result = "Div";
-                break;
+        case operator_t::kAdd:
+            result = "Add";
+            break;
+        case operator_t::kSub:
+            result = "Sub";
+            break;
+        case operator_t::kMult:
+            result = "Mult";
+            break;
+        case operator_t::kDiv:
+            result = "Div";
+            break;
         }
         return result;
     }
-
 };
 
 std::string to_string(expr_t node) {
@@ -142,5 +136,4 @@ std::string to_string(operator_t node) {
     return std::any_cast<std::string>(string_visitor.visit(node));
 }
 
-
-}
+} // namespace AST

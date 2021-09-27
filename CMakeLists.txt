@@ -13,9 +13,11 @@ message(STATUS "ANTLR Runtime已找到")
 
 #aux_source_directory(dist/src GRAMMAR)
 
+set(TARGET_FILE sil)
+
 # 导入头文件
 include_directories(dist/)
 include_directories(third_party/antlr4-runtime)
 # 指定生成目标
-add_executable(main
+add_executable(${TARGET_FILE}
         ${DIR_SRC} ${DIR_LIB_SRC})

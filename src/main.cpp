@@ -6,7 +6,6 @@
 #include "MyGrammarLexer.h"
 #include "MyGrammarParser.h"
 
-
 // generate by ASDL
 #include "AST.h"
 
@@ -16,13 +15,13 @@ class TreeVisitor : public MyGrammarBaseVisitor {
 private:
 public:
     antlrcpp::Any visitAtomExpr(MyGrammarParser::AtomExprContext *ctx) override {
-//        cout << ctx->getText() << endl;
-//        return MyGrammarBaseVisitor::visitAtomExpr(ctx);
+        //        cout << ctx->getText() << endl;
+        //        return MyGrammarBaseVisitor::visitAtomExpr(ctx);
         return AST::IntLit(std::stoi(ctx->getText()));
     }
 
     antlrcpp::Any visitParenExpr(MyGrammarParser::ParenExprContext *ctx) override {
-//        return MyGrammarBaseVisitor::visitParenExpr(ctx);
+        //        return MyGrammarBaseVisitor::visitParenExpr(ctx);
         return antlr4::tree::AbstractParseTreeVisitor::visit(ctx->expr());
     }
 
@@ -33,21 +32,21 @@ public:
         AST::operator_t op;
         char op_char = ctx->op->getText()[0];
         switch (op_char) {
-            case '+':
-                op = AST::operator_t::kAdd;
-                break;
-            case '-':
-                op = AST::operator_t::kSub;
-                break;
-            case '*':
-                op = AST::operator_t::kMult;
-                break;
-            case '/':
-                op = AST::operator_t::kDiv;
-                break;
+        case '+':
+            op = AST::operator_t::kAdd;
+            break;
+        case '-':
+            op = AST::operator_t::kSub;
+            break;
+        case '*':
+            op = AST::operator_t::kMult;
+            break;
+        case '/':
+            op = AST::operator_t::kDiv;
+            break;
         }
 
-//        return MyGrammarBaseVisitor::visitOpExpr(ctx);
+        //        return MyGrammarBaseVisitor::visitOpExpr(ctx);
         return AST::BinOp(left, op, right);
     }
 };
@@ -55,24 +54,24 @@ public:
 class EvalVisitor : public AST::BaseVisitor {
 public:
     std::any visitBinOp(AST::BinOp_t node) override {
-//        int left_value = visit(node->left);
+        //        int left_value = visit(node->left);
         int left_value = std::any_cast<int>(visit(node->left));
         int right_value = std::any_cast<int>(visit(node->right));
 
         int result;
         switch (node->op) {
-            case AST::operator_t::kAdd:
-                result = left_value + right_value;
-                break;
-            case AST::operator_t::kSub:
-                result = left_value - right_value;
-                break;
-            case AST::operator_t::kMult:
-                result = left_value * right_value;
-                break;
-            case AST::operator_t::kDiv:
-                result = left_value / right_value;
-                break;
+        case AST::operator_t::kAdd:
+            result = left_value + right_value;
+            break;
+        case AST::operator_t::kSub:
+            result = left_value - right_value;
+            break;
+        case AST::operator_t::kMult:
+            result = left_value * right_value;
+            break;
+        case AST::operator_t::kDiv:
+            result = left_value / right_value;
+            break;
         }
         return result;
     }
@@ -95,14 +94,14 @@ int eval(const std::string &line) {
     tree::ParseTree *parseTree = parser.expr();
 
     // print parse tree
-//    std::cout << parseTree->toStringTree(&parser) << std::endl;
+    //    std::cout << parseTree->toStringTree(&parser) << std::endl;
 
     // build abstract syntax tree
     TreeVisitor treeVisitor;
     AST::expr_t ast = treeVisitor.visit(parseTree);
 
     // print ast
-//    std::cout << AST::to_string(ast) << std::endl;
+    //    std::cout << AST::to_string(ast) << std::endl;
 
     // return integer evaluation of AST
     EvalVisitor evalVisitor;
@@ -110,23 +109,23 @@ int eval(const std::string &line) {
 }
 
 int main(int argc, const char *argv[]) {
-//    std::ifstream stream;
-//    stream.open(argv[1]);
-//    ANTLRInputStream input(stream);
-//    MyGrammarLexer lexer(&input);
-//    CommonTokenStream tokens(&lexer);
-//    MyGrammarParser parser(&tokens);
-//    tree::ParseTree *tree = parser.expr();
-//    TreeShapeListener listener;
-//    tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
-//    TreeVisitor visitor;
-//    visitor.visit(tree);
+    //    std::ifstream stream;
+    //    stream.open(argv[1]);
+    //    ANTLRInputStream input(stream);
+    //    MyGrammarLexer lexer(&input);
+    //    CommonTokenStream tokens(&lexer);
+    //    MyGrammarParser parser(&tokens);
+    //    tree::ParseTree *tree = parser.expr();
+    //    TreeShapeListener listener;
+    //    tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
+    //    TreeVisitor visitor;
+    //    visitor.visit(tree);
     std::ifstream ifstream;
     ifstream.open(argv[1]);
     std::string line;
-    while (std::getline(ifstream,line)){
-        std::cout<<line<<"=";
-        std::cout << eval(line)<<std::endl;
+    while (std::getline(ifstream, line)) {
+        std::cout << line << "=";
+        std::cout << eval(line) << std::endl;
     }
     return 0;
 }

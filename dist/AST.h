@@ -9,38 +9,40 @@
 namespace AST {
 
 typedef std::string identifier;
-typedef void* pointer;
+typedef void *pointer;
 
 class BaseVisitor;
 
 struct expr_;
-typedef expr_* expr_t;
+typedef expr_ *expr_t;
 
 struct BinOp_;
-typedef BinOp_* BinOp_t;
+typedef BinOp_ *BinOp_t;
 
 struct IntLit_;
-typedef IntLit_* IntLit_t;
+typedef IntLit_ *IntLit_t;
 
-enum class operator_t : uint8_t { kAdd=1, kSub=2, kMult=3, kDiv=4 };
-
+enum class operator_t : uint8_t { kAdd = 1,
+                                  kSub = 2,
+                                  kMult = 3,
+                                  kDiv = 4 };
 
 struct expr_ {
-    enum class ExprKind : uint8_t { kBinOp=1, kIntLit=2 } expr_kind;
-    virtual std::any visit(BaseVisitor&) = 0;
+    enum class ExprKind : uint8_t { kBinOp = 1,
+                                    kIntLit = 2 } expr_kind;
+    virtual std::any visit(BaseVisitor &) = 0;
 };
-
 
 class BaseVisitor {
 public:
     std::any visit(expr_t node) {
         return node->visit(*this);
     }
-    
+
     std::any visit(operator_t node) {
         return visitOperator(node);
     }
-    
+
     virtual std::any visitBinOp(BinOp_t node) = 0;
     virtual std::any visitIntLit(IntLit_t node) = 0;
     virtual std::any visitOperator(operator_t value) = 0;
@@ -51,30 +53,29 @@ struct BinOp_ : expr_ {
     operator_t op;
     expr_t right;
 
-    BinOp_(expr_t left_, operator_t op_, expr_t right_) : left(left_), op(op_),
-           right(right_), expr_() {
+    BinOp_(expr_t left_, operator_t op_, expr_t right_) :
+        left(left_), op(op_),
+        right(right_), expr_() {
         expr_kind = expr_::ExprKind::kBinOp;
     }
 
-    std::any visit(BaseVisitor& v) override {
+    std::any visit(BaseVisitor &v) override {
         return v.visitBinOp(this);
     }
-
 };
 
 struct IntLit_ : expr_ {
     int n;
 
-    IntLit_(int n_) : n(n_), expr_() {
+    IntLit_(int n_) :
+        n(n_), expr_() {
         expr_kind = expr_::ExprKind::kIntLit;
     }
 
-    std::any visit(BaseVisitor& v) override {
+    std::any visit(BaseVisitor &v) override {
         return v.visitIntLit(this);
     }
-
 };
-
 
 expr_t BinOp(expr_t left, operator_t op, expr_t right);
 expr_t IntLit(int n);
@@ -82,4 +83,4 @@ expr_t IntLit(int n);
 std::string to_string(expr_t node);
 std::string to_string(operator_t node);
 
-}
+} // namespace AST
