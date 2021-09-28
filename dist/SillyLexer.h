@@ -1,5 +1,5 @@
 
-// Generated from MyGrammar.g4 by ANTLR 4.9
+// Generated from Silly.g4 by ANTLR 4.9
 
 #pragma once
 
@@ -9,14 +9,18 @@
 
 
 
-class  MyGrammarLexer : public antlr4::Lexer {
+class  SillyLexer : public antlr4::Lexer {
 public:
   enum {
-    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, INT = 7
+    INT = 1, VOID = 2, RETURN = 3, IF = 4, ELSE = 5, WHILE = 6, FOR = 7, 
+    BREAK = 8, CONTINUE = 9, ADD = 10, SUB = 11, MUL = 12, DIV = 13, MOD = 14, 
+    LPAREN = 15, RPAREN = 16, LBRACK = 17, RBRACK = 18, LBRACE = 19, RBRACE = 20, 
+    LT = 21, LE = 22, GT = 23, GE = 24, EQ = 25, NE = 26, AND = 27, OR = 28, 
+    INTEGER = 29, IDENTIFIER = 30, STRING = 31, WS = 32, INLINE_COMMENT = 33
   };
 
-  explicit MyGrammarLexer(antlr4::CharStream *input);
-  ~MyGrammarLexer();
+  explicit SillyLexer(antlr4::CharStream *input);
+  ~SillyLexer();
 
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;

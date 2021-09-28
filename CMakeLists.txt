@@ -16,7 +16,7 @@ message(STATUS "ANTLR Runtime已找到")
 set(TARGET_FILE sil)
 
 # 导入头文件
-include_directories(dist/)
+include_directories(dist/ src/)
 include_directories(third_party/antlr4-runtime)
 # 指定生成目标
 add_executable(${TARGET_FILE}

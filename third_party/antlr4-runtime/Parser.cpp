@@ -107,6 +107,7 @@ void Parser::reset() {
 
 Token* Parser::match(size_t ttype) {
   Token *t = getCurrentToken();
+  // std::cout<<t->getType()<<std::endl;
   if (t->getType() == ttype) {
     if (ttype == EOF) {
       _matchedEOF = true;
