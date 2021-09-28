@@ -3,7 +3,7 @@ grammar Silly;
 import Lexer;
 
 // non-terminals expressed as context-free grammar (BNF)
-baseblock: (func | expr)* EOF;
+baseblock: (func | expr)*;
 func:
 	funcname = IDENTIFIER LPAREN params = STRING RPAREN # FuncCall;
 expr:

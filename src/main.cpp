@@ -31,9 +31,11 @@ int main(int argc, const char *argv[]) {
     SillyLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     SillyParser parser(&tokens);
-    tree::ParseTree *tree = parser.baseblock();
+    // tree::ParseTree *tree = parser.baseblock();
+    SillyParser::BaseblockContext* tree = parser.baseblock();
     ASTVisitor visitor;
-    visitor.visit(tree);
+    int a = visitor.visitBaseblock(tree).as<int>();
+    std::cout<<a<<std::endl;
     // TreeShapeListener listener;
     // tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
     
