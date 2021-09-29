@@ -1,19 +1,23 @@
 #include <iostream>
 #include <any>
+// #include <llvm-12/llvm/IR/IRBuilder.h>
 
 #include "antlr4-runtime.h"
 #include "SillyBaseVisitor.h"
 #include "SillyLexer.h"
 #include "SillyParser.h"
+// #include <string>
 
 // generate by ASDL
 // #include "AST.h" 暂时放弃自动生成
 #include "ast_visitor.h"
 
+
 using namespace antlr4;
+// using namespace llvm;
 
 int eval(const std::string &line) {
-    //build parse tree
+    // build parse tree
     ANTLRInputStream input(line);
     SillyLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
@@ -32,22 +36,12 @@ int main(int argc, const char *argv[]) {
     CommonTokenStream tokens(&lexer);
     SillyParser parser(&tokens);
     // tree::ParseTree *tree = parser.baseblock();
-    SillyParser::BaseblockContext* tree = parser.baseblock();
+    // SillyParser::BaseblockContext* tree = parser.baseblock();
+    // 生成一个语法树
+    tree::ParseTree *tree = parser.baseblock();
     ASTVisitor visitor;
-    int a = visitor.visitBaseblock(tree).as<int>();
-    std::cout<<a<<std::endl;
-    // TreeShapeListener listener;
-    // tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
-    
-    // std::ifstream ifstream;
-    // ifstream.open(argv[1]);
-    // std::string line;
-    // while (std::getline(ifstream, line)) {
-    //     std::cout << line << "=";
-    //     std::cout << eval(line) << std::endl;
-    // }
-    // while (std::getline(ifstream, line)) {
-    //     sltest(line);
-    // }
+    // int a = visitor.visitBaseblock(tree).as<int>();
+    int a = visitor.visit(tree).as<int>();
+    std::cout << a << std::endl;
     return 0;
 }
