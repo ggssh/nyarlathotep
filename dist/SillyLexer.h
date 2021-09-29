@@ -12,11 +12,12 @@
 class  SillyLexer : public antlr4::Lexer {
 public:
   enum {
-    INT = 1, VOID = 2, RETURN = 3, IF = 4, ELSE = 5, WHILE = 6, FOR = 7, 
-    BREAK = 8, CONTINUE = 9, ADD = 10, SUB = 11, MUL = 12, DIV = 13, MOD = 14, 
-    LPAREN = 15, RPAREN = 16, LBRACK = 17, RBRACK = 18, LBRACE = 19, RBRACE = 20, 
-    LT = 21, LE = 22, GT = 23, GE = 24, EQ = 25, NE = 26, AND = 27, OR = 28, 
-    INTEGER = 29, IDENTIFIER = 30, STRING = 31, WS = 32, INLINE_COMMENT = 33
+    INT = 1, VOID = 2, RETURN = 3, CONST = 4, IF = 5, ELSE = 6, WHILE = 7, 
+    FOR = 8, BREAK = 9, CONTINUE = 10, ADD = 11, SUB = 12, MUL = 13, DIV = 14, 
+    MOD = 15, LPAREN = 16, RPAREN = 17, LBRACK = 18, RBRACK = 19, LBRACE = 20, 
+    RBRACE = 21, ASSIGN = 22, NOT = 23, LT = 24, LE = 25, GT = 26, GE = 27, 
+    EQ = 28, NE = 29, AND = 30, OR = 31, COMMA = 32, SEM = 33, INTEGER = 34, 
+    IDENTIFIER = 35, STRING = 36, WS = 37, INLINE_COMMENT = 38
   };
 
   explicit SillyLexer(antlr4::CharStream *input);

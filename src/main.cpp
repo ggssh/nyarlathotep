@@ -1,6 +1,5 @@
 #include <iostream>
 #include <any>
-// #include <llvm-12/llvm/IR/IRBuilder.h>
 
 #include "antlr4-runtime.h"
 #include "SillyBaseVisitor.h"
@@ -12,9 +11,7 @@
 // #include "AST.h" 暂时放弃自动生成
 #include "ast_visitor.h"
 
-
 using namespace antlr4;
-// using namespace llvm;
 
 int eval(const std::string &line) {
     // build parse tree
@@ -41,7 +38,7 @@ int main(int argc, const char *argv[]) {
     tree::ParseTree *tree = parser.baseblock();
     ASTVisitor visitor;
     // int a = visitor.visitBaseblock(tree).as<int>();
-    int a = visitor.visit(tree).as<int>();
-    std::cout << a << std::endl;
+    // int a = visitor.visit(tree).as<int>();
+    // std::cout << a << std::endl;
     return 0;
 }

@@ -4,6 +4,7 @@ lexer grammar Lexer;
 INT: 'int';
 VOID: 'void';
 RETURN: 'return';
+CONST: 'const';
 IF: 'if';
 ELSE: 'else';
 WHILE: 'while';
@@ -23,6 +24,8 @@ LBRACK: '[';
 RBRACK: ']';
 LBRACE: '{';
 RBRACE: '}';
+ASSIGN: '=';
+NOT: '!';
 LT: '<';
 LE: '<=';
 GT: '>';
@@ -33,6 +36,8 @@ AND: '&&';
 OR: '||';
 
 // others
+COMMA: ',';
+SEM: ';';
 INTEGER: [0-9]+; // 整型
 IDENTIFIER: [_a-zA-Z][0-9a-zA-Z]*; //标识符
 STRING: '"' (ESC | .)*? '"'; // 匹配字符串
