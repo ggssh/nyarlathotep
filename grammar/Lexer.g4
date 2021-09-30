@@ -37,11 +37,11 @@ OR: '||';
 
 // others
 COMMA: ',';
-SEM: ';';
-INTEGER: [0-9]+; // 整型
+SEMICOLON: ';';
+NUMBER: [0-9]+; // 整型
 IDENTIFIER: [_a-zA-Z][0-9a-zA-Z]*; //标识符
 STRING: '"' (ESC | .)*? '"'; // 匹配字符串
-WS: [ \t\r\n] -> skip;
+WHITESPACE: [ \t\r\n]+ -> skip;
 INLINE_COMMENT: '//' .*? '\r'? '\n' -> skip;
 // NEWLINE: '\r'? '\n'; // 换行
 

@@ -14,7 +14,7 @@ message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 
 file(GLOB_RECURSE DIR_SRC "src/*.cpp")
 message(STATUS "ANTLR生成的Grammar文件已找到")
-file(GLOB_RECURSE DIR_LIB_SRC "third_party/*.cpp" "dist/*.cpp")
+file(GLOB_RECURSE DIR_LIB_SRC "third_party/*.cpp" "dist/*.cpp" "ast/*.cpp")
 message(STATUS "ANTLR Runtime已找到")
 
 #aux_source_directory(dist/src GRAMMAR)
@@ -24,9 +24,10 @@ set(TARGET_FILE sil)
 # 导入头文件
 include_directories(dist/ src/)
 include_directories(third_party/antlr4-runtime)
+include_directories(ast/)
 # 指定生成目标
 add_executable(${TARGET_FILE}
-        ${DIR_SRC} ${DIR_LIB_SRC})
+        ${DIR_SRC} ${DIR_LIB_SRC}  )
 
 target_link_libraries(${TARGET_FILE}
         LLVM)

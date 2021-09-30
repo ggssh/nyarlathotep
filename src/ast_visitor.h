@@ -24,13 +24,4 @@ private:
     static std::map<std::string, Value *> NamedValues;
 
 public:
-    antlrcpp::Any visitCompUnit(SillyParser::CompUnitContext *ctx) override;
-    antlrcpp::Any visitFuncType(SillyParser::FuncTypeContext *ctx) override;
-    antlrcpp::Any visitTerminal(antlr4::tree::TerminalNode *node) override;
-    antlrcpp::Any visitChildren(antlr4::tree::ParseTree *node) override;
-    antlrcpp::Any visitBType(SillyParser::BTypeContext *ctx) override;
-    antlrcpp::Any visitNumber(SillyParser::NumberContext *ctx) override;
-    antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *ctx) override;
-    antlrcpp::Any visitFuncFParams(SillyParser::FuncFParamsContext *ctx) override;
-    antlrcpp::Any visitFuncFParam(SillyParser::FuncFParamContext *ctx) override;
 };
