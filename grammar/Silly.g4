@@ -16,12 +16,13 @@ constDef:
 constInitVal:
 	constExp
 	| LBRACE (constInitVal (COMMA constInitVal))? RBRACE;
-// todo 
+
 varDecl: bType varDef (COMMA varDef) SEM;
 varDef:
 	IDENTIFIER (LBRACK constExp RBRACK)*
 	| IDENTIFIER (LBRACK constExp RBRACK)* ASSIGN initVal;
-initVal: expr | LBRACE (initVal (COMMA initVal))? RBRACE;
+initVal: expr
+        | LBRACE (initVal (COMMA initVal))? RBRACE;
 // constExp: LPAREN RPAREN;
 funcDef: funcType IDENTIFIER LPAREN (funcFParams)? RPAREN block;
 funcType: VOID | INT;
@@ -42,7 +43,9 @@ stmt:
 expr: addExp;
 cond: lOrExp;
 lVal: IDENTIFIER (LBRACK expr RBRACK)*;
-primaryExp: LPAREN expr RPAREN | lVal | number;
+primaryExp: LPAREN expr RPAREN
+        | lVal
+        | number;
 number: INTEGER;
 unaryExp:
 	primaryExp
@@ -50,10 +53,16 @@ unaryExp:
 	| unaryOp unaryExp;
 unaryOp: ADD | SUB | NOT;
 funcRParams: expr (COMMA expr)*;
-mulExp: unaryExp | mulExp (MUL | DIV | MOD) unaryExp;
-addExp: mulExp | addExp (ADD | SUB) mulExp;
-relExp: addExp | relExp (LT | GT | LE | GE) addExp;
-eqExp: relExp | eqExp (EQ | NE) relExp;
-lAndExp: eqExp | lAndExp AND eqExp;
-lOrExp: lAndExp | lOrExp OR lAndExp;
+mulExp: unaryExp
+        | mulExp op = (MUL | DIV | MOD) unaryExp;
+addExp: mulExp
+        | addExp (ADD | SUB) mulExp;
+relExp: addExp
+        | relExp (LT | GT | LE | GE) addExp;
+eqExp: relExp
+        | eqExp (EQ | NE) relExp;
+lAndExp: eqExp
+        | lAndExp AND eqExp;
+lOrExp: lAndExp
+        | lOrExp OR lAndExp;
 constExp: addExp;

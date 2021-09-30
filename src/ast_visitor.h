@@ -13,26 +13,24 @@
 
 using namespace llvm;
 
-static std::unique_ptr
+// static std::unique_ptr
 
 class ASTVisitor : public SillyBaseVisitor {
 private:
     antlrcpp::Any RES = antlrcpp::Any(true);
     static std::unique_ptr<LLVMContext> TheContext;
     static std::unique_ptr<Module> TheMoudle;
-    static std::unique_ptr<IRBuilder> Builder;
-    static std::map<std::string,Value *> NamedValues;
+    static std::unique_ptr<IRBuilder<LLVMContext>> Builder;
+    static std::map<std::string, Value *> NamedValues;
 
 public:
     antlrcpp::Any visitCompUnit(SillyParser::CompUnitContext *ctx) override;
-
-    // antlrcpp::Any visitFuncCall(SillyParser::FuncCallContext *ctx) override;
-
-    // antlrcpp::Any visitFuncCall(MyGrammarParser::FuncCallContext *ctx) override {
-    //     std::string func_name = ctx->funcname->getText();
-    //     std::cout << func_name << "'s result is : " << std::endl;
-    //     std::string param = ctx->params->getText();
-    //     std::cout << param << std::endl;
-    // }
-    antlrcpp::Any visitConstExp(SillyParser::ConstExpContext * ctx) override;
+    antlrcpp::Any visitFuncType(SillyParser::FuncTypeContext *ctx) override;
+    antlrcpp::Any visitTerminal(antlr4::tree::TerminalNode *node) override;
+    antlrcpp::Any visitChildren(antlr4::tree::ParseTree *node) override;
+    antlrcpp::Any visitBType(SillyParser::BTypeContext *ctx) override;
+    antlrcpp::Any visitNumber(SillyParser::NumberContext *ctx) override;
+    antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *ctx) override;
+    antlrcpp::Any visitFuncFParams(SillyParser::FuncFParamsContext *ctx) override;
+    antlrcpp::Any visitFuncFParam(SillyParser::FuncFParamContext *ctx) override;
 };

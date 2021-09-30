@@ -35,8 +35,12 @@ int main(int argc, const char *argv[]) {
     // tree::ParseTree *tree = parser.baseblock();
     // SillyParser::BaseblockContext* tree = parser.baseblock();
     // 生成一个语法树
-    tree::ParseTree *tree = parser.compUnit();
+//    tree::ParseTree *tree = parser.compUnit();
+//    tree::ParseTree *tree = parser.bType();
+    tree::ParseTree *tree = parser.number();
     ASTVisitor visitor;
+//    visitor.visit(tree);
+    std::cout<<visitor.visit(tree).as<int>()<<std::endl;
     // int a = visitor.visitBaseblock(tree).as<int>();
     // int a = visitor.visit(tree).as<int>();
     // std::cout << a << std::endl;

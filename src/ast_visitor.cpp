@@ -66,6 +66,69 @@
 // }
 
 antlrcpp::Any ASTVisitor::visitCompUnit(SillyParser::CompUnitContext *ctx) {
+
     visitChildren(ctx);
-    return RES;
+    return nullptr;
+}
+antlrcpp::Any ASTVisitor::visitFuncType(SillyParser::FuncTypeContext *ctx) {
+    return visitChildren(ctx);
+}
+/**
+ * if match the terminal return the name of this node
+ * @param node
+ * @return
+ */
+antlrcpp::Any ASTVisitor::visitTerminal(antlr4::tree::TerminalNode *node) {
+//    return AbstractParseTreeVisitor::visitTerminal(node);
+//    return node->getText();
+//    std::cout<<node->getText()<<std::endl;
+//    return nullptr;
+    std::string str = node->getText();
+    if (str=="EOF"){
+        return nullptr;
+    }
+    return node->getText();
+}
+/**
+ * override visitChildren in APTV
+ * @param node
+ * @return
+ */
+antlrcpp::Any ASTVisitor::visitChildren(antlr4::tree::ParseTree *node) {
+//    return AbstractParseTreeVisitor::visitChildren(node);
+    size_t n = node->children.size();
+    if (n==1){
+        // only has one terminalsymbol
+        return node->children[0]->accept(this);
+    }else{
+        for(size_t i = 0; i < n;i ++){
+            node->children[i]->accept(this);
+        }
+        return nullptr;
+    }
+
+}
+/**
+ * 
+ * @param ctx
+ * @return
+ */
+antlrcpp::Any ASTVisitor::visitBType(SillyParser::BTypeContext *ctx) {
+    // it only has one terminal
+    return ctx->INT()->getText();
+}
+antlrcpp::Any ASTVisitor::visitNumber(SillyParser::NumberContext *ctx) {
+    return std::stoi(ctx->INTEGER()->getText());
+//    return SillyBaseVisitor::visitNumber(ctx);
+}
+antlrcpp::Any ASTVisitor::visitFuncDef(SillyParser::FuncDefContext *ctx) {
+//    return SillyBaseVisitor::visitFuncDef(ctx);
+//    FunctionType *FT = FunctionType::get()
+    // todo
+}
+antlrcpp::Any ASTVisitor::visitFuncFParams(SillyParser::FuncFParamsContext *ctx) {
+    return SillyBaseVisitor::visitFuncFParams(ctx);
+}
+antlrcpp::Any ASTVisitor::visitFuncFParam(SillyParser::FuncFParamContext *ctx) {
+    return SillyBaseVisitor::visitFuncFParam(ctx);
 }

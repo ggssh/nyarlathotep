@@ -42,6 +42,14 @@ tree::TerminalNode* SillyParser::CompUnitContext::EOF() {
   return getToken(SillyParser::EOF, 0);
 }
 
+std::vector<SillyParser::DeclContext *> SillyParser::CompUnitContext::decl() {
+  return getRuleContexts<SillyParser::DeclContext>();
+}
+
+SillyParser::DeclContext* SillyParser::CompUnitContext::decl(size_t i) {
+  return getRuleContext<SillyParser::DeclContext>(i);
+}
+
 std::vector<SillyParser::FuncDefContext *> SillyParser::CompUnitContext::funcDef() {
   return getRuleContexts<SillyParser::FuncDefContext>();
 }
@@ -92,15 +100,16 @@ SillyParser::CompUnitContext* SillyParser::compUnit() {
     setState(66);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == SillyParser::INT
-
-    || _la == SillyParser::VOID) {
+    while ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & ((1ULL << SillyParser::INT)
+      | (1ULL << SillyParser::VOID)
+      | (1ULL << SillyParser::CONST))) != 0)) {
       setState(64);
       _errHandler->sync(this);
       switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 0, _ctx)) {
       case 1: {
         setState(62);
-        funcDef();
+        decl();
         break;
       }
 
@@ -2529,12 +2538,13 @@ SillyParser::MulExpContext* SillyParser::mulExp(int precedence) {
 
         if (!(precpred(_ctx, 1))) throw FailedPredicateException(this, "precpred(_ctx, 1)");
         setState(275);
+        dynamic_cast<MulExpContext *>(_localctx)->op = _input->LT(1);
         _la = _input->LA(1);
         if (!((((_la & ~ 0x3fULL) == 0) &&
           ((1ULL << _la) & ((1ULL << SillyParser::MUL)
           | (1ULL << SillyParser::DIV)
           | (1ULL << SillyParser::MOD))) != 0))) {
-        _errHandler->recoverInline(this);
+          dynamic_cast<MulExpContext *>(_localctx)->op = _errHandler->recoverInline(this);
         }
         else {
           _errHandler->reportMatch(this);
@@ -3381,7 +3391,7 @@ SillyParser::Initializer::Initializer() {
     0x3, 0x2, 0x2, 0x2, 0x34, 0x11c, 0x3, 0x2, 0x2, 0x2, 0x36, 0x127, 0x3, 
     0x2, 0x2, 0x2, 0x38, 0x132, 0x3, 0x2, 0x2, 0x2, 0x3a, 0x13d, 0x3, 0x2, 
     0x2, 0x2, 0x3c, 0x148, 0x3, 0x2, 0x2, 0x2, 0x3e, 0x153, 0x3, 0x2, 0x2, 
-    0x2, 0x40, 0x43, 0x5, 0x14, 0xb, 0x2, 0x41, 0x43, 0x5, 0x14, 0xb, 0x2, 
+    0x2, 0x40, 0x43, 0x5, 0x4, 0x3, 0x2, 0x41, 0x43, 0x5, 0x14, 0xb, 0x2, 
     0x42, 0x40, 0x3, 0x2, 0x2, 0x2, 0x42, 0x41, 0x3, 0x2, 0x2, 0x2, 0x43, 
     0x46, 0x3, 0x2, 0x2, 0x2, 0x44, 0x42, 0x3, 0x2, 0x2, 0x2, 0x44, 0x45, 
     0x3, 0x2, 0x2, 0x2, 0x45, 0x47, 0x3, 0x2, 0x2, 0x2, 0x46, 0x44, 0x3, 
