@@ -3,7 +3,7 @@ grammar Silly;
 import Lexer;
 
 // the unit of a compile
-compUnit: (funcDef | funcDef)* EOF;
+compUnit: (decl | funcDef)* EOF;
 // funcDef: funcname = IDENTIFIER LPAREN params = STRING RPAREN # FuncCall; expr: left = expr op =
 // (MUL | DIV) right = expr # OpExpr | left = expr op = (ADD | SUB) right = expr # OpExpr | atom =
 // INTEGER # AtomExpr | LPAREN expr RPAREN # ParenExpr;
