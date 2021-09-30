@@ -29,7 +29,7 @@ public:
 
     virtual antlrcpp::Any visitVarDecl(SillyParser::VarDeclContext *context) = 0;
 
-    virtual antlrcpp::Any visitVar(SillyParser::VarContext *context) = 0;
+    virtual antlrcpp::Any visitVarDef(SillyParser::VarDefContext *context) = 0;
 
     virtual antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *context) = 0;
 

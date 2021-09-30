@@ -29,8 +29,8 @@ public:
   virtual void enterVarDecl(SillyParser::VarDeclContext *ctx) = 0;
   virtual void exitVarDecl(SillyParser::VarDeclContext *ctx) = 0;
 
-  virtual void enterVar(SillyParser::VarContext *ctx) = 0;
-  virtual void exitVar(SillyParser::VarContext *ctx) = 0;
+  virtual void enterVarDef(SillyParser::VarDefContext *ctx) = 0;
+  virtual void exitVarDef(SillyParser::VarDefContext *ctx) = 0;
 
   virtual void enterFuncDef(SillyParser::FuncDefContext *ctx) = 0;
   virtual void exitFuncDef(SillyParser::FuncDefContext *ctx) = 0;

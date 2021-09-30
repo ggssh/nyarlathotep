@@ -22,7 +22,7 @@ public:
 
   enum {
     RuleCompUnit = 0, RuleDecl = 1, RuleConstDecl = 2, RuleConstDef = 3, 
-    RuleVarDecl = 4, RuleVar = 5, RuleFuncDef = 6, RuleBlock = 7, RuleBlockItem = 8, 
+    RuleVarDecl = 4, RuleVarDef = 5, RuleFuncDef = 6, RuleBlock = 7, RuleBlockItem = 8, 
     RuleStmt = 9, RuleLVal = 10, RuleCond = 11, RuleRelOp = 12, RuleExpr = 13, 
     RuleBinOp = 14, RuleUnaryOp = 15
   };
@@ -42,7 +42,7 @@ public:
   class ConstDeclContext;
   class ConstDefContext;
   class VarDeclContext;
-  class VarContext;
+  class VarDefContext;
   class FuncDefContext;
   class BlockContext;
   class BlockItemContext;
@@ -139,8 +139,8 @@ public:
     VarDeclContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *INT();
-    std::vector<VarContext *> var();
-    VarContext* var(size_t i);
+    std::vector<VarDefContext *> varDef();
+    VarDefContext* varDef(size_t i);
     antlr4::tree::TerminalNode *SEMICOLON();
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
@@ -154,9 +154,9 @@ public:
 
   VarDeclContext* varDecl();
 
-  class  VarContext : public antlr4::ParserRuleContext {
+  class  VarDefContext : public antlr4::ParserRuleContext {
   public:
-    VarContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    VarDefContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *IDENTIFIER();
     antlr4::tree::TerminalNode *LBRACK();
@@ -176,7 +176,7 @@ public:
    
   };
 
-  VarContext* var();
+  VarDefContext* varDef();
 
   class  FuncDefContext : public antlr4::ParserRuleContext {
   public:
@@ -323,7 +323,6 @@ public:
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *LPAREN();
     antlr4::tree::TerminalNode *RPAREN();
-    LValContext *lVal();
     antlr4::tree::TerminalNode *NUMBER();
     BinOpContext *binOp();
 

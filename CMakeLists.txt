@@ -27,7 +27,7 @@ include_directories(third_party/antlr4-runtime)
 include_directories(ast/)
 # 指定生成目标
 add_executable(${TARGET_FILE}
-        ${DIR_SRC} ${DIR_LIB_SRC}  )
+        ${DIR_SRC} ${DIR_LIB_SRC} ast/ast_builder.cpp ast/ast_builder.h)
 
 target_link_libraries(${TARGET_FILE}
         LLVM)

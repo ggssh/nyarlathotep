@@ -10,8 +10,8 @@ constDef:
 	| IDENTIFIER LBRACK (expr)? RBRACK ASSIGN LBRACE expr (
 		COMMA expr
 	)* RBRACE;
-varDecl: INT var (COMMA var)* SEMICOLON;
-var:
+varDecl: INT varDef (COMMA varDef)* SEMICOLON;
+varDef:
 	IDENTIFIER
 	| IDENTIFIER LBRACK expr RBRACK
 	| IDENTIFIER ASSIGN expr
@@ -28,14 +28,14 @@ stmt:
 	| IF LPAREN cond RPAREN stmt (ELSE stmt)?
 	| WHILE LPAREN cond RPAREN stmt
 	| SEMICOLON;
-lVal: IDENTIFIER | IDENTIFIER LBRACK expr RBRACK;
+lVal: IDENTIFIER | IDENTIFIER LBRACK expr RBRACK; // left value
 cond: expr relOp expr;
 relOp: EQ | NE | LT | GT | LE | GE;
 expr:
 	expr binOp expr
 	| unaryOp expr
 	| LPAREN expr RPAREN
-	| lVal
+//	| lVal
 	| NUMBER;
 binOp: ADD | SUB | MUL | DIV | MOD;
 unaryOp: ADD | SUB;

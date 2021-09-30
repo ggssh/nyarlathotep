@@ -31,8 +31,8 @@ public:
   virtual void enterVarDecl(SillyParser::VarDeclContext * /*ctx*/) override { }
   virtual void exitVarDecl(SillyParser::VarDeclContext * /*ctx*/) override { }
 
-  virtual void enterVar(SillyParser::VarContext * /*ctx*/) override { }
-  virtual void exitVar(SillyParser::VarContext * /*ctx*/) override { }
+  virtual void enterVarDef(SillyParser::VarDefContext * /*ctx*/) override { }
+  virtual void exitVarDef(SillyParser::VarDefContext * /*ctx*/) override { }
 
   virtual void enterFuncDef(SillyParser::FuncDefContext * /*ctx*/) override { }
   virtual void exitFuncDef(SillyParser::FuncDefContext * /*ctx*/) override { }

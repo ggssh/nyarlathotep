@@ -36,7 +36,7 @@ enum class binop {
 
 enum class unaryop {
     ADD = 0,
-    SUN
+    SUB
 };
 
 class Node;
@@ -60,24 +60,29 @@ class EmptyStmt;
 class AstVisitor;
 
 class Node {
+public:
     int line;
     int pos;
     //    virtual void accept
     virtual void accept(AstVisitor &visitor) = 0;
 };
 class Assembly : public Node {
+public:
     ptr_list<GlobalDef> globao_defs;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class GlobalDef : public Node {
+public:
     virtual void accept(AstVisitor &visitor) override = 0;
 };
 class FuncDef : public GlobalDef {
+public:
     std::string name;
     ptr<Block> body;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class Cond : public Node {
+public:
     relop op;
     ptr<Expr> lhs, rhs;
     virtual void accept(AstVisitor &visitor) override final;
@@ -86,29 +91,35 @@ class Expr : public Node {
     virtual void accept(AstVisitor &visitor) override = 0;
 };
 class BinopExpr : public Expr {
+public:
     binop op;
     ptr<Expr> lhs, rhs;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class UnaryopExpr : public Expr {
+public:
     unaryop op;
     ptr<Expr> rhs;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class LValExpr : public Expr {
+public:
     std::string name;
     // nullptr if not indexed as array
     ptr<Expr> array_index;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class Interger : public Expr {
+public:
     int number;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class Stmt : public Node {
+public:
     virtual void accept(AstVisitor &visitor) override = 0;
 };
-class VarDefStmt : public Stmt, public GlobalDef {
+class VarDefStmt : public Stmt{
+public:
     bool is_constant;
     std::string name;
     ptr<Expr> arr_len;
@@ -116,30 +127,36 @@ class VarDefStmt : public Stmt, public GlobalDef {
     virtual void accept(AstVisitor &visitor) override final;
 };
 class AssignStmt : public Stmt {
+public:
     ptr<LValExpr> target;
     ptr<Expr> value;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class FuncCallStmt : public Stmt {
+public:
     std::string name;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class Block : public Stmt {
+public:
     ptr_list<Stmt> body;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class IfStmt : public Stmt {
+public:
     ptr<Cond> pred;
     ptr<Stmt> then_body;
     ptr<Stmt> else_body;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class WhileStmt : public Stmt {
+public:
     ptr<Cond> pred;
     ptr<Stmt> body;
     virtual void accept(AstVisitor &visitor) override final;
 };
 class EmptyStmt : public Stmt {
+public:
     virtual void accept(AstVisitor &visitor) override final;
 };
 class AstVisitor {

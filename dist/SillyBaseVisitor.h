@@ -35,7 +35,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVar(SillyParser::VarContext *ctx) override {
+  virtual antlrcpp::Any visitVarDef(SillyParser::VarDefContext *ctx) override {
     return visitChildren(ctx);
   }
 
