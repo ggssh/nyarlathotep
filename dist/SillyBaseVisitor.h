@@ -47,10 +47,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitBlockItem(SillyParser::BlockItemContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitStmt(SillyParser::StmtContext *ctx) override {
     return visitChildren(ctx);
   }

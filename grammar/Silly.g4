@@ -19,8 +19,8 @@ varDef:
 		COMMA expr
 	)* RBRACE;
 funcDef: VOID IDENTIFIER LPAREN RPAREN block;
-block: LBRACE (blockItem)* RBRACE;
-blockItem: decl | stmt;
+block: LBRACE (decl | stmt)* RBRACE;
+//blockItem: decl | stmt;
 stmt:
 	lVal ASSIGN expr SEMICOLON
 	| IDENTIFIER LPAREN RPAREN SEMICOLON

@@ -38,9 +38,6 @@ public:
   virtual void enterBlock(SillyParser::BlockContext *ctx) = 0;
   virtual void exitBlock(SillyParser::BlockContext *ctx) = 0;
 
-  virtual void enterBlockItem(SillyParser::BlockItemContext *ctx) = 0;
-  virtual void exitBlockItem(SillyParser::BlockItemContext *ctx) = 0;
-
   virtual void enterStmt(SillyParser::StmtContext *ctx) = 0;
   virtual void exitStmt(SillyParser::StmtContext *ctx) = 0;
 

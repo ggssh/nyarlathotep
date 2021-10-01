@@ -22,9 +22,9 @@ public:
 
   enum {
     RuleCompUnit = 0, RuleDecl = 1, RuleConstDecl = 2, RuleConstDef = 3, 
-    RuleVarDecl = 4, RuleVarDef = 5, RuleFuncDef = 6, RuleBlock = 7, RuleBlockItem = 8, 
-    RuleStmt = 9, RuleLVal = 10, RuleCond = 11, RuleRelOp = 12, RuleExpr = 13, 
-    RuleBinOp = 14, RuleUnaryOp = 15
+    RuleVarDecl = 4, RuleVarDef = 5, RuleFuncDef = 6, RuleBlock = 7, RuleStmt = 8, 
+    RuleLVal = 9, RuleCond = 10, RuleRelOp = 11, RuleExpr = 12, RuleBinOp = 13, 
+    RuleUnaryOp = 14
   };
 
   explicit SillyParser(antlr4::TokenStream *input);
@@ -45,7 +45,6 @@ public:
   class VarDefContext;
   class FuncDefContext;
   class BlockContext;
-  class BlockItemContext;
   class StmtContext;
   class LValContext;
   class CondContext;
@@ -203,8 +202,10 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *LBRACE();
     antlr4::tree::TerminalNode *RBRACE();
-    std::vector<BlockItemContext *> blockItem();
-    BlockItemContext* blockItem(size_t i);
+    std::vector<DeclContext *> decl();
+    DeclContext* decl(size_t i);
+    std::vector<StmtContext *> stmt();
+    StmtContext* stmt(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -214,22 +215,6 @@ public:
   };
 
   BlockContext* block();
-
-  class  BlockItemContext : public antlr4::ParserRuleContext {
-  public:
-    BlockItemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    DeclContext *decl();
-    StmtContext *stmt();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  BlockItemContext* blockItem();
 
   class  StmtContext : public antlr4::ParserRuleContext {
   public:

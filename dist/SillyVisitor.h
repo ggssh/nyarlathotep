@@ -35,8 +35,6 @@ public:
 
     virtual antlrcpp::Any visitBlock(SillyParser::BlockContext *context) = 0;
 
-    virtual antlrcpp::Any visitBlockItem(SillyParser::BlockItemContext *context) = 0;
-
     virtual antlrcpp::Any visitStmt(SillyParser::StmtContext *context) = 0;
 
     virtual antlrcpp::Any visitLVal(SillyParser::LValContext *context) = 0;

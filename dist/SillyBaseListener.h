@@ -40,9 +40,6 @@ public:
   virtual void enterBlock(SillyParser::BlockContext * /*ctx*/) override { }
   virtual void exitBlock(SillyParser::BlockContext * /*ctx*/) override { }
 
-  virtual void enterBlockItem(SillyParser::BlockItemContext * /*ctx*/) override { }
-  virtual void exitBlockItem(SillyParser::BlockItemContext * /*ctx*/) override { }
-
   virtual void enterStmt(SillyParser::StmtContext * /*ctx*/) override { }
   virtual void exitStmt(SillyParser::StmtContext * /*ctx*/) override { }
 

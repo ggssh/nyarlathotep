@@ -24,14 +24,42 @@ antlrcpp::Any ASTBuilder::visitVarDef(SillyParser::VarDefContext *ctx) {
     return SillyBaseVisitor::visitVarDef(ctx);
 }
 antlrcpp::Any ASTBuilder::visitFuncDef(SillyParser::FuncDefContext *ctx) {
-    return SillyBaseVisitor::visitFuncDef(ctx);
+    auto result = new FuncDef;
+    result->line = ctx->getStart()->getLine();
+    result->pos = ctx->getStart()->getCharPositionInLine();
+    result->name = ctx->IDENTIFIER()->getSymbol()->getText();
+    auto block = ctx->block();
+    result->body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(block).as<Block *>());
+
+    return static_cast<FuncDef *>(result);
+    //    return SillyBaseVisitor::visitFuncDef(ctx);
 }
 antlrcpp::Any ASTBuilder::visitBlock(SillyParser::BlockContext *ctx) {
-    auto blocks = ctx->blockItem();
-    return SillyBaseVisitor::visitBlock(ctx);
+    //    auto blocks = ctx->blockItem();
+    auto ds = ctx->decl();
+    auto ss = ctx->stmt();
+    auto result = new Block;
+    result->line = ctx->getStart()->getLine();
+    result->pos = ctx->getStart()->getCharPositionInLine();
+    //    result->body = blocks.
+    //    for(auto i : blocks){
+    //
+    //    }
+    for (auto i : ds) {
+        result->body.push_back(static_cast<std::shared_ptr<Stmt>>(antlr4::tree::AbstractParseTreeVisitor::visit(i).as<Stmt *>()));
+    }
+    for (auto i : ss) {
+        result->body.push_back(static_cast<std::shared_ptr<Stmt>>(antlr4::tree::AbstractParseTreeVisitor::visit(i).as<Stmt *>()));
+    }
+    //    return SillyBaseVisitor::visitBlock(ctx);
+    return static_cast<Stmt *>(result);
 }
 antlrcpp::Any ASTBuilder::visitStmt(SillyParser::StmtContext *ctx) {
-    return SillyBaseVisitor::visitStmt(ctx);
+//    return SillyBaseVisitor::visitStmt(ctx);
+    // lVal ASSIGN expr SEMICOLON
+    if(ctx->ASSIGN()){
+
+    }
 }
 antlrcpp::Any ASTBuilder::visitLVal(SillyParser::LValContext *ctx) {
     auto result = new LValExpr;
