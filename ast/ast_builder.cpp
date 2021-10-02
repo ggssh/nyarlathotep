@@ -3,7 +3,7 @@
 //
 
 #include "ast_builder.h"
-using namespace ast;
+using namespace silly::ast;
 
 antlrcpp::Any ASTBuilder::visitCompUnit(SillyParser::CompUnitContext *ctx) {
     return SillyBaseVisitor::visitCompUnit(ctx);
@@ -18,9 +18,12 @@ antlrcpp::Any ASTBuilder::visitConstDef(SillyParser::ConstDefContext *ctx) {
     return SillyBaseVisitor::visitConstDef(ctx);
 }
 antlrcpp::Any ASTBuilder::visitVarDecl(SillyParser::VarDeclContext *ctx) {
+    auto result = new Stmt;
     return SillyBaseVisitor::visitVarDecl(ctx);
 }
 antlrcpp::Any ASTBuilder::visitVarDef(SillyParser::VarDefContext *ctx) {
+    auto result = new VarDefStmt;
+
     return SillyBaseVisitor::visitVarDef(ctx);
 }
 antlrcpp::Any ASTBuilder::visitFuncDef(SillyParser::FuncDefContext *ctx) {
@@ -55,10 +58,9 @@ antlrcpp::Any ASTBuilder::visitBlock(SillyParser::BlockContext *ctx) {
     return static_cast<Stmt *>(result);
 }
 antlrcpp::Any ASTBuilder::visitStmt(SillyParser::StmtContext *ctx) {
-//    return SillyBaseVisitor::visitStmt(ctx);
+    //    return SillyBaseVisitor::visitStmt(ctx);
     // lVal ASSIGN expr SEMICOLON
-    if(ctx->ASSIGN()){
-
+    if (ctx->ASSIGN()) {
     }
 }
 antlrcpp::Any ASTBuilder::visitLVal(SillyParser::LValContext *ctx) {
@@ -151,7 +153,7 @@ antlrcpp::Any ASTBuilder::visitExpr(SillyParser::ExprContext *ctx) {
         return static_cast<Expr *>(result);
     }
 }
-ast::ptr<ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *ctx) {
+silly::ast::ptr<silly::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *ctx) {
     auto result = antlr4::tree::AbstractParseTreeVisitor::visit(ctx);
     if (result.is<Node *>())
         return ptr<Node>(result.as<Node *>());

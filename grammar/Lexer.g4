@@ -38,11 +38,11 @@ OR: '||';
 // others
 COMMA: ',';
 SEMICOLON: ';';
-NUMBER: [0-9]+; // 整型
+NUMBER: [0-9]+ | '0x'[0-9a-fA-F]+; // 整型
 IDENTIFIER: [_a-zA-Z][0-9a-zA-Z]*; //标识符
 STRING: '"' (ESC | .)*? '"'; // 匹配字符串
 WHITESPACE: [ \t\r\n]+ -> skip;
-INLINE_COMMENT: '//' .*? '\r'? '\n' -> skip;
-// NEWLINE: '\r'? '\n'; // 换行
+INLINE_COMMENT: ('//''\r'?'\n'|'//'(.)*? ~'\\''\r'?'\n') -> skip;
+BLOCK_COMMENT: '/*' (.)*? '*/' -> skip;
 
 fragment ESC: '\\"' | '\\\\';

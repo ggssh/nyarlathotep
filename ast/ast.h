@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 
+namespace silly {
 namespace ast {
 template <typename T>
 using ptr = std::shared_ptr<T>;
@@ -134,6 +135,8 @@ public:
 // however, itself only represents a single variable definition
 class VarDefStmt : public Stmt {
 public:
+    // indicate global or not
+    bool is_global;
     bool is_constant;
     std::string name;
     ptr<Expr> arr_len;
@@ -199,6 +202,6 @@ public:
     virtual void visit(Cond *node) = 0;
 };
 
-} // namespace ast
-
+} // end of namespace ast
+} // end of namespace silly
 #endif // SILLYLANG_AST_H

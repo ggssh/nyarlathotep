@@ -3,7 +3,7 @@
 //
 
 #include "ast.h"
-using namespace ast;
+using namespace silly::ast;
 
 // void Node::accept(int &visitor) {
 //

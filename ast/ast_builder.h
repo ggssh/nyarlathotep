@@ -8,6 +8,7 @@
 #include "ast.h"
 #include "SillyBaseVisitor.h"
 
+namespace silly {
 namespace ast {
 class ASTBuilder : public SillyBaseVisitor {
 public:
@@ -26,6 +27,6 @@ public:
 
     ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
 };
-} // namespace ast
-
+} // end of namespace ast
+} // end of namespace silly
 #endif // SILLYLANG_AST_BUILDER_H

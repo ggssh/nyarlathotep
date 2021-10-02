@@ -15,9 +15,7 @@ varDef:
 	IDENTIFIER
 	| IDENTIFIER LBRACK expr RBRACK
 	| IDENTIFIER ASSIGN expr
-	| IDENTIFIER LBRACK (expr)? RBRACK ASSIGN LBRACE expr (
-		COMMA expr
-	)* RBRACE;
+	| IDENTIFIER LBRACK (expr)? RBRACK ASSIGN LBRACE expr (COMMA expr)* RBRACE;
 funcDef: VOID IDENTIFIER LPAREN RPAREN block;
 block: LBRACE (decl | stmt)* RBRACE;
 //blockItem: decl | stmt;
@@ -35,7 +33,7 @@ expr:
 	expr binOp expr
 	| unaryOp expr
 	| LPAREN expr RPAREN
-//	| lVal
+	| lVal
 	| NUMBER;
 binOp: ADD | SUB | MUL | DIV | MOD;
 unaryOp: ADD | SUB;

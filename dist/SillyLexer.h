@@ -17,7 +17,8 @@ public:
     MOD = 15, LPAREN = 16, RPAREN = 17, LBRACK = 18, RBRACK = 19, LBRACE = 20, 
     RBRACE = 21, ASSIGN = 22, NOT = 23, LT = 24, LE = 25, GT = 26, GE = 27, 
     EQ = 28, NE = 29, AND = 30, OR = 31, COMMA = 32, SEMICOLON = 33, NUMBER = 34, 
-    IDENTIFIER = 35, STRING = 36, WHITESPACE = 37, INLINE_COMMENT = 38
+    IDENTIFIER = 35, STRING = 36, WHITESPACE = 37, INLINE_COMMENT = 38, 
+    BLOCK_COMMENT = 39
   };
 
   explicit SillyLexer(antlr4::CharStream *input);
