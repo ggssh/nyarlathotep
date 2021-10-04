@@ -12,18 +12,18 @@ namespace silly {
 namespace ast {
 class ASTBuilder : public SillyBaseVisitor {
 public:
-    antlrcpp::Any visitCompUnit(SillyParser::CompUnitContext *ctx) override;
-    antlrcpp::Any visitDecl(SillyParser::DeclContext *ctx) override;
-    antlrcpp::Any visitConstDecl(SillyParser::ConstDeclContext *ctx) override;
-    antlrcpp::Any visitConstDef(SillyParser::ConstDefContext *ctx) override;
-    antlrcpp::Any visitVarDecl(SillyParser::VarDeclContext *ctx) override;
-    antlrcpp::Any visitVarDef(SillyParser::VarDefContext *ctx) override;
-    antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *ctx) override;
-    antlrcpp::Any visitBlock(SillyParser::BlockContext *ctx) override;
-    antlrcpp::Any visitStmt(SillyParser::StmtContext *ctx) override;
-    antlrcpp::Any visitLVal(SillyParser::LValContext *ctx) override;
-    antlrcpp::Any visitCond(SillyParser::CondContext *ctx) override;
-    antlrcpp::Any visitExpr(SillyParser::ExprContext *ctx) override;
+    virtual antlrcpp::Any visitCompUnit(SillyParser::CompUnitContext *ctx) override;
+    virtual antlrcpp::Any visitDecl(SillyParser::DeclContext *ctx) override;
+    virtual antlrcpp::Any visitConstDecl(SillyParser::ConstDeclContext *ctx) override;
+    virtual antlrcpp::Any visitConstDef(SillyParser::ConstDefContext *ctx) override;
+    virtual antlrcpp::Any visitVarDecl(SillyParser::VarDeclContext *ctx) override;
+    virtual antlrcpp::Any visitVarDef(SillyParser::VarDefContext *ctx) override;
+    virtual antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *ctx) override;
+    virtual antlrcpp::Any visitBlock(SillyParser::BlockContext *ctx) override;
+    virtual antlrcpp::Any visitStmt(SillyParser::StmtContext *ctx) override;
+    virtual antlrcpp::Any visitLVal(SillyParser::LValContext *ctx) override;
+    virtual antlrcpp::Any visitCond(SillyParser::CondContext *ctx) override;
+    virtual antlrcpp::Any visitExpr(SillyParser::ExprContext *ctx) override;
 
     ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
 };

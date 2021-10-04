@@ -75,7 +75,7 @@ public:
     virtual void accept(AstVisitor &visitor) override final;
 };
 // Virtual base of global definitions, function or variable one
-class GlobalDef : public Node {
+class GlobalDef : virtual public Node {
 public:
     virtual void accept(AstVisitor &visitor) override = 0;
 };
@@ -133,7 +133,7 @@ public:
 // Variable definition
 // Multiple of this would be both a statement and a global definition
 // however, itself only represents a single variable definition
-class VarDefStmt : public Stmt {
+class VarDefStmt : public Stmt{
 public:
     // indicate global or not
     bool is_global;
