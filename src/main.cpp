@@ -9,21 +9,23 @@
 
 // generate by ASDL
 // #include "AST.h" 暂时放弃自动生成
-#include "ast_visitor.h"
-
+//#include "ast_visitor.h"
+#include "ast_builder.h"
 using namespace antlr4;
-
-int eval(const std::string &line) {
-    // build parse tree
-    ANTLRInputStream input(line);
-    SillyLexer lexer(&input);
-    CommonTokenStream tokens(&lexer);
-    SillyParser parser(&tokens);
-    tree::ParseTree *parseTree = parser.expr();
-
-    ASTVisitor v;
-    return v.visit(parseTree);
-}
+using namespace antlrcpp;
+using namespace silly;
+using namespace tree;
+//int eval(const std::string &line) {
+//    // build parse tree
+//    ANTLRInputStream input(line);
+//    SillyLexer lexer(&input);
+//    CommonTokenStream tokens(&lexer);
+//    SillyParser parser(&tokens);
+//    tree::ParseTree *parseTree = parser.expr();
+//
+//    ASTVisitor v;
+//    return v.visit(parseTree);
+//}
 
 int main(int argc, const char *argv[]) {
     std::ifstream stream;
@@ -32,6 +34,10 @@ int main(int argc, const char *argv[]) {
     SillyLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     SillyParser parser(&tokens);
+    auto *tree = parser.compUnit();
+    ast::ASTBuilder astBuilder;
+    auto ast = astBuilder(tree);
+//    auto ast = ast::ASTBuilder(tree);
     // tree::ParseTree *tree = parser.baseblock();
     // SillyParser::BaseblockContext* tree = parser.baseblock();
     // 生成一个语法树

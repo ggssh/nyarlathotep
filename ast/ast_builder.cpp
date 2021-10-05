@@ -20,7 +20,9 @@ antlrcpp::Any ASTBuilder::visitCompUnit(SillyParser::CompUnitContext *ctx) {
             }
         }
     }
-    return SillyBaseVisitor::visitCompUnit(ctx);
+    //    return SillyBaseVisitor::visitCompUnit(ctx);
+    printf("Success!");
+    return static_cast<Assembly *>(result);
 }
 antlrcpp::Any ASTBuilder::visitDecl(SillyParser::DeclContext *ctx) {
     // decl:constDecl
@@ -32,6 +34,7 @@ antlrcpp::Any ASTBuilder::visitDecl(SillyParser::DeclContext *ctx) {
     //    return SillyBaseVisitor::visitDecl(ctx);
 }
 antlrcpp::Any ASTBuilder::visitConstDecl(SillyParser::ConstDeclContext *ctx) {
+//    printf("enter visitConstDecl");
     ptr_list<VarDefStmt> result;
     auto vardefs = ctx->constDef();
     for (int i = 0; i < vardefs.size(); ++i) {
@@ -322,6 +325,7 @@ antlrcpp::Any ASTBuilder::visitExpr(SillyParser::ExprContext *ctx) {
         else if (bo->MOD())
             result->op = binop::MOD;
         result->rhs.reset(antlr4::tree::AbstractParseTreeVisitor::visit(expressions[1]).as<Expr *>());
+        return static_cast<Expr *>(result);
     } else if (expressions.size() == 1) {
         // If is has unaryOp , it must be a unaryExpr else it must have two parens
         if (ctx->unaryOp()) {
@@ -340,6 +344,9 @@ antlrcpp::Any ASTBuilder::visitExpr(SillyParser::ExprContext *ctx) {
                 return antlr4::tree::AbstractParseTreeVisitor::visit(expressions[0]);
         }
     } else {
+        if (ctx->lVal()) {
+            return static_cast<Expr *>(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->lVal()).as<LValExpr *>());
+        }
         auto result = new Interger;
         auto number = ctx->NUMBER();
         // If `Number` exists as a child, we can say it's a literal integer expression.
