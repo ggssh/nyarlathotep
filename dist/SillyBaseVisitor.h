@@ -27,15 +27,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitBType(SillyParser::BTypeContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitConstDef(SillyParser::ConstDefContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitConstInitVal(SillyParser::ConstInitValContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -47,23 +39,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitInitVal(SillyParser::InitValContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitFuncType(SillyParser::FuncTypeContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitFuncFParams(SillyParser::FuncFParamsContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitFuncFParam(SillyParser::FuncFParamContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -71,19 +47,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitBlockItem(SillyParser::BlockItemContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitStmt(SillyParser::StmtContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitExpr(SillyParser::ExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitCond(SillyParser::CondContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -91,51 +55,23 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitPrimaryExp(SillyParser::PrimaryExpContext *ctx) override {
+  virtual antlrcpp::Any visitCond(SillyParser::CondContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitNumber(SillyParser::NumberContext *ctx) override {
+  virtual antlrcpp::Any visitRelOp(SillyParser::RelOpContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUnaryExp(SillyParser::UnaryExpContext *ctx) override {
+  virtual antlrcpp::Any visitExpr(SillyParser::ExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitBinOp(SillyParser::BinOpContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitUnaryOp(SillyParser::UnaryOpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitFuncRParams(SillyParser::FuncRParamsContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitMulExp(SillyParser::MulExpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitAddExp(SillyParser::AddExpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitRelExp(SillyParser::RelExpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitEqExp(SillyParser::EqExpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitLAndExp(SillyParser::LAndExpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitLOrExp(SillyParser::LOrExpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitConstExp(SillyParser::ConstExpContext *ctx) override {
     return visitChildren(ctx);
   }
 
