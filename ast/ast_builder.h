@@ -25,8 +25,9 @@ public:
     antlrcpp::Any visitCond(SillyParser::CondContext *ctx) override;
     antlrcpp::Any visitExpr(SillyParser::ExprContext *ctx) override;
 
+    // override the operator
     ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
 };
-} // end of namespace ast
-} // end of namespace silly
+}
+} // namespace silly::ast
 #endif // SILLYLANG_AST_BUILDER_H

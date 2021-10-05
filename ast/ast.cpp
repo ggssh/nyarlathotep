@@ -8,7 +8,7 @@ using namespace silly::ast;
 // void Node::accept(int &visitor) {
 //
 // }
-void Assembly::accept(AstVisitor &visitor) {
+void CompUnit::accept(AstVisitor &visitor) {
     visitor.visit(this);
 }
 void FuncDef::accept(AstVisitor &visitor) {

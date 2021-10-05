@@ -41,7 +41,7 @@ enum class unaryop {
 };
 
 struct Node;
-struct Assembly;
+struct CompUnit;
 struct GlobalDef;
 struct FuncDef;
 struct Cond;
@@ -68,7 +68,7 @@ struct Node {
     virtual void accept(AstVisitor &visitor) = 0;
 };
 // Root node of ordinary ast
-struct Assembly : Node {
+struct CompUnit : Node {
     std::string source_name;
     ptr_list<GlobalDef> global_defs;
     virtual void accept(AstVisitor &visitor) override final;
@@ -173,7 +173,7 @@ struct EmptyStmt : Stmt {
 // Visitor base type
 class AstVisitor {
 public:
-    virtual void visit(Assembly *node) = 0;
+    virtual void visit(CompUnit *node) = 0;
     virtual void visit(FuncDef *node) = 0;
     virtual void visit(FuncCallStmt *node) = 0;
     virtual void visit(LValExpr *node) = 0;

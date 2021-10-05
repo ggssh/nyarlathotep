@@ -6,7 +6,7 @@
 using namespace silly::ast;
 
 antlrcpp::Any ASTBuilder::visitCompUnit(SillyParser::CompUnitContext *ctx) {
-    auto result = new Assembly;
+    auto result = new CompUnit;
     result->line = 1;
     result->pos = 0;
     auto decls = ctx->decl();
@@ -22,7 +22,7 @@ antlrcpp::Any ASTBuilder::visitCompUnit(SillyParser::CompUnitContext *ctx) {
     }
     //    return SillyBaseVisitor::visitCompUnit(ctx);
     printf("Success!");
-    return static_cast<Assembly *>(result);
+    return static_cast<CompUnit *>(result);
 }
 antlrcpp::Any ASTBuilder::visitDecl(SillyParser::DeclContext *ctx) {
     // decl:constDecl
@@ -34,7 +34,7 @@ antlrcpp::Any ASTBuilder::visitDecl(SillyParser::DeclContext *ctx) {
     //    return SillyBaseVisitor::visitDecl(ctx);
 }
 antlrcpp::Any ASTBuilder::visitConstDecl(SillyParser::ConstDeclContext *ctx) {
-//    printf("enter visitConstDecl");
+    //    printf("enter visitConstDecl");
     ptr_list<VarDefStmt> result;
     auto vardefs = ctx->constDef();
     for (int i = 0; i < vardefs.size(); ++i) {
@@ -363,8 +363,8 @@ silly::ast::ptr<silly::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree
     if (result.is<Node *>())
         return ptr<Node>(result.as<Node *>());
     //    return ast::ptr<ast::Node>();
-    if (result.is<Assembly *>())
-        return ptr<Node>(result.as<Assembly *>());
+    if (result.is<CompUnit *>())
+        return ptr<Node>(result.as<CompUnit *>());
     if (result.is<GlobalDef *>())
         return ptr<Node>(result.as<GlobalDef *>());
     if (result.is<FuncDef *>())
