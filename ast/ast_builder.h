@@ -8,8 +8,7 @@
 #include "ast.h"
 #include "SillyBaseVisitor.h"
 
-namespace silly {
-namespace ast {
+namespace silly::ast {
 class ASTBuilder : public SillyBaseVisitor {
 public:
     antlrcpp::Any visitCompUnit(SillyParser::CompUnitContext *ctx) override;
@@ -28,6 +27,5 @@ public:
     // override the operator
     ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
 };
-}
 } // namespace silly::ast
 #endif // SILLYLANG_AST_BUILDER_H
