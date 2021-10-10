@@ -397,3 +397,6 @@ silly::ast::ptr<silly::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree
         return ptr<Node>(result.as<WhileStmt *>());
     return nullptr;
 }
+ASTBuilder::ASTBuilder(silly::ErrorReporter &e) :
+    err(e) {
+}

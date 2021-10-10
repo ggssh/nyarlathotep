@@ -7,6 +7,7 @@
 
 #include "ast.h"
 #include "SillyBaseVisitor.h"
+#include "error_reporter.h"
 
 namespace silly::ast {
 class ASTBuilder : public SillyBaseVisitor {
@@ -26,6 +27,11 @@ public:
 
     // override the operator
     ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
+
+    ASTBuilder(ErrorReporter &e);
+
+private:
+    ErrorReporter &err;
 };
 } // namespace silly::ast
 #endif // SILLYLANG_AST_BUILDER_H
