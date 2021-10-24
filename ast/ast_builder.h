@@ -28,10 +28,10 @@ public:
     // override the operator
     ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
 
-    ASTBuilder(ErrorReporter &e);
+    //    ASTBuilder(ErrorReporter &e);
 
 private:
-    ErrorReporter &err;
+    //    ErrorReporter &err;
 };
 } // namespace silly::ast
 #endif // SILLYLANG_AST_BUILDER_H
