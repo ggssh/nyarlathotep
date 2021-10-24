@@ -23,23 +23,37 @@
 
 #include "ast.h"
 #include "runtime.h"
+
 using namespace llvm;
 
 class CodeGenerator : public silly::ast::AstVisitor {
 public:
     void visit(silly::ast::CompUnit *node) override;
+
     void visit(silly::ast::FuncDef *node) override;
+
     void visit(silly::ast::FuncCallStmt *node) override;
+
     void visit(silly::ast::LValExpr *node) override;
+
     void visit(silly::ast::Block *node) override;
+
     void visit(silly::ast::BinopExpr *node) override;
+
     void visit(silly::ast::VarDefStmt *node) override;
+
     void visit(silly::ast::AssignStmt *node) override;
+
     void visit(silly::ast::IfStmt *node) override;
+
     void visit(silly::ast::Interger *node) override;
+
     void visit(silly::ast::WhileStmt *node) override;
+
     void visit(silly::ast::UnaryopExpr *node) override;
+
     void visit(silly::ast::EmptyStmt *node) override;
+
     void visit(silly::ast::Cond *node) override;
 
     //    static std::unique_ptr<LLVMContext> TheContext;
@@ -65,12 +79,13 @@ public:
     // todo 错误处理
 public:
     CodeGenerator(llvm::LLVMContext &ctx) :
-        context(ctx), builder(ctx) {
+            context(ctx), builder(ctx) {
     }
 
     std::unique_ptr<llvm::Module> get_module() {
         return std::move(module);
     }
+
     std::unique_ptr<RuntimeInfo> get_runtime_info() {
         return std::move(runtime);
     }
@@ -81,7 +96,7 @@ public:
         runtime = std::make_unique<RuntimeInfo>(module.get());
 
         enter_scope();
-        for (auto item : runtime->get_language_symbols()) {
+        for (auto item: runtime->get_language_symbols()) {
             llvm::GlobalValue *val;
             std::string name;
             bool is_function;
@@ -109,20 +124,24 @@ private:
     std::deque<std::unordered_map<std::string, std::tuple<llvm::Value *, bool, bool>>> variables;
     // 函数表
     std::unordered_map<std::string, llvm::Function *> functions;
+
     void enter_scope() {
         variables.emplace_front();
     }
+
     void exit_scope() {
         variables.pop_front();
     }
+
     std::tuple<llvm::Value *, bool, bool> loopup_variable(std::string name) {
-        for (auto item : variables) {
+        for (auto item: variables) {
             if (item.count(name)) {
                 return item[name];
             }
         }
-        return std::make_tuple((llvm::Value *)nullptr, false, false);
+        return std::make_tuple((llvm::Value *) nullptr, false, false);
     }
+
     bool declare_variable(std::string name, llvm::Value *var_ptr, bool is_const, bool is_array) {
         if (variables.front().count(name))
             return false;

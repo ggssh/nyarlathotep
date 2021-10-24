@@ -9,18 +9,19 @@
 
 namespace silly {
 
-class ErrorReporter {
-public:
-    ErrorReporter(std::ostream &error_stream);
+    class ErrorReporter {
+    public:
+        ErrorReporter(std::ostream &error_stream);
 
-    void error(size_t line, size_t charPositionInline, const std::string &msg);
-    void warn(size_t line, size_t charPositionInline, const std::string &msg);
+        void error(size_t line, size_t charPositionInline, const std::string &msg);
 
-protected:
-    virtual void report(size_t line, size_t charPositionInline, const std::string &msg, const std::string &prefix);
+        void warn(size_t line, size_t charPositionInline, const std::string &msg);
 
-private:
-    std::ostream &err;
-};
+    protected:
+        virtual void report(size_t line, size_t charPositionInline, const std::string &msg, const std::string &prefix);
+
+    private:
+        std::ostream &err;
+    };
 } // namespace silly
 #endif // SILLYLANG_ERROR_REPORTER_H

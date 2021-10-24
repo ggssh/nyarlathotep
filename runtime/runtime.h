@@ -20,6 +20,7 @@ class RuntimeInfo {
 
 public:
     RuntimeInfo(llvm::Module *module);
+
     std::vector<std::tuple<std::string, llvm::GlobalValue *, bool, bool, bool>> get_language_symbols();
 
     std::vector<std::tuple<std::string, void *>> get_runtime_symbols();
