@@ -4,9 +4,9 @@
 
 #include "ast_builder.h"
 
-using namespace silly::ast;
+using namespace nyar::ast;
 
-antlrcpp::Any ASTBuilder::visitCompUnit(SillyParser::CompUnitContext *ctx) {
+antlrcpp::Any ASTBuilder::visitCompUnit(NyarParser::CompUnitContext *ctx) {
     auto result = new CompUnit;
     result->line = 1;
     result->pos = 0;
@@ -14,18 +14,23 @@ antlrcpp::Any ASTBuilder::visitCompUnit(SillyParser::CompUnitContext *ctx) {
     auto funcdefs = ctx->funcDef();
     int decls_i = 0, funcdefs_i = 0;
     for (auto child: ctx->children) {
-        if (antlrcpp::is<SillyParser::DeclContext *>(child)) {
-            auto decllist = antlr4::tree::AbstractParseTreeVisitor::visit(decls[decls_i++]).as<ptr_list<VarDefStmt>>();
+        if (antlrcpp::is<NyarParser::DeclContext *>(child)) {
+            auto decllist =
+                    antlr4::tree::AbstractParseTreeVisitor::visit(decls[decls_i++]).as<ptr_list<VarDefStmt >>();
             for (int i = 0; i < decllist.size(); ++i) {
                 result->global_defs.push_back(decllist[i]);
             }
+        } else if (antlrcpp::is<NyarParser::FuncDefContext *>(child)) {
+            ptr<GlobalDef> tmp;
+            tmp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(funcdefs[funcdefs_i++]).as<GlobalDef *>());
+            result->global_defs.push_back(tmp);
         }
     }
-    printf("Success!");
+    printf("AST has been successfully established!\n");
     return static_cast<CompUnit *>(result);
 }
 
-antlrcpp::Any ASTBuilder::visitDecl(SillyParser::DeclContext *ctx) {
+antlrcpp::Any ASTBuilder::visitDecl(NyarParser::DeclContext *ctx) {
     // decl:constDecl
     if (ctx->constDecl())
         return antlr4::tree::AbstractParseTreeVisitor::visit(ctx->constDecl());
@@ -35,7 +40,7 @@ antlrcpp::Any ASTBuilder::visitDecl(SillyParser::DeclContext *ctx) {
     //    return SillyBaseVisitor::visitDecl(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitConstDecl(SillyParser::ConstDeclContext *ctx) {
+antlrcpp::Any ASTBuilder::visitConstDecl(NyarParser::ConstDeclContext *ctx) {
     //    printf("enter visitConstDecl");
     ptr_list<VarDefStmt> result;
     auto vardefs = ctx->constDef();
@@ -44,11 +49,12 @@ antlrcpp::Any ASTBuilder::visitConstDecl(SillyParser::ConstDeclContext *ctx) {
         temp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(vardefs[i]).as<VarDefStmt *>());
         result.push_back(temp);
     }
+    printf("ConstDecl\n");
     return static_cast<ptr_list<VarDefStmt>>(result);
     //    return SillyBaseVisitor::visitConstDecl(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitConstDef(SillyParser::ConstDefContext *ctx) {
+antlrcpp::Any ASTBuilder::visitConstDef(NyarParser::ConstDefContext *ctx) {
     auto result = new VarDefStmt;
     result->line = ctx->getStart()->getLine();
     result->pos = ctx->getStart()->getCharPositionInLine();
@@ -87,11 +93,11 @@ antlrcpp::Any ASTBuilder::visitConstDef(SillyParser::ConstDefContext *ctx) {
             result->initializers.push_back(temp);
         }
     }
-    //    return SillyBaseVisitor::visitConstDef(ctx);
+    printf("ConstDef\n");
     return static_cast<VarDefStmt *>(result);
 }
 
-antlrcpp::Any ASTBuilder::visitVarDecl(SillyParser::VarDeclContext *ctx) {
+antlrcpp::Any ASTBuilder::visitVarDecl(NyarParser::VarDeclContext *ctx) {
     ptr_list<VarDefStmt> result;
     auto vardefs = ctx->varDef();
     for (int i = 0; i < vardefs.size(); ++i) {
@@ -99,12 +105,13 @@ antlrcpp::Any ASTBuilder::visitVarDecl(SillyParser::VarDeclContext *ctx) {
         temp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(vardefs[i]).as<VarDefStmt *>());
         result.push_back(temp);
     }
+    printf("VarDecl\n");
     return static_cast<ptr_list<VarDefStmt>>(result);
     //    auto result = new Stmt;
     //    return SillyBaseVisitor::visitVarDecl(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitVarDef(SillyParser::VarDefContext *ctx) {
+antlrcpp::Any ASTBuilder::visitVarDef(NyarParser::VarDefContext *ctx) {
     //    int v1, v2 = 3;
     //    int a1[3];
     //    int a2[3] = {1, 2};
@@ -165,11 +172,11 @@ antlrcpp::Any ASTBuilder::visitVarDef(SillyParser::VarDefContext *ctx) {
             result->initializers.push_back(temp);
         }
     }
+    printf("VarDef\n");
     return static_cast<VarDefStmt *>(result);
-    // return SillyBaseVisitor::visitVarDef(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitFuncDef(SillyParser::FuncDefContext *ctx) {
+antlrcpp::Any ASTBuilder::visitFuncDef(NyarParser::FuncDefContext *ctx) {
     auto result = new FuncDef;
     result->line = ctx->getStart()->getLine();
     result->pos = ctx->getStart()->getCharPositionInLine();
@@ -179,11 +186,12 @@ antlrcpp::Any ASTBuilder::visitFuncDef(SillyParser::FuncDefContext *ctx) {
     // handle function block
     result->body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(block).as<Block *>());
 
+    printf("FuncDef\n");
     return static_cast<GlobalDef *>(result);
     //    return SillyBaseVisitor::visitFuncDef(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitBlock(SillyParser::BlockContext *ctx) {
+antlrcpp::Any ASTBuilder::visitBlock(NyarParser::BlockContext *ctx) {
     auto ds = ctx->decl();
     auto ss = ctx->stmt();
     auto result = new Block;
@@ -204,20 +212,22 @@ antlrcpp::Any ASTBuilder::visitBlock(SillyParser::BlockContext *ctx) {
     int decls_count = 0, stmts_count = 0;
     for (auto child: ctx->children) {
         std::shared_ptr<Stmt> tmp;
-        if (antlrcpp::is<SillyParser::DeclContext *>(child)) {
-            auto decllist = antlr4::tree::AbstractParseTreeVisitor::visit(ds[decls_count++]).as<ptr_list<VarDefStmt>>();
+        if (antlrcpp::is<NyarParser::DeclContext *>(child)) {
+            auto decllist =
+                    antlr4::tree::AbstractParseTreeVisitor::visit(ds[decls_count++]).as<ptr_list<VarDefStmt >>();
             for (int i = 0; i < decllist.size(); i++) {
                 result->body.push_back(decllist[i]);
             }
-        } else if (antlrcpp::is<SillyParser::StmtContext *>(child)) {
+        } else if (antlrcpp::is<NyarParser::StmtContext *>(child)) {
             tmp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ss[stmts_count++]).as<Stmt *>());
             result->body.push_back(tmp);
         }
     }
-    return static_cast<Stmt *>(result);
+    printf("Block\n");
+    return static_cast<Block *>(result);
 }
 
-antlrcpp::Any ASTBuilder::visitStmt(SillyParser::StmtContext *ctx) {
+antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
     // stmt : lval ASSIGN expr SEMICOLON
     if (ctx->lVal()) {
         auto result = new AssignStmt;
@@ -273,7 +283,7 @@ antlrcpp::Any ASTBuilder::visitStmt(SillyParser::StmtContext *ctx) {
     }
 }
 
-antlrcpp::Any ASTBuilder::visitLVal(SillyParser::LValContext *ctx) {
+antlrcpp::Any ASTBuilder::visitLVal(NyarParser::LValContext *ctx) {
     auto result = new LValExpr;
     result->line = ctx->getStart()->getLine();
     result->pos = ctx->getStart()->getCharPositionInLine();
@@ -285,11 +295,12 @@ antlrcpp::Any ASTBuilder::visitLVal(SillyParser::LValContext *ctx) {
     } else {
         result->array_index = nullptr;
     }
+    printf("LVal\n");
     return static_cast<LValExpr *>(result);
     //    return SillyBaseVisitor::visitLVal(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitCond(SillyParser::CondContext *ctx) {
+antlrcpp::Any ASTBuilder::visitCond(NyarParser::CondContext *ctx) {
     auto expressions = ctx->expr();
     auto result = new Cond;
     result->line = ctx->getStart()->getLine();
@@ -309,11 +320,12 @@ antlrcpp::Any ASTBuilder::visitCond(SillyParser::CondContext *ctx) {
     else if (ro->GE())
         result->op = relop::GE;
     result->rhs.reset(antlr4::tree::AbstractParseTreeVisitor::visit(expressions[1]).as<Expr *>());
+    printf("Cond\n");
     return static_cast<Cond *>(result);
     //    return SillyBaseVisitor::visitCond(ctx);
 }
 
-antlrcpp::Any ASTBuilder::visitExpr(SillyParser::ExprContext *ctx) {
+antlrcpp::Any ASTBuilder::visitExpr(NyarParser::ExprContext *ctx) {
     //    return SillyBaseVisitor::visitExpr(ctx);
     // Get all sub-contexts of type "expr"
     auto expressions = ctx->expr();
@@ -370,7 +382,7 @@ antlrcpp::Any ASTBuilder::visitExpr(SillyParser::ExprContext *ctx) {
     }
 }
 
-silly::ast::ptr<silly::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *ctx) {
+nyar::ast::ptr<nyar::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *ctx) {
     auto result = antlr4::tree::AbstractParseTreeVisitor::visit(ctx);
     if (result.is<Node *>())
         return ptr<Node>(result.as<Node *>());

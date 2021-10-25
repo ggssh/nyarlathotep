@@ -1,5 +1,5 @@
 
-// Generated from Silly.g4 by ANTLR 4.9
+// Generated from Nyar.g4 by ANTLR 4.9
 
 #pragma once
 
@@ -9,7 +9,7 @@
 
 
 
-class  SillyLexer : public antlr4::Lexer {
+class  NyarLexer : public antlr4::Lexer {
 public:
   enum {
     INT = 1, VOID = 2, RETURN = 3, CONST = 4, IF = 5, ELSE = 6, WHILE = 7, 
@@ -21,8 +21,8 @@ public:
     BLOCK_COMMENT = 39
   };
 
-  explicit SillyLexer(antlr4::CharStream *input);
-  ~SillyLexer();
+  explicit NyarLexer(antlr4::CharStream *input);
+  ~NyarLexer();
 
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;

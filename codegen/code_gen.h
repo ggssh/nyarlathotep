@@ -9,7 +9,6 @@
 #include <unordered_map>
 #include <tuple>
 #include <string>
-
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/DerivedTypes.h>
@@ -19,61 +18,58 @@
 #include <llvm/IR/Module.h>
 #include <llvm/IR/Type.h>
 #include <llvm/IR/Verifier.h>
-//#include <SillyParser.h>
 
 #include "ast.h"
 #include "runtime.h"
 
 using namespace llvm;
 
-class CodeGenerator : public silly::ast::AstVisitor {
+/**
+ * 中间代码生成
+ */
+class CodeGenerator : public nyar::ast::AstVisitor {
 public:
-    void visit(silly::ast::CompUnit *node) override;
+    void visit(nyar::ast::CompUnit *node) override;
 
-    void visit(silly::ast::FuncDef *node) override;
+    void visit(nyar::ast::FuncDef *node) override;
 
-    void visit(silly::ast::FuncCallStmt *node) override;
+    void visit(nyar::ast::FuncCallStmt *node) override;
 
-    void visit(silly::ast::LValExpr *node) override;
+    void visit(nyar::ast::LValExpr *node) override;
 
-    void visit(silly::ast::Block *node) override;
+    void visit(nyar::ast::Block *node) override;
 
-    void visit(silly::ast::BinopExpr *node) override;
+    void visit(nyar::ast::BinopExpr *node) override;
 
-    void visit(silly::ast::VarDefStmt *node) override;
+    void visit(nyar::ast::VarDefStmt *node) override;
 
-    void visit(silly::ast::AssignStmt *node) override;
+    void visit(nyar::ast::AssignStmt *node) override;
 
-    void visit(silly::ast::IfStmt *node) override;
+    void visit(nyar::ast::IfStmt *node) override;
 
-    void visit(silly::ast::Interger *node) override;
+    void visit(nyar::ast::Interger *node) override;
 
-    void visit(silly::ast::WhileStmt *node) override;
+    void visit(nyar::ast::WhileStmt *node) override;
 
-    void visit(silly::ast::UnaryopExpr *node) override;
+    void visit(nyar::ast::UnaryopExpr *node) override;
 
-    void visit(silly::ast::EmptyStmt *node) override;
+    void visit(nyar::ast::EmptyStmt *node) override;
 
-    void visit(silly::ast::Cond *node) override;
+    void visit(nyar::ast::Cond *node) override;
 
-    //    static std::unique_ptr<LLVMContext> TheContext;
-    //    static std::unique_ptr<Module> TheMoudule;
-    //    static std::unique_ptr<IRBuilder<>> Builder;
-    //    static std::map<std::string , Value*> NamedValues;
+private:
     llvm::LLVMContext &context;
     llvm::IRBuilder<> builder;
-    std::unique_ptr<llvm::Module> module;
-    std::unique_ptr<RuntimeInfo> runtime;
+    std::unique_ptr<llvm::Module> module;// 要使用module.get()来获取module的指针
+    std::unique_ptr<RuntimeInfo> runtime;// 运行时
 
-    llvm::Value *value_result;
-    int const_result;
+    llvm::Value *value_result;// 保存其他表达式的结果
+    int const_result;// 保存常量表达式的结果
+    llvm::Function *current_funciton;// 保存当前正在生成的函数
 
-    llvm::Function *current_funciton;
-    // 统计BaseBlock的数量
-    int bb_count;
-
-    bool lval_as_rval;
-    bool in_global;
+    int bb_count;// 统计BaseBlock的数量
+    bool lval_as_rval;// 当前上下文要以何种方式引用正要处理的左值
+    bool in_global;// 当前
     bool constexpr_expected;
 
     // todo 错误处理
@@ -90,7 +86,7 @@ public:
         return std::move(runtime);
     }
 
-    void build(std::string name, std::shared_ptr<silly::ast::Node> tree) {
+    void build(std::string name, std::shared_ptr<nyar::ast::Node> tree) {
         // Initialize environment
         module = std::make_unique<llvm::Module>(name, context);
         runtime = std::make_unique<RuntimeInfo>(module.get());
@@ -120,19 +116,30 @@ public:
     }
 
 private:
-    // 变量表
+    // 变量表 key:变量名 value分别为变量地址在LLVM数据结构中的表示,是否为常量,是否为数组
     std::deque<std::unordered_map<std::string, std::tuple<llvm::Value *, bool, bool>>> variables;
-    // 函数表
+    // 函数表 key:函数名 value:函数对象指针
     std::unordered_map<std::string, llvm::Function *> functions;
 
+    /**
+     * 维护作用域,创建新的数据结构以待新的作用域中的变量加入
+     */
     void enter_scope() {
         variables.emplace_front();
     }
 
+    /**
+     * 处理完毕,销毁当前作用域中的符号,并将当前作用域更新回退到外围最近的作用域
+     */
     void exit_scope() {
         variables.pop_front();
     }
 
+    /**
+     * 查找变量
+     * @param name
+     * @return
+     */
     std::tuple<llvm::Value *, bool, bool> loopup_variable(std::string name) {
         for (auto item: variables) {
             if (item.count(name)) {
@@ -142,6 +149,14 @@ private:
         return std::make_tuple((llvm::Value *) nullptr, false, false);
     }
 
+    /**
+     * 声明新变量
+     * @param name
+     * @param var_ptr
+     * @param is_const
+     * @param is_array
+     * @return
+     */
     bool declare_variable(std::string name, llvm::Value *var_ptr, bool is_const, bool is_array) {
         if (variables.front().count(name))
             return false;

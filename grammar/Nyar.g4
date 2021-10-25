@@ -1,4 +1,4 @@
-grammar Silly;
+grammar Nyar;
 
 import Lexer;
 

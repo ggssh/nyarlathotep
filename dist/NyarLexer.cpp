@@ -1,50 +1,50 @@
 
-// Generated from Silly.g4 by ANTLR 4.9
+// Generated from Nyar.g4 by ANTLR 4.9
 
 
-#include "SillyLexer.h"
+#include "NyarLexer.h"
 
 
 using namespace antlr4;
 
 
-SillyLexer::SillyLexer(CharStream *input) : Lexer(input) {
+NyarLexer::NyarLexer(CharStream *input) : Lexer(input) {
   _interpreter = new atn::LexerATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
 }
 
-SillyLexer::~SillyLexer() {
+NyarLexer::~NyarLexer() {
   delete _interpreter;
 }
 
-std::string SillyLexer::getGrammarFileName() const {
-  return "Silly.g4";
+std::string NyarLexer::getGrammarFileName() const {
+  return "Nyar.g4";
 }
 
-const std::vector<std::string>& SillyLexer::getRuleNames() const {
+const std::vector<std::string>& NyarLexer::getRuleNames() const {
   return _ruleNames;
 }
 
-const std::vector<std::string>& SillyLexer::getChannelNames() const {
+const std::vector<std::string>& NyarLexer::getChannelNames() const {
   return _channelNames;
 }
 
-const std::vector<std::string>& SillyLexer::getModeNames() const {
+const std::vector<std::string>& NyarLexer::getModeNames() const {
   return _modeNames;
 }
 
-const std::vector<std::string>& SillyLexer::getTokenNames() const {
+const std::vector<std::string>& NyarLexer::getTokenNames() const {
   return _tokenNames;
 }
 
-dfa::Vocabulary& SillyLexer::getVocabulary() const {
+dfa::Vocabulary& NyarLexer::getVocabulary() const {
   return _vocabulary;
 }
 
-const std::vector<uint16_t> SillyLexer::getSerializedATN() const {
+const std::vector<uint16_t> NyarLexer::getSerializedATN() const {
   return _serializedATN;
 }
 
-const atn::ATN& SillyLexer::getATN() const {
+const atn::ATN& NyarLexer::getATN() const {
   return _atn;
 }
 
@@ -52,14 +52,14 @@ const atn::ATN& SillyLexer::getATN() const {
 
 
 // Static vars and initialization.
-std::vector<dfa::DFA> SillyLexer::_decisionToDFA;
-atn::PredictionContextCache SillyLexer::_sharedContextCache;
+std::vector<dfa::DFA> NyarLexer::_decisionToDFA;
+atn::PredictionContextCache NyarLexer::_sharedContextCache;
 
 // We own the ATN which in turn owns the ATN states.
-atn::ATN SillyLexer::_atn;
-std::vector<uint16_t> SillyLexer::_serializedATN;
+atn::ATN NyarLexer::_atn;
+std::vector<uint16_t> NyarLexer::_serializedATN;
 
-std::vector<std::string> SillyLexer::_ruleNames = {
+std::vector<std::string> NyarLexer::_ruleNames = {
   "INT", "VOID", "RETURN", "CONST", "IF", "ELSE", "WHILE", "FOR", "BREAK", 
   "CONTINUE", "ADD", "SUB", "MUL", "DIV", "MOD", "LPAREN", "RPAREN", "LBRACK", 
   "RBRACK", "LBRACE", "RBRACE", "ASSIGN", "NOT", "LT", "LE", "GT", "GE", 
@@ -67,22 +67,22 @@ std::vector<std::string> SillyLexer::_ruleNames = {
   "STRING", "WHITESPACE", "INLINE_COMMENT", "BLOCK_COMMENT", "ESC"
 };
 
-std::vector<std::string> SillyLexer::_channelNames = {
+std::vector<std::string> NyarLexer::_channelNames = {
   "DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 };
 
-std::vector<std::string> SillyLexer::_modeNames = {
+std::vector<std::string> NyarLexer::_modeNames = {
   "DEFAULT_MODE"
 };
 
-std::vector<std::string> SillyLexer::_literalNames = {
+std::vector<std::string> NyarLexer::_literalNames = {
   "", "'int'", "'void'", "'return'", "'const'", "'if'", "'else'", "'while'", 
   "'for'", "'break'", "'continue'", "'+'", "'-'", "'*'", "'/'", "'%'", "'('", 
   "')'", "'['", "']'", "'{'", "'}'", "'='", "'!'", "'<'", "'<='", "'>'", 
   "'>='", "'=='", "'!='", "'&&'", "'||'", "','", "';'"
 };
 
-std::vector<std::string> SillyLexer::_symbolicNames = {
+std::vector<std::string> NyarLexer::_symbolicNames = {
   "", "INT", "VOID", "RETURN", "CONST", "IF", "ELSE", "WHILE", "FOR", "BREAK", 
   "CONTINUE", "ADD", "SUB", "MUL", "DIV", "MOD", "LPAREN", "RPAREN", "LBRACK", 
   "RBRACK", "LBRACE", "RBRACE", "ASSIGN", "NOT", "LT", "LE", "GT", "GE", 
@@ -90,11 +90,11 @@ std::vector<std::string> SillyLexer::_symbolicNames = {
   "STRING", "WHITESPACE", "INLINE_COMMENT", "BLOCK_COMMENT"
 };
 
-dfa::Vocabulary SillyLexer::_vocabulary(_literalNames, _symbolicNames);
+dfa::Vocabulary NyarLexer::_vocabulary(_literalNames, _symbolicNames);
 
-std::vector<std::string> SillyLexer::_tokenNames;
+std::vector<std::string> NyarLexer::_tokenNames;
 
-SillyLexer::Initializer::Initializer() {
+NyarLexer::Initializer::Initializer() {
   // This code could be in a static initializer lambda, but VS doesn't allow access to private class members from there.
 	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
 		std::string name = _vocabulary.getLiteralName(i);
@@ -308,4 +308,4 @@ SillyLexer::Initializer::Initializer() {
   }
 }
 
-SillyLexer::Initializer SillyLexer::_init;
+NyarLexer::Initializer NyarLexer::_init;

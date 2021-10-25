@@ -6,35 +6,35 @@
 #define SILLYLANG_AST_BUILDER_H
 
 #include "ast.h"
-#include "SillyBaseVisitor.h"
+#include "NyarBaseVisitor.h"
 #include "error_reporter.h"
 
-namespace silly::ast {
-    class ASTBuilder : public SillyBaseVisitor {
+namespace nyar::ast {
+    class ASTBuilder : public NyarBaseVisitor {
     public:
-        antlrcpp::Any visitCompUnit(SillyParser::CompUnitContext *ctx) override;
+        antlrcpp::Any visitCompUnit(NyarParser::CompUnitContext *ctx) override;
 
-        antlrcpp::Any visitDecl(SillyParser::DeclContext *ctx) override;
+        antlrcpp::Any visitDecl(NyarParser::DeclContext *ctx) override;
 
-        antlrcpp::Any visitConstDecl(SillyParser::ConstDeclContext *ctx) override;
+        antlrcpp::Any visitConstDecl(NyarParser::ConstDeclContext *ctx) override;
 
-        antlrcpp::Any visitConstDef(SillyParser::ConstDefContext *ctx) override;
+        antlrcpp::Any visitConstDef(NyarParser::ConstDefContext *ctx) override;
 
-        antlrcpp::Any visitVarDecl(SillyParser::VarDeclContext *ctx) override;
+        antlrcpp::Any visitVarDecl(NyarParser::VarDeclContext *ctx) override;
 
-        antlrcpp::Any visitVarDef(SillyParser::VarDefContext *ctx) override;
+        antlrcpp::Any visitVarDef(NyarParser::VarDefContext *ctx) override;
 
-        antlrcpp::Any visitFuncDef(SillyParser::FuncDefContext *ctx) override;
+        antlrcpp::Any visitFuncDef(NyarParser::FuncDefContext *ctx) override;
 
-        antlrcpp::Any visitBlock(SillyParser::BlockContext *ctx) override;
+        antlrcpp::Any visitBlock(NyarParser::BlockContext *ctx) override;
 
-        antlrcpp::Any visitStmt(SillyParser::StmtContext *ctx) override;
+        antlrcpp::Any visitStmt(NyarParser::StmtContext *ctx) override;
 
-        antlrcpp::Any visitLVal(SillyParser::LValContext *ctx) override;
+        antlrcpp::Any visitLVal(NyarParser::LValContext *ctx) override;
 
-        antlrcpp::Any visitCond(SillyParser::CondContext *ctx) override;
+        antlrcpp::Any visitCond(NyarParser::CondContext *ctx) override;
 
-        antlrcpp::Any visitExpr(SillyParser::ExprContext *ctx) override;
+        antlrcpp::Any visitExpr(NyarParser::ExprContext *ctx) override;
 
         // override the operator
         ptr<Node> operator()(antlr4::tree::ParseTree *ctx);

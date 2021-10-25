@@ -1,91 +1,91 @@
 
-// Generated from Silly.g4 by ANTLR 4.9
+// Generated from Nyar.g4 by ANTLR 4.9
 
 
-#include "SillyListener.h"
-#include "SillyVisitor.h"
+#include "NyarListener.h"
+#include "NyarVisitor.h"
 
-#include "SillyParser.h"
+#include "NyarParser.h"
 
 
 using namespace antlrcpp;
 using namespace antlr4;
 
-SillyParser::SillyParser(TokenStream *input) : Parser(input) {
+NyarParser::NyarParser(TokenStream *input) : Parser(input) {
   _interpreter = new atn::ParserATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
 }
 
-SillyParser::~SillyParser() {
+NyarParser::~NyarParser() {
   delete _interpreter;
 }
 
-std::string SillyParser::getGrammarFileName() const {
-  return "Silly.g4";
+std::string NyarParser::getGrammarFileName() const {
+  return "Nyar.g4";
 }
 
-const std::vector<std::string>& SillyParser::getRuleNames() const {
+const std::vector<std::string>& NyarParser::getRuleNames() const {
   return _ruleNames;
 }
 
-dfa::Vocabulary& SillyParser::getVocabulary() const {
+dfa::Vocabulary& NyarParser::getVocabulary() const {
   return _vocabulary;
 }
 
 
 //----------------- CompUnitContext ------------------------------------------------------------------
 
-SillyParser::CompUnitContext::CompUnitContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::CompUnitContext::CompUnitContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::CompUnitContext::EOF() {
-  return getToken(SillyParser::EOF, 0);
+tree::TerminalNode* NyarParser::CompUnitContext::EOF() {
+  return getToken(NyarParser::EOF, 0);
 }
 
-std::vector<SillyParser::DeclContext *> SillyParser::CompUnitContext::decl() {
-  return getRuleContexts<SillyParser::DeclContext>();
+std::vector<NyarParser::DeclContext *> NyarParser::CompUnitContext::decl() {
+  return getRuleContexts<NyarParser::DeclContext>();
 }
 
-SillyParser::DeclContext* SillyParser::CompUnitContext::decl(size_t i) {
-  return getRuleContext<SillyParser::DeclContext>(i);
+NyarParser::DeclContext* NyarParser::CompUnitContext::decl(size_t i) {
+  return getRuleContext<NyarParser::DeclContext>(i);
 }
 
-std::vector<SillyParser::FuncDefContext *> SillyParser::CompUnitContext::funcDef() {
-  return getRuleContexts<SillyParser::FuncDefContext>();
+std::vector<NyarParser::FuncDefContext *> NyarParser::CompUnitContext::funcDef() {
+  return getRuleContexts<NyarParser::FuncDefContext>();
 }
 
-SillyParser::FuncDefContext* SillyParser::CompUnitContext::funcDef(size_t i) {
-  return getRuleContext<SillyParser::FuncDefContext>(i);
+NyarParser::FuncDefContext* NyarParser::CompUnitContext::funcDef(size_t i) {
+  return getRuleContext<NyarParser::FuncDefContext>(i);
 }
 
 
-size_t SillyParser::CompUnitContext::getRuleIndex() const {
-  return SillyParser::RuleCompUnit;
+size_t NyarParser::CompUnitContext::getRuleIndex() const {
+  return NyarParser::RuleCompUnit;
 }
 
-void SillyParser::CompUnitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::CompUnitContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterCompUnit(this);
 }
 
-void SillyParser::CompUnitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::CompUnitContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitCompUnit(this);
 }
 
 
-antlrcpp::Any SillyParser::CompUnitContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::CompUnitContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitCompUnit(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::CompUnitContext* SillyParser::compUnit() {
+NyarParser::CompUnitContext* NyarParser::compUnit() {
   CompUnitContext *_localctx = _tracker.createInstance<CompUnitContext>(_ctx, getState());
-  enterRule(_localctx, 0, SillyParser::RuleCompUnit);
+  enterRule(_localctx, 0, NyarParser::RuleCompUnit);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -101,20 +101,20 @@ SillyParser::CompUnitContext* SillyParser::compUnit() {
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << SillyParser::INT)
-      | (1ULL << SillyParser::VOID)
-      | (1ULL << SillyParser::CONST))) != 0)) {
+      ((1ULL << _la) & ((1ULL << NyarParser::INT)
+      | (1ULL << NyarParser::VOID)
+      | (1ULL << NyarParser::CONST))) != 0)) {
       setState(32);
       _errHandler->sync(this);
       switch (_input->LA(1)) {
-        case SillyParser::INT:
-        case SillyParser::CONST: {
+        case NyarParser::INT:
+        case NyarParser::CONST: {
           setState(30);
           decl();
           break;
         }
 
-        case SillyParser::VOID: {
+        case NyarParser::VOID: {
           setState(31);
           funcDef();
           break;
@@ -128,7 +128,7 @@ SillyParser::CompUnitContext* SillyParser::compUnit() {
       _la = _input->LA(1);
     }
     setState(37);
-    match(SillyParser::EOF);
+    match(NyarParser::EOF);
    
   }
   catch (RecognitionException &e) {
@@ -142,46 +142,46 @@ SillyParser::CompUnitContext* SillyParser::compUnit() {
 
 //----------------- DeclContext ------------------------------------------------------------------
 
-SillyParser::DeclContext::DeclContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::DeclContext::DeclContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-SillyParser::ConstDeclContext* SillyParser::DeclContext::constDecl() {
-  return getRuleContext<SillyParser::ConstDeclContext>(0);
+NyarParser::ConstDeclContext* NyarParser::DeclContext::constDecl() {
+  return getRuleContext<NyarParser::ConstDeclContext>(0);
 }
 
-SillyParser::VarDeclContext* SillyParser::DeclContext::varDecl() {
-  return getRuleContext<SillyParser::VarDeclContext>(0);
+NyarParser::VarDeclContext* NyarParser::DeclContext::varDecl() {
+  return getRuleContext<NyarParser::VarDeclContext>(0);
 }
 
 
-size_t SillyParser::DeclContext::getRuleIndex() const {
-  return SillyParser::RuleDecl;
+size_t NyarParser::DeclContext::getRuleIndex() const {
+  return NyarParser::RuleDecl;
 }
 
-void SillyParser::DeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::DeclContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterDecl(this);
 }
 
-void SillyParser::DeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::DeclContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDecl(this);
 }
 
 
-antlrcpp::Any SillyParser::DeclContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::DeclContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitDecl(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::DeclContext* SillyParser::decl() {
+NyarParser::DeclContext* NyarParser::decl() {
   DeclContext *_localctx = _tracker.createInstance<DeclContext>(_ctx, getState());
-  enterRule(_localctx, 2, SillyParser::RuleDecl);
+  enterRule(_localctx, 2, NyarParser::RuleDecl);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -194,14 +194,14 @@ SillyParser::DeclContext* SillyParser::decl() {
     setState(41);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SillyParser::CONST: {
+      case NyarParser::CONST: {
         enterOuterAlt(_localctx, 1);
         setState(39);
         constDecl();
         break;
       }
 
-      case SillyParser::INT: {
+      case NyarParser::INT: {
         enterOuterAlt(_localctx, 2);
         setState(40);
         varDecl();
@@ -224,66 +224,66 @@ SillyParser::DeclContext* SillyParser::decl() {
 
 //----------------- ConstDeclContext ------------------------------------------------------------------
 
-SillyParser::ConstDeclContext::ConstDeclContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::ConstDeclContext::ConstDeclContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::ConstDeclContext::CONST() {
-  return getToken(SillyParser::CONST, 0);
+tree::TerminalNode* NyarParser::ConstDeclContext::CONST() {
+  return getToken(NyarParser::CONST, 0);
 }
 
-tree::TerminalNode* SillyParser::ConstDeclContext::INT() {
-  return getToken(SillyParser::INT, 0);
+tree::TerminalNode* NyarParser::ConstDeclContext::INT() {
+  return getToken(NyarParser::INT, 0);
 }
 
-std::vector<SillyParser::ConstDefContext *> SillyParser::ConstDeclContext::constDef() {
-  return getRuleContexts<SillyParser::ConstDefContext>();
+std::vector<NyarParser::ConstDefContext *> NyarParser::ConstDeclContext::constDef() {
+  return getRuleContexts<NyarParser::ConstDefContext>();
 }
 
-SillyParser::ConstDefContext* SillyParser::ConstDeclContext::constDef(size_t i) {
-  return getRuleContext<SillyParser::ConstDefContext>(i);
+NyarParser::ConstDefContext* NyarParser::ConstDeclContext::constDef(size_t i) {
+  return getRuleContext<NyarParser::ConstDefContext>(i);
 }
 
-tree::TerminalNode* SillyParser::ConstDeclContext::SEMICOLON() {
-  return getToken(SillyParser::SEMICOLON, 0);
+tree::TerminalNode* NyarParser::ConstDeclContext::SEMICOLON() {
+  return getToken(NyarParser::SEMICOLON, 0);
 }
 
-std::vector<tree::TerminalNode *> SillyParser::ConstDeclContext::COMMA() {
-  return getTokens(SillyParser::COMMA);
+std::vector<tree::TerminalNode *> NyarParser::ConstDeclContext::COMMA() {
+  return getTokens(NyarParser::COMMA);
 }
 
-tree::TerminalNode* SillyParser::ConstDeclContext::COMMA(size_t i) {
-  return getToken(SillyParser::COMMA, i);
+tree::TerminalNode* NyarParser::ConstDeclContext::COMMA(size_t i) {
+  return getToken(NyarParser::COMMA, i);
 }
 
 
-size_t SillyParser::ConstDeclContext::getRuleIndex() const {
-  return SillyParser::RuleConstDecl;
+size_t NyarParser::ConstDeclContext::getRuleIndex() const {
+  return NyarParser::RuleConstDecl;
 }
 
-void SillyParser::ConstDeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::ConstDeclContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstDecl(this);
 }
 
-void SillyParser::ConstDeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::ConstDeclContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstDecl(this);
 }
 
 
-antlrcpp::Any SillyParser::ConstDeclContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::ConstDeclContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitConstDecl(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::ConstDeclContext* SillyParser::constDecl() {
+NyarParser::ConstDeclContext* NyarParser::constDecl() {
   ConstDeclContext *_localctx = _tracker.createInstance<ConstDeclContext>(_ctx, getState());
-  enterRule(_localctx, 4, SillyParser::RuleConstDecl);
+  enterRule(_localctx, 4, NyarParser::RuleConstDecl);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -296,17 +296,17 @@ SillyParser::ConstDeclContext* SillyParser::constDecl() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(43);
-    match(SillyParser::CONST);
+    match(NyarParser::CONST);
     setState(44);
-    match(SillyParser::INT);
+    match(NyarParser::INT);
     setState(45);
     constDef();
     setState(50);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == SillyParser::COMMA) {
+    while (_la == NyarParser::COMMA) {
       setState(46);
-      match(SillyParser::COMMA);
+      match(NyarParser::COMMA);
       setState(47);
       constDef();
       setState(52);
@@ -314,7 +314,7 @@ SillyParser::ConstDeclContext* SillyParser::constDecl() {
       _la = _input->LA(1);
     }
     setState(53);
-    match(SillyParser::SEMICOLON);
+    match(NyarParser::SEMICOLON);
    
   }
   catch (RecognitionException &e) {
@@ -328,78 +328,78 @@ SillyParser::ConstDeclContext* SillyParser::constDecl() {
 
 //----------------- ConstDefContext ------------------------------------------------------------------
 
-SillyParser::ConstDefContext::ConstDefContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::ConstDefContext::ConstDefContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::IDENTIFIER() {
-  return getToken(SillyParser::IDENTIFIER, 0);
+tree::TerminalNode* NyarParser::ConstDefContext::IDENTIFIER() {
+  return getToken(NyarParser::IDENTIFIER, 0);
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::ASSIGN() {
-  return getToken(SillyParser::ASSIGN, 0);
+tree::TerminalNode* NyarParser::ConstDefContext::ASSIGN() {
+  return getToken(NyarParser::ASSIGN, 0);
 }
 
-std::vector<SillyParser::ExprContext *> SillyParser::ConstDefContext::expr() {
-  return getRuleContexts<SillyParser::ExprContext>();
+std::vector<NyarParser::ExprContext *> NyarParser::ConstDefContext::expr() {
+  return getRuleContexts<NyarParser::ExprContext>();
 }
 
-SillyParser::ExprContext* SillyParser::ConstDefContext::expr(size_t i) {
-  return getRuleContext<SillyParser::ExprContext>(i);
+NyarParser::ExprContext* NyarParser::ConstDefContext::expr(size_t i) {
+  return getRuleContext<NyarParser::ExprContext>(i);
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::LBRACK() {
-  return getToken(SillyParser::LBRACK, 0);
+tree::TerminalNode* NyarParser::ConstDefContext::LBRACK() {
+  return getToken(NyarParser::LBRACK, 0);
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::RBRACK() {
-  return getToken(SillyParser::RBRACK, 0);
+tree::TerminalNode* NyarParser::ConstDefContext::RBRACK() {
+  return getToken(NyarParser::RBRACK, 0);
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::LBRACE() {
-  return getToken(SillyParser::LBRACE, 0);
+tree::TerminalNode* NyarParser::ConstDefContext::LBRACE() {
+  return getToken(NyarParser::LBRACE, 0);
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::RBRACE() {
-  return getToken(SillyParser::RBRACE, 0);
+tree::TerminalNode* NyarParser::ConstDefContext::RBRACE() {
+  return getToken(NyarParser::RBRACE, 0);
 }
 
-std::vector<tree::TerminalNode *> SillyParser::ConstDefContext::COMMA() {
-  return getTokens(SillyParser::COMMA);
+std::vector<tree::TerminalNode *> NyarParser::ConstDefContext::COMMA() {
+  return getTokens(NyarParser::COMMA);
 }
 
-tree::TerminalNode* SillyParser::ConstDefContext::COMMA(size_t i) {
-  return getToken(SillyParser::COMMA, i);
+tree::TerminalNode* NyarParser::ConstDefContext::COMMA(size_t i) {
+  return getToken(NyarParser::COMMA, i);
 }
 
 
-size_t SillyParser::ConstDefContext::getRuleIndex() const {
-  return SillyParser::RuleConstDef;
+size_t NyarParser::ConstDefContext::getRuleIndex() const {
+  return NyarParser::RuleConstDef;
 }
 
-void SillyParser::ConstDefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::ConstDefContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstDef(this);
 }
 
-void SillyParser::ConstDefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::ConstDefContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstDef(this);
 }
 
 
-antlrcpp::Any SillyParser::ConstDefContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::ConstDefContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitConstDef(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::ConstDefContext* SillyParser::constDef() {
+NyarParser::ConstDefContext* NyarParser::constDef() {
   ConstDefContext *_localctx = _tracker.createInstance<ConstDefContext>(_ctx, getState());
-  enterRule(_localctx, 6, SillyParser::RuleConstDef);
+  enterRule(_localctx, 6, NyarParser::RuleConstDef);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -416,9 +416,9 @@ SillyParser::ConstDefContext* SillyParser::constDef() {
     case 1: {
       enterOuterAlt(_localctx, 1);
       setState(55);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(56);
-      match(SillyParser::ASSIGN);
+      match(NyarParser::ASSIGN);
       setState(57);
       expr(0);
       break;
@@ -427,36 +427,36 @@ SillyParser::ConstDefContext* SillyParser::constDef() {
     case 2: {
       enterOuterAlt(_localctx, 2);
       setState(58);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(59);
-      match(SillyParser::LBRACK);
+      match(NyarParser::LBRACK);
       setState(61);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << SillyParser::ADD)
-        | (1ULL << SillyParser::SUB)
-        | (1ULL << SillyParser::LPAREN)
-        | (1ULL << SillyParser::NUMBER)
-        | (1ULL << SillyParser::IDENTIFIER))) != 0)) {
+        ((1ULL << _la) & ((1ULL << NyarParser::ADD)
+        | (1ULL << NyarParser::SUB)
+        | (1ULL << NyarParser::LPAREN)
+        | (1ULL << NyarParser::NUMBER)
+        | (1ULL << NyarParser::IDENTIFIER))) != 0)) {
         setState(60);
         expr(0);
       }
       setState(63);
-      match(SillyParser::RBRACK);
+      match(NyarParser::RBRACK);
       setState(64);
-      match(SillyParser::ASSIGN);
+      match(NyarParser::ASSIGN);
       setState(65);
-      match(SillyParser::LBRACE);
+      match(NyarParser::LBRACE);
       setState(66);
       expr(0);
       setState(71);
       _errHandler->sync(this);
       _la = _input->LA(1);
-      while (_la == SillyParser::COMMA) {
+      while (_la == NyarParser::COMMA) {
         setState(67);
-        match(SillyParser::COMMA);
+        match(NyarParser::COMMA);
         setState(68);
         expr(0);
         setState(73);
@@ -464,7 +464,7 @@ SillyParser::ConstDefContext* SillyParser::constDef() {
         _la = _input->LA(1);
       }
       setState(74);
-      match(SillyParser::RBRACE);
+      match(NyarParser::RBRACE);
       break;
     }
 
@@ -484,62 +484,62 @@ SillyParser::ConstDefContext* SillyParser::constDef() {
 
 //----------------- VarDeclContext ------------------------------------------------------------------
 
-SillyParser::VarDeclContext::VarDeclContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::VarDeclContext::VarDeclContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::VarDeclContext::INT() {
-  return getToken(SillyParser::INT, 0);
+tree::TerminalNode* NyarParser::VarDeclContext::INT() {
+  return getToken(NyarParser::INT, 0);
 }
 
-std::vector<SillyParser::VarDefContext *> SillyParser::VarDeclContext::varDef() {
-  return getRuleContexts<SillyParser::VarDefContext>();
+std::vector<NyarParser::VarDefContext *> NyarParser::VarDeclContext::varDef() {
+  return getRuleContexts<NyarParser::VarDefContext>();
 }
 
-SillyParser::VarDefContext* SillyParser::VarDeclContext::varDef(size_t i) {
-  return getRuleContext<SillyParser::VarDefContext>(i);
+NyarParser::VarDefContext* NyarParser::VarDeclContext::varDef(size_t i) {
+  return getRuleContext<NyarParser::VarDefContext>(i);
 }
 
-tree::TerminalNode* SillyParser::VarDeclContext::SEMICOLON() {
-  return getToken(SillyParser::SEMICOLON, 0);
+tree::TerminalNode* NyarParser::VarDeclContext::SEMICOLON() {
+  return getToken(NyarParser::SEMICOLON, 0);
 }
 
-std::vector<tree::TerminalNode *> SillyParser::VarDeclContext::COMMA() {
-  return getTokens(SillyParser::COMMA);
+std::vector<tree::TerminalNode *> NyarParser::VarDeclContext::COMMA() {
+  return getTokens(NyarParser::COMMA);
 }
 
-tree::TerminalNode* SillyParser::VarDeclContext::COMMA(size_t i) {
-  return getToken(SillyParser::COMMA, i);
+tree::TerminalNode* NyarParser::VarDeclContext::COMMA(size_t i) {
+  return getToken(NyarParser::COMMA, i);
 }
 
 
-size_t SillyParser::VarDeclContext::getRuleIndex() const {
-  return SillyParser::RuleVarDecl;
+size_t NyarParser::VarDeclContext::getRuleIndex() const {
+  return NyarParser::RuleVarDecl;
 }
 
-void SillyParser::VarDeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::VarDeclContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterVarDecl(this);
 }
 
-void SillyParser::VarDeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::VarDeclContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitVarDecl(this);
 }
 
 
-antlrcpp::Any SillyParser::VarDeclContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::VarDeclContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitVarDecl(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::VarDeclContext* SillyParser::varDecl() {
+NyarParser::VarDeclContext* NyarParser::varDecl() {
   VarDeclContext *_localctx = _tracker.createInstance<VarDeclContext>(_ctx, getState());
-  enterRule(_localctx, 8, SillyParser::RuleVarDecl);
+  enterRule(_localctx, 8, NyarParser::RuleVarDecl);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -552,15 +552,15 @@ SillyParser::VarDeclContext* SillyParser::varDecl() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(78);
-    match(SillyParser::INT);
+    match(NyarParser::INT);
     setState(79);
     varDef();
     setState(84);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == SillyParser::COMMA) {
+    while (_la == NyarParser::COMMA) {
       setState(80);
-      match(SillyParser::COMMA);
+      match(NyarParser::COMMA);
       setState(81);
       varDef();
       setState(86);
@@ -568,7 +568,7 @@ SillyParser::VarDeclContext* SillyParser::varDecl() {
       _la = _input->LA(1);
     }
     setState(87);
-    match(SillyParser::SEMICOLON);
+    match(NyarParser::SEMICOLON);
    
   }
   catch (RecognitionException &e) {
@@ -582,78 +582,78 @@ SillyParser::VarDeclContext* SillyParser::varDecl() {
 
 //----------------- VarDefContext ------------------------------------------------------------------
 
-SillyParser::VarDefContext::VarDefContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::VarDefContext::VarDefContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::IDENTIFIER() {
-  return getToken(SillyParser::IDENTIFIER, 0);
+tree::TerminalNode* NyarParser::VarDefContext::IDENTIFIER() {
+  return getToken(NyarParser::IDENTIFIER, 0);
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::LBRACK() {
-  return getToken(SillyParser::LBRACK, 0);
+tree::TerminalNode* NyarParser::VarDefContext::LBRACK() {
+  return getToken(NyarParser::LBRACK, 0);
 }
 
-std::vector<SillyParser::ExprContext *> SillyParser::VarDefContext::expr() {
-  return getRuleContexts<SillyParser::ExprContext>();
+std::vector<NyarParser::ExprContext *> NyarParser::VarDefContext::expr() {
+  return getRuleContexts<NyarParser::ExprContext>();
 }
 
-SillyParser::ExprContext* SillyParser::VarDefContext::expr(size_t i) {
-  return getRuleContext<SillyParser::ExprContext>(i);
+NyarParser::ExprContext* NyarParser::VarDefContext::expr(size_t i) {
+  return getRuleContext<NyarParser::ExprContext>(i);
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::RBRACK() {
-  return getToken(SillyParser::RBRACK, 0);
+tree::TerminalNode* NyarParser::VarDefContext::RBRACK() {
+  return getToken(NyarParser::RBRACK, 0);
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::ASSIGN() {
-  return getToken(SillyParser::ASSIGN, 0);
+tree::TerminalNode* NyarParser::VarDefContext::ASSIGN() {
+  return getToken(NyarParser::ASSIGN, 0);
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::LBRACE() {
-  return getToken(SillyParser::LBRACE, 0);
+tree::TerminalNode* NyarParser::VarDefContext::LBRACE() {
+  return getToken(NyarParser::LBRACE, 0);
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::RBRACE() {
-  return getToken(SillyParser::RBRACE, 0);
+tree::TerminalNode* NyarParser::VarDefContext::RBRACE() {
+  return getToken(NyarParser::RBRACE, 0);
 }
 
-std::vector<tree::TerminalNode *> SillyParser::VarDefContext::COMMA() {
-  return getTokens(SillyParser::COMMA);
+std::vector<tree::TerminalNode *> NyarParser::VarDefContext::COMMA() {
+  return getTokens(NyarParser::COMMA);
 }
 
-tree::TerminalNode* SillyParser::VarDefContext::COMMA(size_t i) {
-  return getToken(SillyParser::COMMA, i);
+tree::TerminalNode* NyarParser::VarDefContext::COMMA(size_t i) {
+  return getToken(NyarParser::COMMA, i);
 }
 
 
-size_t SillyParser::VarDefContext::getRuleIndex() const {
-  return SillyParser::RuleVarDef;
+size_t NyarParser::VarDefContext::getRuleIndex() const {
+  return NyarParser::RuleVarDef;
 }
 
-void SillyParser::VarDefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::VarDefContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterVarDef(this);
 }
 
-void SillyParser::VarDefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::VarDefContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitVarDef(this);
 }
 
 
-antlrcpp::Any SillyParser::VarDefContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::VarDefContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitVarDef(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::VarDefContext* SillyParser::varDef() {
+NyarParser::VarDefContext* NyarParser::varDef() {
   VarDefContext *_localctx = _tracker.createInstance<VarDefContext>(_ctx, getState());
-  enterRule(_localctx, 10, SillyParser::RuleVarDef);
+  enterRule(_localctx, 10, NyarParser::RuleVarDef);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -670,29 +670,29 @@ SillyParser::VarDefContext* SillyParser::varDef() {
     case 1: {
       enterOuterAlt(_localctx, 1);
       setState(89);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
       setState(90);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(91);
-      match(SillyParser::LBRACK);
+      match(NyarParser::LBRACK);
       setState(92);
       expr(0);
       setState(93);
-      match(SillyParser::RBRACK);
+      match(NyarParser::RBRACK);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
       setState(95);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(96);
-      match(SillyParser::ASSIGN);
+      match(NyarParser::ASSIGN);
       setState(97);
       expr(0);
       break;
@@ -701,36 +701,36 @@ SillyParser::VarDefContext* SillyParser::varDef() {
     case 4: {
       enterOuterAlt(_localctx, 4);
       setState(98);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(99);
-      match(SillyParser::LBRACK);
+      match(NyarParser::LBRACK);
       setState(101);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << SillyParser::ADD)
-        | (1ULL << SillyParser::SUB)
-        | (1ULL << SillyParser::LPAREN)
-        | (1ULL << SillyParser::NUMBER)
-        | (1ULL << SillyParser::IDENTIFIER))) != 0)) {
+        ((1ULL << _la) & ((1ULL << NyarParser::ADD)
+        | (1ULL << NyarParser::SUB)
+        | (1ULL << NyarParser::LPAREN)
+        | (1ULL << NyarParser::NUMBER)
+        | (1ULL << NyarParser::IDENTIFIER))) != 0)) {
         setState(100);
         expr(0);
       }
       setState(103);
-      match(SillyParser::RBRACK);
+      match(NyarParser::RBRACK);
       setState(104);
-      match(SillyParser::ASSIGN);
+      match(NyarParser::ASSIGN);
       setState(105);
-      match(SillyParser::LBRACE);
+      match(NyarParser::LBRACE);
       setState(106);
       expr(0);
       setState(111);
       _errHandler->sync(this);
       _la = _input->LA(1);
-      while (_la == SillyParser::COMMA) {
+      while (_la == NyarParser::COMMA) {
         setState(107);
-        match(SillyParser::COMMA);
+        match(NyarParser::COMMA);
         setState(108);
         expr(0);
         setState(113);
@@ -738,7 +738,7 @@ SillyParser::VarDefContext* SillyParser::varDef() {
         _la = _input->LA(1);
       }
       setState(114);
-      match(SillyParser::RBRACE);
+      match(NyarParser::RBRACE);
       break;
     }
 
@@ -758,58 +758,58 @@ SillyParser::VarDefContext* SillyParser::varDef() {
 
 //----------------- FuncDefContext ------------------------------------------------------------------
 
-SillyParser::FuncDefContext::FuncDefContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::FuncDefContext::FuncDefContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::FuncDefContext::VOID() {
-  return getToken(SillyParser::VOID, 0);
+tree::TerminalNode* NyarParser::FuncDefContext::VOID() {
+  return getToken(NyarParser::VOID, 0);
 }
 
-tree::TerminalNode* SillyParser::FuncDefContext::IDENTIFIER() {
-  return getToken(SillyParser::IDENTIFIER, 0);
+tree::TerminalNode* NyarParser::FuncDefContext::IDENTIFIER() {
+  return getToken(NyarParser::IDENTIFIER, 0);
 }
 
-tree::TerminalNode* SillyParser::FuncDefContext::LPAREN() {
-  return getToken(SillyParser::LPAREN, 0);
+tree::TerminalNode* NyarParser::FuncDefContext::LPAREN() {
+  return getToken(NyarParser::LPAREN, 0);
 }
 
-tree::TerminalNode* SillyParser::FuncDefContext::RPAREN() {
-  return getToken(SillyParser::RPAREN, 0);
+tree::TerminalNode* NyarParser::FuncDefContext::RPAREN() {
+  return getToken(NyarParser::RPAREN, 0);
 }
 
-SillyParser::BlockContext* SillyParser::FuncDefContext::block() {
-  return getRuleContext<SillyParser::BlockContext>(0);
+NyarParser::BlockContext* NyarParser::FuncDefContext::block() {
+  return getRuleContext<NyarParser::BlockContext>(0);
 }
 
 
-size_t SillyParser::FuncDefContext::getRuleIndex() const {
-  return SillyParser::RuleFuncDef;
+size_t NyarParser::FuncDefContext::getRuleIndex() const {
+  return NyarParser::RuleFuncDef;
 }
 
-void SillyParser::FuncDefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::FuncDefContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterFuncDef(this);
 }
 
-void SillyParser::FuncDefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::FuncDefContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitFuncDef(this);
 }
 
 
-antlrcpp::Any SillyParser::FuncDefContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::FuncDefContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitFuncDef(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::FuncDefContext* SillyParser::funcDef() {
+NyarParser::FuncDefContext* NyarParser::funcDef() {
   FuncDefContext *_localctx = _tracker.createInstance<FuncDefContext>(_ctx, getState());
-  enterRule(_localctx, 12, SillyParser::RuleFuncDef);
+  enterRule(_localctx, 12, NyarParser::RuleFuncDef);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -821,13 +821,13 @@ SillyParser::FuncDefContext* SillyParser::funcDef() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(118);
-    match(SillyParser::VOID);
+    match(NyarParser::VOID);
     setState(119);
-    match(SillyParser::IDENTIFIER);
+    match(NyarParser::IDENTIFIER);
     setState(120);
-    match(SillyParser::LPAREN);
+    match(NyarParser::LPAREN);
     setState(121);
-    match(SillyParser::RPAREN);
+    match(NyarParser::RPAREN);
     setState(122);
     block();
    
@@ -843,62 +843,62 @@ SillyParser::FuncDefContext* SillyParser::funcDef() {
 
 //----------------- BlockContext ------------------------------------------------------------------
 
-SillyParser::BlockContext::BlockContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::BlockContext::BlockContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::BlockContext::LBRACE() {
-  return getToken(SillyParser::LBRACE, 0);
+tree::TerminalNode* NyarParser::BlockContext::LBRACE() {
+  return getToken(NyarParser::LBRACE, 0);
 }
 
-tree::TerminalNode* SillyParser::BlockContext::RBRACE() {
-  return getToken(SillyParser::RBRACE, 0);
+tree::TerminalNode* NyarParser::BlockContext::RBRACE() {
+  return getToken(NyarParser::RBRACE, 0);
 }
 
-std::vector<SillyParser::DeclContext *> SillyParser::BlockContext::decl() {
-  return getRuleContexts<SillyParser::DeclContext>();
+std::vector<NyarParser::DeclContext *> NyarParser::BlockContext::decl() {
+  return getRuleContexts<NyarParser::DeclContext>();
 }
 
-SillyParser::DeclContext* SillyParser::BlockContext::decl(size_t i) {
-  return getRuleContext<SillyParser::DeclContext>(i);
+NyarParser::DeclContext* NyarParser::BlockContext::decl(size_t i) {
+  return getRuleContext<NyarParser::DeclContext>(i);
 }
 
-std::vector<SillyParser::StmtContext *> SillyParser::BlockContext::stmt() {
-  return getRuleContexts<SillyParser::StmtContext>();
+std::vector<NyarParser::StmtContext *> NyarParser::BlockContext::stmt() {
+  return getRuleContexts<NyarParser::StmtContext>();
 }
 
-SillyParser::StmtContext* SillyParser::BlockContext::stmt(size_t i) {
-  return getRuleContext<SillyParser::StmtContext>(i);
+NyarParser::StmtContext* NyarParser::BlockContext::stmt(size_t i) {
+  return getRuleContext<NyarParser::StmtContext>(i);
 }
 
 
-size_t SillyParser::BlockContext::getRuleIndex() const {
-  return SillyParser::RuleBlock;
+size_t NyarParser::BlockContext::getRuleIndex() const {
+  return NyarParser::RuleBlock;
 }
 
-void SillyParser::BlockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::BlockContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterBlock(this);
 }
 
-void SillyParser::BlockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::BlockContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitBlock(this);
 }
 
 
-antlrcpp::Any SillyParser::BlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::BlockContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitBlock(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::BlockContext* SillyParser::block() {
+NyarParser::BlockContext* NyarParser::block() {
   BlockContext *_localctx = _tracker.createInstance<BlockContext>(_ctx, getState());
-  enterRule(_localctx, 14, SillyParser::RuleBlock);
+  enterRule(_localctx, 14, NyarParser::RuleBlock);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -911,33 +911,33 @@ SillyParser::BlockContext* SillyParser::block() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(124);
-    match(SillyParser::LBRACE);
+    match(NyarParser::LBRACE);
     setState(129);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << SillyParser::INT)
-      | (1ULL << SillyParser::CONST)
-      | (1ULL << SillyParser::IF)
-      | (1ULL << SillyParser::WHILE)
-      | (1ULL << SillyParser::LBRACE)
-      | (1ULL << SillyParser::SEMICOLON)
-      | (1ULL << SillyParser::IDENTIFIER))) != 0)) {
+      ((1ULL << _la) & ((1ULL << NyarParser::INT)
+      | (1ULL << NyarParser::CONST)
+      | (1ULL << NyarParser::IF)
+      | (1ULL << NyarParser::WHILE)
+      | (1ULL << NyarParser::LBRACE)
+      | (1ULL << NyarParser::SEMICOLON)
+      | (1ULL << NyarParser::IDENTIFIER))) != 0)) {
       setState(127);
       _errHandler->sync(this);
       switch (_input->LA(1)) {
-        case SillyParser::INT:
-        case SillyParser::CONST: {
+        case NyarParser::INT:
+        case NyarParser::CONST: {
           setState(125);
           decl();
           break;
         }
 
-        case SillyParser::IF:
-        case SillyParser::WHILE:
-        case SillyParser::LBRACE:
-        case SillyParser::SEMICOLON:
-        case SillyParser::IDENTIFIER: {
+        case NyarParser::IF:
+        case NyarParser::WHILE:
+        case NyarParser::LBRACE:
+        case NyarParser::SEMICOLON:
+        case NyarParser::IDENTIFIER: {
           setState(126);
           stmt();
           break;
@@ -951,7 +951,7 @@ SillyParser::BlockContext* SillyParser::block() {
       _la = _input->LA(1);
     }
     setState(132);
-    match(SillyParser::RBRACE);
+    match(NyarParser::RBRACE);
    
   }
   catch (RecognitionException &e) {
@@ -965,94 +965,94 @@ SillyParser::BlockContext* SillyParser::block() {
 
 //----------------- StmtContext ------------------------------------------------------------------
 
-SillyParser::StmtContext::StmtContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::StmtContext::StmtContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-SillyParser::LValContext* SillyParser::StmtContext::lVal() {
-  return getRuleContext<SillyParser::LValContext>(0);
+NyarParser::LValContext* NyarParser::StmtContext::lVal() {
+  return getRuleContext<NyarParser::LValContext>(0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::ASSIGN() {
-  return getToken(SillyParser::ASSIGN, 0);
+tree::TerminalNode* NyarParser::StmtContext::ASSIGN() {
+  return getToken(NyarParser::ASSIGN, 0);
 }
 
-SillyParser::ExprContext* SillyParser::StmtContext::expr() {
-  return getRuleContext<SillyParser::ExprContext>(0);
+NyarParser::ExprContext* NyarParser::StmtContext::expr() {
+  return getRuleContext<NyarParser::ExprContext>(0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::SEMICOLON() {
-  return getToken(SillyParser::SEMICOLON, 0);
+tree::TerminalNode* NyarParser::StmtContext::SEMICOLON() {
+  return getToken(NyarParser::SEMICOLON, 0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::IDENTIFIER() {
-  return getToken(SillyParser::IDENTIFIER, 0);
+tree::TerminalNode* NyarParser::StmtContext::IDENTIFIER() {
+  return getToken(NyarParser::IDENTIFIER, 0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::LPAREN() {
-  return getToken(SillyParser::LPAREN, 0);
+tree::TerminalNode* NyarParser::StmtContext::LPAREN() {
+  return getToken(NyarParser::LPAREN, 0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::RPAREN() {
-  return getToken(SillyParser::RPAREN, 0);
+tree::TerminalNode* NyarParser::StmtContext::RPAREN() {
+  return getToken(NyarParser::RPAREN, 0);
 }
 
-SillyParser::BlockContext* SillyParser::StmtContext::block() {
-  return getRuleContext<SillyParser::BlockContext>(0);
+NyarParser::BlockContext* NyarParser::StmtContext::block() {
+  return getRuleContext<NyarParser::BlockContext>(0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::IF() {
-  return getToken(SillyParser::IF, 0);
+tree::TerminalNode* NyarParser::StmtContext::IF() {
+  return getToken(NyarParser::IF, 0);
 }
 
-SillyParser::CondContext* SillyParser::StmtContext::cond() {
-  return getRuleContext<SillyParser::CondContext>(0);
+NyarParser::CondContext* NyarParser::StmtContext::cond() {
+  return getRuleContext<NyarParser::CondContext>(0);
 }
 
-std::vector<SillyParser::StmtContext *> SillyParser::StmtContext::stmt() {
-  return getRuleContexts<SillyParser::StmtContext>();
+std::vector<NyarParser::StmtContext *> NyarParser::StmtContext::stmt() {
+  return getRuleContexts<NyarParser::StmtContext>();
 }
 
-SillyParser::StmtContext* SillyParser::StmtContext::stmt(size_t i) {
-  return getRuleContext<SillyParser::StmtContext>(i);
+NyarParser::StmtContext* NyarParser::StmtContext::stmt(size_t i) {
+  return getRuleContext<NyarParser::StmtContext>(i);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::ELSE() {
-  return getToken(SillyParser::ELSE, 0);
+tree::TerminalNode* NyarParser::StmtContext::ELSE() {
+  return getToken(NyarParser::ELSE, 0);
 }
 
-tree::TerminalNode* SillyParser::StmtContext::WHILE() {
-  return getToken(SillyParser::WHILE, 0);
+tree::TerminalNode* NyarParser::StmtContext::WHILE() {
+  return getToken(NyarParser::WHILE, 0);
 }
 
 
-size_t SillyParser::StmtContext::getRuleIndex() const {
-  return SillyParser::RuleStmt;
+size_t NyarParser::StmtContext::getRuleIndex() const {
+  return NyarParser::RuleStmt;
 }
 
-void SillyParser::StmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::StmtContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterStmt(this);
 }
 
-void SillyParser::StmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::StmtContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitStmt(this);
 }
 
 
-antlrcpp::Any SillyParser::StmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::StmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitStmt(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::StmtContext* SillyParser::stmt() {
+NyarParser::StmtContext* NyarParser::stmt() {
   StmtContext *_localctx = _tracker.createInstance<StmtContext>(_ctx, getState());
-  enterRule(_localctx, 16, SillyParser::RuleStmt);
+  enterRule(_localctx, 16, NyarParser::RuleStmt);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -1070,24 +1070,24 @@ SillyParser::StmtContext* SillyParser::stmt() {
       setState(134);
       lVal();
       setState(135);
-      match(SillyParser::ASSIGN);
+      match(NyarParser::ASSIGN);
       setState(136);
       expr(0);
       setState(137);
-      match(SillyParser::SEMICOLON);
+      match(NyarParser::SEMICOLON);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
       setState(139);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(140);
-      match(SillyParser::LPAREN);
+      match(NyarParser::LPAREN);
       setState(141);
-      match(SillyParser::RPAREN);
+      match(NyarParser::RPAREN);
       setState(142);
-      match(SillyParser::SEMICOLON);
+      match(NyarParser::SEMICOLON);
       break;
     }
 
@@ -1101,13 +1101,13 @@ SillyParser::StmtContext* SillyParser::stmt() {
     case 4: {
       enterOuterAlt(_localctx, 4);
       setState(144);
-      match(SillyParser::IF);
+      match(NyarParser::IF);
       setState(145);
-      match(SillyParser::LPAREN);
+      match(NyarParser::LPAREN);
       setState(146);
       cond();
       setState(147);
-      match(SillyParser::RPAREN);
+      match(NyarParser::RPAREN);
       setState(148);
       stmt();
       setState(151);
@@ -1116,7 +1116,7 @@ SillyParser::StmtContext* SillyParser::stmt() {
       switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 13, _ctx)) {
       case 1: {
         setState(149);
-        match(SillyParser::ELSE);
+        match(NyarParser::ELSE);
         setState(150);
         stmt();
         break;
@@ -1131,13 +1131,13 @@ SillyParser::StmtContext* SillyParser::stmt() {
     case 5: {
       enterOuterAlt(_localctx, 5);
       setState(153);
-      match(SillyParser::WHILE);
+      match(NyarParser::WHILE);
       setState(154);
-      match(SillyParser::LPAREN);
+      match(NyarParser::LPAREN);
       setState(155);
       cond();
       setState(156);
-      match(SillyParser::RPAREN);
+      match(NyarParser::RPAREN);
       setState(157);
       stmt();
       break;
@@ -1146,7 +1146,7 @@ SillyParser::StmtContext* SillyParser::stmt() {
     case 6: {
       enterOuterAlt(_localctx, 6);
       setState(159);
-      match(SillyParser::SEMICOLON);
+      match(NyarParser::SEMICOLON);
       break;
     }
 
@@ -1166,54 +1166,54 @@ SillyParser::StmtContext* SillyParser::stmt() {
 
 //----------------- LValContext ------------------------------------------------------------------
 
-SillyParser::LValContext::LValContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::LValContext::LValContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::LValContext::IDENTIFIER() {
-  return getToken(SillyParser::IDENTIFIER, 0);
+tree::TerminalNode* NyarParser::LValContext::IDENTIFIER() {
+  return getToken(NyarParser::IDENTIFIER, 0);
 }
 
-tree::TerminalNode* SillyParser::LValContext::LBRACK() {
-  return getToken(SillyParser::LBRACK, 0);
+tree::TerminalNode* NyarParser::LValContext::LBRACK() {
+  return getToken(NyarParser::LBRACK, 0);
 }
 
-SillyParser::ExprContext* SillyParser::LValContext::expr() {
-  return getRuleContext<SillyParser::ExprContext>(0);
+NyarParser::ExprContext* NyarParser::LValContext::expr() {
+  return getRuleContext<NyarParser::ExprContext>(0);
 }
 
-tree::TerminalNode* SillyParser::LValContext::RBRACK() {
-  return getToken(SillyParser::RBRACK, 0);
+tree::TerminalNode* NyarParser::LValContext::RBRACK() {
+  return getToken(NyarParser::RBRACK, 0);
 }
 
 
-size_t SillyParser::LValContext::getRuleIndex() const {
-  return SillyParser::RuleLVal;
+size_t NyarParser::LValContext::getRuleIndex() const {
+  return NyarParser::RuleLVal;
 }
 
-void SillyParser::LValContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::LValContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterLVal(this);
 }
 
-void SillyParser::LValContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::LValContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitLVal(this);
 }
 
 
-antlrcpp::Any SillyParser::LValContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::LValContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitLVal(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::LValContext* SillyParser::lVal() {
+NyarParser::LValContext* NyarParser::lVal() {
   LValContext *_localctx = _tracker.createInstance<LValContext>(_ctx, getState());
-  enterRule(_localctx, 18, SillyParser::RuleLVal);
+  enterRule(_localctx, 18, NyarParser::RuleLVal);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -1229,20 +1229,20 @@ SillyParser::LValContext* SillyParser::lVal() {
     case 1: {
       enterOuterAlt(_localctx, 1);
       setState(162);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
       setState(163);
-      match(SillyParser::IDENTIFIER);
+      match(NyarParser::IDENTIFIER);
       setState(164);
-      match(SillyParser::LBRACK);
+      match(NyarParser::LBRACK);
       setState(165);
       expr(0);
       setState(166);
-      match(SillyParser::RBRACK);
+      match(NyarParser::RBRACK);
       break;
     }
 
@@ -1262,50 +1262,50 @@ SillyParser::LValContext* SillyParser::lVal() {
 
 //----------------- CondContext ------------------------------------------------------------------
 
-SillyParser::CondContext::CondContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::CondContext::CondContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<SillyParser::ExprContext *> SillyParser::CondContext::expr() {
-  return getRuleContexts<SillyParser::ExprContext>();
+std::vector<NyarParser::ExprContext *> NyarParser::CondContext::expr() {
+  return getRuleContexts<NyarParser::ExprContext>();
 }
 
-SillyParser::ExprContext* SillyParser::CondContext::expr(size_t i) {
-  return getRuleContext<SillyParser::ExprContext>(i);
+NyarParser::ExprContext* NyarParser::CondContext::expr(size_t i) {
+  return getRuleContext<NyarParser::ExprContext>(i);
 }
 
-SillyParser::RelOpContext* SillyParser::CondContext::relOp() {
-  return getRuleContext<SillyParser::RelOpContext>(0);
+NyarParser::RelOpContext* NyarParser::CondContext::relOp() {
+  return getRuleContext<NyarParser::RelOpContext>(0);
 }
 
 
-size_t SillyParser::CondContext::getRuleIndex() const {
-  return SillyParser::RuleCond;
+size_t NyarParser::CondContext::getRuleIndex() const {
+  return NyarParser::RuleCond;
 }
 
-void SillyParser::CondContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::CondContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterCond(this);
 }
 
-void SillyParser::CondContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::CondContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitCond(this);
 }
 
 
-antlrcpp::Any SillyParser::CondContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::CondContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitCond(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::CondContext* SillyParser::cond() {
+NyarParser::CondContext* NyarParser::cond() {
   CondContext *_localctx = _tracker.createInstance<CondContext>(_ctx, getState());
-  enterRule(_localctx, 20, SillyParser::RuleCond);
+  enterRule(_localctx, 20, NyarParser::RuleCond);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -1335,62 +1335,62 @@ SillyParser::CondContext* SillyParser::cond() {
 
 //----------------- RelOpContext ------------------------------------------------------------------
 
-SillyParser::RelOpContext::RelOpContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::RelOpContext::RelOpContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::RelOpContext::EQ() {
-  return getToken(SillyParser::EQ, 0);
+tree::TerminalNode* NyarParser::RelOpContext::EQ() {
+  return getToken(NyarParser::EQ, 0);
 }
 
-tree::TerminalNode* SillyParser::RelOpContext::NE() {
-  return getToken(SillyParser::NE, 0);
+tree::TerminalNode* NyarParser::RelOpContext::NE() {
+  return getToken(NyarParser::NE, 0);
 }
 
-tree::TerminalNode* SillyParser::RelOpContext::LT() {
-  return getToken(SillyParser::LT, 0);
+tree::TerminalNode* NyarParser::RelOpContext::LT() {
+  return getToken(NyarParser::LT, 0);
 }
 
-tree::TerminalNode* SillyParser::RelOpContext::GT() {
-  return getToken(SillyParser::GT, 0);
+tree::TerminalNode* NyarParser::RelOpContext::GT() {
+  return getToken(NyarParser::GT, 0);
 }
 
-tree::TerminalNode* SillyParser::RelOpContext::LE() {
-  return getToken(SillyParser::LE, 0);
+tree::TerminalNode* NyarParser::RelOpContext::LE() {
+  return getToken(NyarParser::LE, 0);
 }
 
-tree::TerminalNode* SillyParser::RelOpContext::GE() {
-  return getToken(SillyParser::GE, 0);
+tree::TerminalNode* NyarParser::RelOpContext::GE() {
+  return getToken(NyarParser::GE, 0);
 }
 
 
-size_t SillyParser::RelOpContext::getRuleIndex() const {
-  return SillyParser::RuleRelOp;
+size_t NyarParser::RelOpContext::getRuleIndex() const {
+  return NyarParser::RuleRelOp;
 }
 
-void SillyParser::RelOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::RelOpContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterRelOp(this);
 }
 
-void SillyParser::RelOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::RelOpContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitRelOp(this);
 }
 
 
-antlrcpp::Any SillyParser::RelOpContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::RelOpContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitRelOp(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::RelOpContext* SillyParser::relOp() {
+NyarParser::RelOpContext* NyarParser::relOp() {
   RelOpContext *_localctx = _tracker.createInstance<RelOpContext>(_ctx, getState());
-  enterRule(_localctx, 22, SillyParser::RuleRelOp);
+  enterRule(_localctx, 22, NyarParser::RuleRelOp);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -1405,12 +1405,12 @@ SillyParser::RelOpContext* SillyParser::relOp() {
     setState(174);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << SillyParser::LT)
-      | (1ULL << SillyParser::LE)
-      | (1ULL << SillyParser::GT)
-      | (1ULL << SillyParser::GE)
-      | (1ULL << SillyParser::EQ)
-      | (1ULL << SillyParser::NE))) != 0))) {
+      ((1ULL << _la) & ((1ULL << NyarParser::LT)
+      | (1ULL << NyarParser::LE)
+      | (1ULL << NyarParser::GT)
+      | (1ULL << NyarParser::GE)
+      | (1ULL << NyarParser::EQ)
+      | (1ULL << NyarParser::NE))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -1430,80 +1430,80 @@ SillyParser::RelOpContext* SillyParser::relOp() {
 
 //----------------- ExprContext ------------------------------------------------------------------
 
-SillyParser::ExprContext::ExprContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::ExprContext::ExprContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-SillyParser::UnaryOpContext* SillyParser::ExprContext::unaryOp() {
-  return getRuleContext<SillyParser::UnaryOpContext>(0);
+NyarParser::UnaryOpContext* NyarParser::ExprContext::unaryOp() {
+  return getRuleContext<NyarParser::UnaryOpContext>(0);
 }
 
-std::vector<SillyParser::ExprContext *> SillyParser::ExprContext::expr() {
-  return getRuleContexts<SillyParser::ExprContext>();
+std::vector<NyarParser::ExprContext *> NyarParser::ExprContext::expr() {
+  return getRuleContexts<NyarParser::ExprContext>();
 }
 
-SillyParser::ExprContext* SillyParser::ExprContext::expr(size_t i) {
-  return getRuleContext<SillyParser::ExprContext>(i);
+NyarParser::ExprContext* NyarParser::ExprContext::expr(size_t i) {
+  return getRuleContext<NyarParser::ExprContext>(i);
 }
 
-tree::TerminalNode* SillyParser::ExprContext::LPAREN() {
-  return getToken(SillyParser::LPAREN, 0);
+tree::TerminalNode* NyarParser::ExprContext::LPAREN() {
+  return getToken(NyarParser::LPAREN, 0);
 }
 
-tree::TerminalNode* SillyParser::ExprContext::RPAREN() {
-  return getToken(SillyParser::RPAREN, 0);
+tree::TerminalNode* NyarParser::ExprContext::RPAREN() {
+  return getToken(NyarParser::RPAREN, 0);
 }
 
-SillyParser::LValContext* SillyParser::ExprContext::lVal() {
-  return getRuleContext<SillyParser::LValContext>(0);
+NyarParser::LValContext* NyarParser::ExprContext::lVal() {
+  return getRuleContext<NyarParser::LValContext>(0);
 }
 
-tree::TerminalNode* SillyParser::ExprContext::NUMBER() {
-  return getToken(SillyParser::NUMBER, 0);
+tree::TerminalNode* NyarParser::ExprContext::NUMBER() {
+  return getToken(NyarParser::NUMBER, 0);
 }
 
-SillyParser::BinOpContext* SillyParser::ExprContext::binOp() {
-  return getRuleContext<SillyParser::BinOpContext>(0);
+NyarParser::BinOpContext* NyarParser::ExprContext::binOp() {
+  return getRuleContext<NyarParser::BinOpContext>(0);
 }
 
 
-size_t SillyParser::ExprContext::getRuleIndex() const {
-  return SillyParser::RuleExpr;
+size_t NyarParser::ExprContext::getRuleIndex() const {
+  return NyarParser::RuleExpr;
 }
 
-void SillyParser::ExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::ExprContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterExpr(this);
 }
 
-void SillyParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpr(this);
 }
 
 
-antlrcpp::Any SillyParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitExpr(this);
   else
     return visitor->visitChildren(this);
 }
 
 
-SillyParser::ExprContext* SillyParser::expr() {
+NyarParser::ExprContext* NyarParser::expr() {
    return expr(0);
 }
 
-SillyParser::ExprContext* SillyParser::expr(int precedence) {
+NyarParser::ExprContext* NyarParser::expr(int precedence) {
   ParserRuleContext *parentContext = _ctx;
   size_t parentState = getState();
-  SillyParser::ExprContext *_localctx = _tracker.createInstance<ExprContext>(_ctx, parentState);
-  SillyParser::ExprContext *previousContext = _localctx;
+  NyarParser::ExprContext *_localctx = _tracker.createInstance<ExprContext>(_ctx, parentState);
+  NyarParser::ExprContext *previousContext = _localctx;
   (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 24;
-  enterRecursionRule(_localctx, 24, SillyParser::RuleExpr, precedence);
+  enterRecursionRule(_localctx, 24, NyarParser::RuleExpr, precedence);
 
     
 
@@ -1520,8 +1520,8 @@ SillyParser::ExprContext* SillyParser::expr(int precedence) {
     setState(186);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SillyParser::ADD:
-      case SillyParser::SUB: {
+      case NyarParser::ADD:
+      case NyarParser::SUB: {
         setState(177);
         unaryOp();
         setState(178);
@@ -1529,25 +1529,25 @@ SillyParser::ExprContext* SillyParser::expr(int precedence) {
         break;
       }
 
-      case SillyParser::LPAREN: {
+      case NyarParser::LPAREN: {
         setState(180);
-        match(SillyParser::LPAREN);
+        match(NyarParser::LPAREN);
         setState(181);
         expr(0);
         setState(182);
-        match(SillyParser::RPAREN);
+        match(NyarParser::RPAREN);
         break;
       }
 
-      case SillyParser::IDENTIFIER: {
+      case NyarParser::IDENTIFIER: {
         setState(184);
         lVal();
         break;
       }
 
-      case SillyParser::NUMBER: {
+      case NyarParser::NUMBER: {
         setState(185);
-        match(SillyParser::NUMBER);
+        match(NyarParser::NUMBER);
         break;
       }
 
@@ -1588,58 +1588,58 @@ SillyParser::ExprContext* SillyParser::expr(int precedence) {
 
 //----------------- BinOpContext ------------------------------------------------------------------
 
-SillyParser::BinOpContext::BinOpContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::BinOpContext::BinOpContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::BinOpContext::ADD() {
-  return getToken(SillyParser::ADD, 0);
+tree::TerminalNode* NyarParser::BinOpContext::ADD() {
+  return getToken(NyarParser::ADD, 0);
 }
 
-tree::TerminalNode* SillyParser::BinOpContext::SUB() {
-  return getToken(SillyParser::SUB, 0);
+tree::TerminalNode* NyarParser::BinOpContext::SUB() {
+  return getToken(NyarParser::SUB, 0);
 }
 
-tree::TerminalNode* SillyParser::BinOpContext::MUL() {
-  return getToken(SillyParser::MUL, 0);
+tree::TerminalNode* NyarParser::BinOpContext::MUL() {
+  return getToken(NyarParser::MUL, 0);
 }
 
-tree::TerminalNode* SillyParser::BinOpContext::DIV() {
-  return getToken(SillyParser::DIV, 0);
+tree::TerminalNode* NyarParser::BinOpContext::DIV() {
+  return getToken(NyarParser::DIV, 0);
 }
 
-tree::TerminalNode* SillyParser::BinOpContext::MOD() {
-  return getToken(SillyParser::MOD, 0);
+tree::TerminalNode* NyarParser::BinOpContext::MOD() {
+  return getToken(NyarParser::MOD, 0);
 }
 
 
-size_t SillyParser::BinOpContext::getRuleIndex() const {
-  return SillyParser::RuleBinOp;
+size_t NyarParser::BinOpContext::getRuleIndex() const {
+  return NyarParser::RuleBinOp;
 }
 
-void SillyParser::BinOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::BinOpContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinOp(this);
 }
 
-void SillyParser::BinOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::BinOpContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinOp(this);
 }
 
 
-antlrcpp::Any SillyParser::BinOpContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::BinOpContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitBinOp(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::BinOpContext* SillyParser::binOp() {
+NyarParser::BinOpContext* NyarParser::binOp() {
   BinOpContext *_localctx = _tracker.createInstance<BinOpContext>(_ctx, getState());
-  enterRule(_localctx, 26, SillyParser::RuleBinOp);
+  enterRule(_localctx, 26, NyarParser::RuleBinOp);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -1654,11 +1654,11 @@ SillyParser::BinOpContext* SillyParser::binOp() {
     setState(197);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << SillyParser::ADD)
-      | (1ULL << SillyParser::SUB)
-      | (1ULL << SillyParser::MUL)
-      | (1ULL << SillyParser::DIV)
-      | (1ULL << SillyParser::MOD))) != 0))) {
+      ((1ULL << _la) & ((1ULL << NyarParser::ADD)
+      | (1ULL << NyarParser::SUB)
+      | (1ULL << NyarParser::MUL)
+      | (1ULL << NyarParser::DIV)
+      | (1ULL << NyarParser::MOD))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -1678,46 +1678,46 @@ SillyParser::BinOpContext* SillyParser::binOp() {
 
 //----------------- UnaryOpContext ------------------------------------------------------------------
 
-SillyParser::UnaryOpContext::UnaryOpContext(ParserRuleContext *parent, size_t invokingState)
+NyarParser::UnaryOpContext::UnaryOpContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* SillyParser::UnaryOpContext::ADD() {
-  return getToken(SillyParser::ADD, 0);
+tree::TerminalNode* NyarParser::UnaryOpContext::ADD() {
+  return getToken(NyarParser::ADD, 0);
 }
 
-tree::TerminalNode* SillyParser::UnaryOpContext::SUB() {
-  return getToken(SillyParser::SUB, 0);
+tree::TerminalNode* NyarParser::UnaryOpContext::SUB() {
+  return getToken(NyarParser::SUB, 0);
 }
 
 
-size_t SillyParser::UnaryOpContext::getRuleIndex() const {
-  return SillyParser::RuleUnaryOp;
+size_t NyarParser::UnaryOpContext::getRuleIndex() const {
+  return NyarParser::RuleUnaryOp;
 }
 
-void SillyParser::UnaryOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::UnaryOpContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryOp(this);
 }
 
-void SillyParser::UnaryOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SillyListener *>(listener);
+void NyarParser::UnaryOpContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<NyarListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryOp(this);
 }
 
 
-antlrcpp::Any SillyParser::UnaryOpContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SillyVisitor*>(visitor))
+antlrcpp::Any NyarParser::UnaryOpContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<NyarVisitor*>(visitor))
     return parserVisitor->visitUnaryOp(this);
   else
     return visitor->visitChildren(this);
 }
 
-SillyParser::UnaryOpContext* SillyParser::unaryOp() {
+NyarParser::UnaryOpContext* NyarParser::unaryOp() {
   UnaryOpContext *_localctx = _tracker.createInstance<UnaryOpContext>(_ctx, getState());
-  enterRule(_localctx, 28, SillyParser::RuleUnaryOp);
+  enterRule(_localctx, 28, NyarParser::RuleUnaryOp);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -1731,9 +1731,9 @@ SillyParser::UnaryOpContext* SillyParser::unaryOp() {
     enterOuterAlt(_localctx, 1);
     setState(199);
     _la = _input->LA(1);
-    if (!(_la == SillyParser::ADD
+    if (!(_la == NyarParser::ADD
 
-    || _la == SillyParser::SUB)) {
+    || _la == NyarParser::SUB)) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -1751,7 +1751,7 @@ SillyParser::UnaryOpContext* SillyParser::unaryOp() {
   return _localctx;
 }
 
-bool SillyParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
+bool NyarParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
     case 12: return exprSempred(dynamic_cast<ExprContext *>(context), predicateIndex);
 
@@ -1761,7 +1761,7 @@ bool SillyParser::sempred(RuleContext *context, size_t ruleIndex, size_t predica
   return true;
 }
 
-bool SillyParser::exprSempred(ExprContext *_localctx, size_t predicateIndex) {
+bool NyarParser::exprSempred(ExprContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
     case 0: return precpred(_ctx, 5);
 
@@ -1772,26 +1772,26 @@ bool SillyParser::exprSempred(ExprContext *_localctx, size_t predicateIndex) {
 }
 
 // Static vars and initialization.
-std::vector<dfa::DFA> SillyParser::_decisionToDFA;
-atn::PredictionContextCache SillyParser::_sharedContextCache;
+std::vector<dfa::DFA> NyarParser::_decisionToDFA;
+atn::PredictionContextCache NyarParser::_sharedContextCache;
 
 // We own the ATN which in turn owns the ATN states.
-atn::ATN SillyParser::_atn;
-std::vector<uint16_t> SillyParser::_serializedATN;
+atn::ATN NyarParser::_atn;
+std::vector<uint16_t> NyarParser::_serializedATN;
 
-std::vector<std::string> SillyParser::_ruleNames = {
+std::vector<std::string> NyarParser::_ruleNames = {
   "compUnit", "decl", "constDecl", "constDef", "varDecl", "varDef", "funcDef", 
   "block", "stmt", "lVal", "cond", "relOp", "expr", "binOp", "unaryOp"
 };
 
-std::vector<std::string> SillyParser::_literalNames = {
+std::vector<std::string> NyarParser::_literalNames = {
   "", "'int'", "'void'", "'return'", "'const'", "'if'", "'else'", "'while'", 
   "'for'", "'break'", "'continue'", "'+'", "'-'", "'*'", "'/'", "'%'", "'('", 
   "')'", "'['", "']'", "'{'", "'}'", "'='", "'!'", "'<'", "'<='", "'>'", 
   "'>='", "'=='", "'!='", "'&&'", "'||'", "','", "';'"
 };
 
-std::vector<std::string> SillyParser::_symbolicNames = {
+std::vector<std::string> NyarParser::_symbolicNames = {
   "", "INT", "VOID", "RETURN", "CONST", "IF", "ELSE", "WHILE", "FOR", "BREAK", 
   "CONTINUE", "ADD", "SUB", "MUL", "DIV", "MOD", "LPAREN", "RPAREN", "LBRACK", 
   "RBRACK", "LBRACE", "RBRACE", "ASSIGN", "NOT", "LT", "LE", "GT", "GE", 
@@ -1799,11 +1799,11 @@ std::vector<std::string> SillyParser::_symbolicNames = {
   "STRING", "WHITESPACE", "INLINE_COMMENT", "BLOCK_COMMENT"
 };
 
-dfa::Vocabulary SillyParser::_vocabulary(_literalNames, _symbolicNames);
+dfa::Vocabulary NyarParser::_vocabulary(_literalNames, _symbolicNames);
 
-std::vector<std::string> SillyParser::_tokenNames;
+std::vector<std::string> NyarParser::_tokenNames;
 
-SillyParser::Initializer::Initializer() {
+NyarParser::Initializer::Initializer() {
 	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
 		std::string name = _vocabulary.getLiteralName(i);
 		if (name.empty()) {
@@ -1964,4 +1964,4 @@ SillyParser::Initializer::Initializer() {
   }
 }
 
-SillyParser::Initializer SillyParser::_init;
+NyarParser::Initializer NyarParser::_init;

@@ -1,5 +1,5 @@
 
-// Generated from Silly.g4 by ANTLR 4.9
+// Generated from Nyar.g4 by ANTLR 4.9
 
 #pragma once
 
@@ -9,7 +9,7 @@
 
 
 
-class  SillyParser : public antlr4::Parser {
+class  NyarParser : public antlr4::Parser {
 public:
   enum {
     INT = 1, VOID = 2, RETURN = 3, CONST = 4, IF = 5, ELSE = 6, WHILE = 7, 
@@ -28,8 +28,8 @@ public:
     RuleUnaryOp = 14
   };
 
-  explicit SillyParser(antlr4::TokenStream *input);
-  ~SillyParser();
+  explicit NyarParser(antlr4::TokenStream *input);
+  ~NyarParser();
 
   virtual std::string getGrammarFileName() const override;
   virtual const antlr4::atn::ATN& getATN() const override { return _atn; };
