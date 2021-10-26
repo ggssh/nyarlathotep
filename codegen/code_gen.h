@@ -24,6 +24,7 @@
 #include "error_reporter.h"
 
 using namespace llvm;
+using namespace nyar::ast;
 
 /**
  * 中间代码生成
@@ -69,8 +70,8 @@ private:
     // 函数表 key:函数名 value:函数对象指针
     std::unordered_map<std::string, llvm::Function *> functions;
 
-    llvm::Value *value_result;// 保存其他表达式的结果
-    int const_result;// 保存常量表达式的结果
+    llvm::Value *value_result;// 保存其他表达式(如二元表达式)的结果
+    int const_result;// 保存常量/数值表达式的结果
     llvm::Function *current_funciton;// 保存当前正在生成的函数
 
     int bb_count;// 统计BaseBlock的数量
@@ -102,42 +103,42 @@ public:
         return std::move(module);
     }
 
-//    /**
-//     * 获得当前codegen的运行时信息
-//     * @return
-//     */
-//    std::unique_ptr<RuntimeInfo> get_runtime_info() {
-//        return std::move(runtime);
-//    }
+    /**
+     * 获得当前codegen的运行时信息
+     * @return
+     */
+     /*
+    std::unique_ptr<RuntimeInfo> get_runtime_info() {
+        return std::move(runtime);
+    }
+    void build(std::string name, std::shared_ptr<nyar::ast::Node> tree) {
+        // 初始化runtime
+        module = std::make_unique<llvm::Module>(name, context);
+        runtime = std::make_unique<RuntimeInfo>(module.get());
 
-//    void build(std::string name, std::shared_ptr<nyar::ast::Node> tree) {
-//        // 初始化runtime
-//        module = std::make_unique<llvm::Module>(name, context);
-//        runtime = std::make_unique<RuntimeInfo>(module.get());
-//
-//        enter_scope();
-//        for (const auto &item: runtime->get_language_symbols()) {
-//            llvm::GlobalValue *val;
-//            std::string name;
-//            bool is_function;
-//            bool is_const;
-//            bool is_array;
-//            std::tie(name, val, is_function, is_const, is_array) = item;
-//            if (is_function)
-//                functions[name] = static_cast<llvm::Function *>(val);
-//            else
-//                declare_variable(name, val, is_const, is_array);
-//        }
-//        lval_as_rval = true;
-//        in_global = true;
-//        constexpr_expected = false;
-//
-//        // 递归调用codegen
-//        tree->accept(*this);
-//        // 清除IRBuilder插入点并将其移除build module
-//        builder.ClearInsertionPoint();
-//        exit_scope();
-//    }
+        enter_scope();
+        for (const auto &item: runtime->get_language_symbols()) {
+            llvm::GlobalValue *val;
+            std::string name;
+            bool is_function;
+            bool is_const;
+            bool is_array;
+            std::tie(name, val, is_function, is_const, is_array) = item;
+            if (is_function)
+                functions[name] = static_cast<llvm::Function *>(val);
+            else
+                declare_variable(name, val, is_const, is_array);
+        }
+        lval_as_rval = true;
+        in_global = true;
+        constexpr_expected = false;
+
+        // 递归调用codegen
+        tree->accept(*this);
+        // 清除IRBuilder插入点并将其移除build module
+        builder.ClearInsertionPoint();
+        exit_scope();
+    }*/
 
     void build(const std::string &name, const std::shared_ptr<nyar::ast::Node> &tree) {
         module = std::make_unique<llvm::Module>(name, context);
