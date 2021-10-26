@@ -8,7 +8,10 @@
 #include "BaseErrorListener.h"
 #include "error_reporter.h"
 
-namespace silly {
+namespace nyar {
+    /**
+     * 用来监听antlr分析过程中出现的语法错误,目前可以不考虑
+     */
     class ErrorListener : public antlr4::BaseErrorListener {
     public:
         ErrorListener(ErrorReporter &e);

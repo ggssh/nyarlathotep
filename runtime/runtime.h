@@ -12,6 +12,9 @@
 #include <llvm/IR/Module.h>
 #include <llvm/IR/Function.h>
 
+/**
+ * 测试用运行时环境
+ */
 class RuntimeInfo {
     llvm::GlobalVariable *input_var;
     llvm::GlobalVariable *output_var;

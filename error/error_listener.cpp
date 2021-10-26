@@ -4,7 +4,7 @@
 
 #include "error_listener.h"
 
-using namespace silly;
+using namespace nyar;
 
 ErrorListener::ErrorListener(ErrorReporter &e) :
         err(e), count(0) {

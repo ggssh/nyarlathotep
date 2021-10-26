@@ -6,6 +6,7 @@ project(nyarlathotep)
 set(CMAKE_CXX_STANDARD 17)
 #set(ANTLR4_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr-4.9-complete.jar)
 
+# 查找LLVM包
 find_package(LLVM 12 REQUIRED CONFIG)
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
@@ -29,9 +30,6 @@ message(STATUS "third_party : ${ANTLR_RUNTIME}")
 
 #file(GLOB_RECURSE DIR_LIB_SRC "third_party/*.cpp" "dist/*.cpp" "ast/*.cpp" "codegen/*.cpp" "runtime/*.c" "runtime/*.cpp"
 #        "error/*.cpp")
-#message(STATUS "other files已找到")
-
-#aux_source_directory(dist/src GRAMMAR)
 
 set(TARGET_FILE nyarlathotep)
 
@@ -39,9 +37,8 @@ set(TARGET_FILE nyarlathotep)
 include_directories(dist/)
 include_directories(third_party/antlr4-runtime)
 include_directories(ast/ codegen/ runtime/ error/)
+
 # 指定生成目标
-#add_executable(${TARGET_FILE}
-#        ${ROOT} ${DIR_LIB_SRC})
 add_executable(
         ${TARGET_FILE}
         ${ROOT}
@@ -53,5 +50,6 @@ add_executable(
         ${RUNTIME}
 )
 
+# 指令链接库
 target_link_libraries(${TARGET_FILE}
         LLVM)

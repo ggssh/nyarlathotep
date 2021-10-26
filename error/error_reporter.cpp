@@ -4,7 +4,7 @@
 
 #include "error_reporter.h"
 
-using namespace silly;
+using namespace nyar;
 
 ErrorReporter::ErrorReporter(std::ostream &error_stream) :
         err(error_stream) {

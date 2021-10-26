@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-namespace silly {
+namespace nyar {
 
     class ErrorReporter {
     public:

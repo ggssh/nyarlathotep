@@ -1,13 +1,11 @@
 #include <iostream>
-#include <any>
+//#include <any>
 
 #include "antlr4-runtime.h"
-#include "NyarBaseVisitor.h"
 #include "NyarLexer.h"
 #include "NyarParser.h"
 // #include <string>
 
-//#include "ast_visitor.h"
 #include "ast_builder.h"
 #include "code_gen.h"
 #include "error_reporter.h"
@@ -25,7 +23,14 @@ int main(int argc, const char *argv[]) {
     CommonTokenStream tokens(&lexer);
     NyarParser parser(&tokens);
     auto *tree = parser.compUnit();
+    // 生成抽象语法树
     ASTBuilder astBuilder;
     auto ast = astBuilder(tree);
+    LLVMContext context;
+    nyar::ErrorReporter err(std::cerr);
+    CodeGenerator codegen(context, err);
+    codegen.build("nyar", ast);
+    auto module = codegen.get_module();
+    module->print(outs(), nullptr);
     return 0;
 }

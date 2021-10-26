@@ -15,6 +15,7 @@ void CodeGenerator::visit(nyar::ast::CompUnit *node) {
     for (const auto &ptr_def: node->global_defs) {
         ptr_def->accept(*this);
     }
+    printf("codegen success!\n");
 }
 
 void CodeGenerator::visit(nyar::ast::FuncDef *node) {
