@@ -1,5 +1,5 @@
 # nyarlathotep
-
+![build status](https://github.com/ggssh/nyarlathotep/actions/workflows/cmake.yml/badge.svg)
 ## Environment
 * ubuntu 20.04LTS
 * antlr4-runtime-4.9
