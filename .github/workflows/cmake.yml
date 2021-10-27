@@ -34,5 +34,5 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Run test
-      run : ${{github.workspace}}/build/nyarlathotep ../test_cases/simple.nyar
+      run : ${{github.workspace}}/build/nyarlathotep ${{github.workspace}}/test_cases/simple.nyar
       
