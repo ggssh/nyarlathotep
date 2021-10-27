@@ -75,7 +75,7 @@ private:
     llvm::Function *current_funciton;// 保存当前正在生成的函数
 
     int bb_count;// 统计BaseBlock的数量
-    bool lval_as_rval;// 当前上下文要以何种方式引用正要处理的左值
+    bool lval_as_rval;// 当前上下文要以何种方式引用正要处理的左值,当值为true时说明其将要作为某个赋值语句的右值
     bool in_global;// 当前是否处于全局作用域
     bool constexpr_expected;
 
@@ -143,7 +143,7 @@ public:
     void build(const std::string &name, const std::shared_ptr<nyar::ast::Node> &tree) {
         module = std::make_unique<llvm::Module>(name, context);
 
-        enter_scope();
+//        enter_scope();
         lval_as_rval = true;
         in_global = true;
         constexpr_expected = false;
@@ -153,7 +153,7 @@ public:
         tree->accept(*this);
         // 清除IRBuilder插入点并将其移出build module
         builder.ClearInsertionPoint();
-        exit_scope();
+//        exit_scope();
     }
 
 private:

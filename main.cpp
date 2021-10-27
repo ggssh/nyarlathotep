@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 //#include <any>
 
 #include "antlr4-runtime.h"
@@ -32,5 +33,7 @@ int main(int argc, const char *argv[]) {
     codegen.build("nyar", ast);
     auto module = codegen.get_module();
     module->print(outs(), nullptr);
+//    std::ofstream out("hhh.txt");
+//    out<<"nihao"<<std::endl;
     return 0;
 }

@@ -229,6 +229,7 @@ antlrcpp::Any ASTBuilder::visitBlock(NyarParser::BlockContext *ctx) {
 
 antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
     // stmt : lval ASSIGN expr SEMICOLON
+    // 赋值语句
     if (ctx->lVal()) {
         auto result = new AssignStmt;
         result->line = ctx->getStart()->getLine();
@@ -238,12 +239,14 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         return static_cast<Stmt *>(result);
     }
         // stmt : block
+        // 块
     else if (ctx->block()) {
         auto result = new Block;
         result = antlr4::tree::AbstractParseTreeVisitor::visit(ctx->block());
         return static_cast<Stmt *>(result);
     }
         // stmt : IDENTIFIER LPAREN RPAREN SEMICOLON
+        // 函数调用
     else if (ctx->IDENTIFIER()) {
         auto result = new FuncCallStmt;
         result->line = ctx->getStart()->getLine();
@@ -252,6 +255,7 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         return static_cast<Stmt *>(result);
     }
         // stmt : IF LPAREN cond RPAREN stmt (ELSE stmt)?
+        // if语句
     else if (ctx->IF()) {
         auto result = new IfStmt;
         result->line = ctx->getStart()->getLine();
@@ -266,6 +270,7 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         return static_cast<Stmt *>(result);
     }
         // stmt : WHILE LPAREN cond RPAREN stmt
+        // while语句
     else if (ctx->WHILE()) {
         auto result = new WhileStmt;
         result->line = ctx->getStart()->getLine();
@@ -275,6 +280,7 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         return static_cast<Stmt *>(result);
     }
         // stmt : SEMICOLON
+        // 空语句
     else {
         auto result = new EmptyStmt;
         result->line = ctx->getStart()->getLine();

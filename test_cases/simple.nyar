@@ -1,5 +1,13 @@
 int i = 0;
+void hello(){
+
+}
 void main()
 {
     i = 1;
+    hello();
+    while(a<1){
+        hello();
+    }
 }
+

@@ -80,7 +80,7 @@ namespace nyar::ast {
         virtual void accept(AstVisitor &visitor) override = 0;
     };
 
-// Function definition
+// 函数定义
     struct FuncDef : GlobalDef {
         std::string name;
         ptr<Block> body;
@@ -163,7 +163,7 @@ namespace nyar::ast {
         virtual void accept(AstVisitor &visitor) override final;
     };
 
-// Function call statement
+// 函数调用
     struct FuncCallStmt : Stmt {
         std::string name;
 

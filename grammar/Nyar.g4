@@ -20,12 +20,12 @@ funcDef: VOID IDENTIFIER LPAREN RPAREN block;
 block: LBRACE (decl | stmt)* RBRACE;
 //blockItem: decl | stmt;
 stmt:
-	lVal ASSIGN expr SEMICOLON
-	| IDENTIFIER LPAREN RPAREN SEMICOLON
-	| block
-	| IF LPAREN cond RPAREN stmt (ELSE stmt)?
-	| WHILE LPAREN cond RPAREN stmt
-	| SEMICOLON;
+	lVal ASSIGN expr SEMICOLON // 赋值语句
+	| IDENTIFIER LPAREN RPAREN SEMICOLON // 函数调用
+	| block // 块
+	| IF LPAREN cond RPAREN stmt (ELSE stmt)? // if 语句
+	| WHILE LPAREN cond RPAREN stmt // while语句
+	| SEMICOLON; // 空
 lVal: IDENTIFIER | IDENTIFIER LBRACK expr RBRACK; // left value
 cond: expr relOp expr;
 relOp: EQ | NE | LT | GT | LE | GE;

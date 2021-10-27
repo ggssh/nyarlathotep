@@ -11,7 +11,7 @@ using namespace llvm;
 void CodeGenerator::visit(CompUnit *node) {
     in_global = true;
     //随机初始化避免段错误
-    value_result = ConstantInt::get(Type::getInt32Ty(context), 666);
+    value_result = ConstantInt::get(Type::getInt32Ty(context), 0);
     bb_count = 1;
     for (const auto &ptr_def: node->global_defs) {
         ptr_def->accept(*this);
@@ -20,18 +20,31 @@ void CodeGenerator::visit(CompUnit *node) {
 }
 
 void CodeGenerator::visit(FuncDef *node) {
-    //    FunctionType *FT = FunctionType::get(Type::getVoidTy(*TheContext), false);
-    // 使用module.get()来获取module的指针,否则会引起unique_ptr的deconstruction
-    //    Function *F = Function::Create(FT,Function::ExternalLinkage,node->name,TheMoudule.get());
-    //    Function *F = Function::Create()
     in_global = false;
     if (functions.find(node->name) == functions.end()) {
         // todo 错误处理
     }
-//    Function *f = Function::Create(FunctionType::get(Type::getVoidTy(context),std::ve))
+    FunctionType *FT = FunctionType::get(Type::getVoidTy(context), {}, false);
+    current_funciton = Function::Create(FT, GlobalValue::ExternalLinkage, node->name, module.get());
+    functions[node->name] = current_funciton;
+    auto func_entry = BasicBlock::Create(context, "func_entry_" + node->name, current_funciton);
+    builder.SetInsertPoint(func_entry);
+    node->body->accept(*this);
+    // return
+    builder.CreateRetVoid();
+    builder.ClearInsertionPoint();
+    in_global = true;
 }
 
 void CodeGenerator::visit(FuncCallStmt *node) {
+    if (functions.find(node->name) == functions.end()) {
+//        std::string error_info = "function " + node->name + "() is not declared";
+//        err.error(node->line, node->pos, error_info);
+//        error_flag = true;
+//        return;
+    }
+    auto func = functions[node->name];
+    builder.CreateCall(func);
 }
 
 void CodeGenerator::visit(LValExpr *node) {
@@ -122,7 +135,7 @@ void CodeGenerator::visit(WhileStmt *node) {
     // true_block
     builder.SetInsertPoint(true_block);
     node->body->accept(*this);
-    builder.CreateBr(true_block);
+    builder.CreateBr(pred_block);
     // next_block
     builder.SetInsertPoint(next_block);
 }
