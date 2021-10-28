@@ -48,8 +48,43 @@ void CodeGenerator::visit(FuncCallStmt *node) {
 }
 
 void CodeGenerator::visit(LValExpr *node) {
-//    auto val = lookup_variable(node->name);
-//
+//    todo : 函数内定义临时变量在二元操作出现类型不匹配的
+    auto var_tuple = lookup_variable(node->name);
+    auto lval = std::get<0>(var_tuple);
+    bool is_const = std::get<1>(var_tuple);
+    bool is_array = std::get<2>(var_tuple);
+
+    if (!is_array) {
+        if (node->array_index) {// 类型不符
+            return;
+        }
+        if (lval_as_rval) {// 作为右值
+            value_result = builder.CreateLoad(Type::getInt32Ty(context), lval);
+        } else {// 作为左值
+            if (is_const) {// const类型不能作为左值
+                return;
+            }
+            value_result = lval;// 取出其地址存入
+        }
+    } else {//是数组
+        if (!node->array_index) {// 类型不符
+            return;
+        }
+        // 保存现场
+        bool temp_lval_as_rval = lval_as_rval;
+        lval_as_rval = true;
+        node->array_index->accept(*this);
+        lval_as_rval = temp_lval_as_rval;
+        std::vector<Value *> index;
+        index.push_back((Value *) ConstantInt::get(Type::getInt32Ty(context), 0));
+        index.push_back(value_result);
+        auto element = builder.CreateGEP(lval, index);
+        if (lval_as_rval) {
+            value_result = builder.CreateLoad(Type::getInt32Ty(context), element);
+        } else {
+            value_result = element;
+        }
+    }
 }
 
 void CodeGenerator::visit(Block *node) {

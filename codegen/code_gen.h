@@ -195,6 +195,7 @@ private:
      * @return
      */
     bool declare_variable(const std::string& name, llvm::Value *var_ptr, bool is_const, bool is_array) {
+        // 如果已经声明了则返回false
         if (variables.front().count(name))
             return false;
         variables.front()[name] = std::make_tuple(var_ptr, is_const, is_array);
