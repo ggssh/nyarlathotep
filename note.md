@@ -1,13 +1,13 @@
-.PHONY: build
-
+~~~ bash
+配置java和antlr
 export CLASSPATH=".:/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
-
-build:
-antlr4 -Dlanguage=Cpp src/MyGrammar.g4 -visitor -o dist/
-
-clean:
-rm -rf build
-
+~~~
+~~~ bash
+在grammar目录下使用如下命令
+antlr4 -Dlanguage=Cpp Grammar.g4 -visitor -o ../dist
+~~~
+~~~ python
 python3 ./asdl_cpp.py -h AST.h -c AST.cpp AST.asdl
+~~~

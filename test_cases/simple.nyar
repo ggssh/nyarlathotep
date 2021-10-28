@@ -1,7 +1,8 @@
 int i = 0;
 int a =2;
 void hello(){
-
+    int b = 3;
+    b = b + 1;
 }
 void main()
 {
