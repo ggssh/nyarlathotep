@@ -143,7 +143,7 @@ public:
     void build(const std::string &name, const std::shared_ptr<nyar::ast::Node> &tree) {
         module = std::make_unique<llvm::Module>(name, context);
 
-//        enter_scope();
+        enter_scope();
         lval_as_rval = true;
         in_global = true;
         constexpr_expected = false;
@@ -153,7 +153,7 @@ public:
         tree->accept(*this);
         // 清除IRBuilder插入点并将其移出build module
         builder.ClearInsertionPoint();
-//        exit_scope();
+        exit_scope();
     }
 
 private:
@@ -177,7 +177,7 @@ private:
      * @param name
      * @return
      */
-    std::tuple<llvm::Value *, bool, bool> loopup_variable(const std::string& name) {
+    std::tuple<llvm::Value *, bool, bool> lookup_variable(const std::string& name) {
         for (auto item: variables) {
             if (item.count(name)) {
                 return item[name];

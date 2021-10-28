@@ -157,8 +157,8 @@ namespace nyar::ast {
 
 // Assignment statement
     struct AssignStmt : Stmt {
-        ptr<LValExpr> target;
-        ptr<Expr> value;
+        ptr<LValExpr> target;//左值
+        ptr<Expr> value;//右值
 
         virtual void accept(AstVisitor &visitor) override final;
     };
