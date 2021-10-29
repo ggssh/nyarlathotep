@@ -15,15 +15,16 @@ antlrcpp::Any ASTBuilder::visitCompUnit(NyarParser::CompUnitContext *ctx) {
     int decls_i = 0, funcdefs_i = 0;
     for (auto child: ctx->children) {
         if (antlrcpp::is<NyarParser::DeclContext *>(child)) {
-            auto decllist =
+            auto decl_list =
                     antlr4::tree::AbstractParseTreeVisitor::visit(decls[decls_i++]).as<ptr_list<VarDefStmt >>();
-            for (int i = 0; i < decllist.size(); ++i) {
-                result->global_defs.push_back(decllist[i]);
+            for (int i = 0; i < decl_list.size(); ++i) {
+                result->body.push_back(decl_list[i]);
             }
         } else if (antlrcpp::is<NyarParser::FuncDefContext *>(child)) {
-            ptr<GlobalDef> tmp;
-            tmp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(funcdefs[funcdefs_i++]).as<GlobalDef *>());
-            result->global_defs.push_back(tmp);
+            ptr<FuncDef> funcdef;
+            funcdef.reset(antlr4::tree::AbstractParseTreeVisitor::visit(funcdefs[funcdefs_i++]).as<FuncDef *>());
+//            result->global_defs.push_back(tmp);
+            result->body.push_back(funcdef);
         }
     }
 //    printf("AST has been successfully established!\n");
@@ -58,39 +59,39 @@ antlrcpp::Any ASTBuilder::visitConstDef(NyarParser::ConstDefContext *ctx) {
     auto result = new VarDefStmt;
     result->line = ctx->getStart()->getLine();
     result->pos = ctx->getStart()->getCharPositionInLine();
-    result->is_constant = true;
+    result->is_const = true;
     result->name = std::string(ctx->IDENTIFIER()->getSymbol()->getText());
-    result->initializers.clear();
+    result->init_value.clear();
     auto exprs = ctx->expr();
     int comma_count = ctx->COMMA().size();
     // constDef : IDENTIFIER ASSIGN expr
     if (!ctx->LBRACK()) {
-        result->arr_len.reset();
-        result->initializers.resize(1);
-        result->initializers[0].reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
+        result->arr_length.reset();
+        result->init_value.resize(1);
+        result->init_value[0].reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
     } else if (comma_count == exprs.size() - 2) {
-        result->arr_len.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
+        result->arr_length.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
         for (int i = 1; i < exprs.size(); ++i) {
             std::shared_ptr<Expr> temp;
             temp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[i]).as<Expr *>());
-            result->initializers.push_back(temp);
+            result->init_value.push_back(temp);
         }
     } else {
         // such as a[] = {}, just handle it as single variable
         if (comma_count == 0) {
-            result->arr_len.reset();
+            result->arr_length.reset();
         } else {
-            Interger *temp = new Interger;
+            Number *temp = new Number;
             temp->line = ctx->getStart()->getLine();
             temp->pos = ctx->LBRACK()->getSymbol()->getCharPositionInLine() + 1;
             temp->number = comma_count + 1;
-            result->arr_len.reset(temp);
+            result->arr_length.reset(temp);
         }
 
         for (int i = 0; i < exprs.size(); ++i) {
             std::shared_ptr<Expr> temp;
             temp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[i]).as<Expr *>());
-            result->initializers.push_back(temp);
+            result->init_value.push_back(temp);
         }
     }
 //    printf("ConstDef\n");
@@ -120,56 +121,56 @@ antlrcpp::Any ASTBuilder::visitVarDef(NyarParser::VarDefContext *ctx) {
     auto result = new VarDefStmt;
     result->line = ctx->getStart()->getLine();
     result->pos = ctx->getStart()->getCharPositionInLine();
-    result->is_constant = false;
+    result->is_const = false;
     result->name = std::string(ctx->IDENTIFIER()->getSymbol()->getText());
-    result->initializers.clear();
+    result->init_value.clear();
     // get the num of comma to handle the last state
     int comma_count = ctx->COMMA().size();
     auto exprs = ctx->expr();
     // varDef : IDENTIFIER
     if (exprs.size() == 0) {
-        result->arr_len.reset();
-        result->initializers.clear();
+        result->arr_length.reset();
+        result->init_value.clear();
     }
         // varDef : IDENTIFIER ASSIGN expr
     else if (!ctx->LBRACK()) {
-        result->arr_len.reset();
-        result->initializers.resize(1);
-        result->initializers[0].reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
+        result->arr_length.reset();
+        result->init_value.resize(1);
+        result->init_value[0].reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
     }
         // varDef : IDENTIFIER LBRACK expr RBRACE
     else if (!ctx->LBRACE()) {
-        result->arr_len.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
-        result->initializers.clear();
+        result->arr_length.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
+        result->init_value.clear();
     }
         // varDef : IDENTIFIER LBRACK (expr)? RBRACK ASSIGN LBRACE expr (COMMA expr)* RBRACE
         // varDef : IDENTIFIER LBRACK expr RBRACK ASSIGN LBRACE expr (COMMA expr)* RBRACE
     else if (comma_count == exprs.size() - 2) {
-        result->arr_len.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
-        result->initializers.clear();
+        result->arr_length.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[0]).as<Expr *>());
+        result->init_value.clear();
         for (int i = 1; i < exprs.size(); i++) {
             std::shared_ptr<Expr> temp;
             temp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[i]).as<Expr *>());
-            result->initializers.push_back(temp);
+            result->init_value.push_back(temp);
         }
     }
         // [nothing] need compiler to infer
     else {
         // such as a[] = {}, just handle it as single variable
         if (comma_count == 0) {
-            result->arr_len.reset();
+            result->arr_length.reset();
         } else {
-            Interger *temp = new Interger;
+            Number *temp = new Number;
             temp->line = ctx->getStart()->getLine();
             temp->pos = ctx->LBRACK()->getSymbol()->getCharPositionInLine() + 1;
             temp->number = comma_count + 1;
-            result->arr_len.reset(temp);
+            result->arr_length.reset(temp);
         }
 
         for (int i = 0; i < exprs.size(); ++i) {
             std::shared_ptr<Expr> temp;
             temp.reset(antlr4::tree::AbstractParseTreeVisitor::visit(exprs[i]).as<Expr *>());
-            result->initializers.push_back(temp);
+            result->init_value.push_back(temp);
         }
     }
 //    printf("VarDef\n");
@@ -187,7 +188,7 @@ antlrcpp::Any ASTBuilder::visitFuncDef(NyarParser::FuncDefContext *ctx) {
     result->body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(block).as<Block *>());
 
 //    printf("FuncDef\n");
-    return static_cast<GlobalDef *>(result);
+    return static_cast<FuncDef *>(result);
     //    return SillyBaseVisitor::visitFuncDef(ctx);
 }
 
@@ -234,8 +235,8 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         auto result = new AssignStmt;
         result->line = ctx->getStart()->getLine();
         result->pos = ctx->getStart()->getCharPositionInLine();
-        result->target.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->lVal()).as<LValExpr *>());
-        result->value.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->expr()).as<Expr *>());
+        result->lhs.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->lVal()).as<LValExpr *>());
+        result->rhs.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->expr()).as<Expr *>());
         return static_cast<Stmt *>(result);
     }
         // stmt : block
@@ -260,7 +261,7 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         auto result = new IfStmt;
         result->line = ctx->getStart()->getLine();
         result->pos = ctx->getStart()->getCharPositionInLine();
-        result->pred.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->cond()).as<Cond *>());
+        result->cond.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->cond()).as<Cond *>());
         result->then_body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->stmt(0)).as<Stmt *>());
         if (ctx->ELSE()) {
             result->else_body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->stmt(1)).as<Stmt *>());
@@ -275,8 +276,8 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         auto result = new WhileStmt;
         result->line = ctx->getStart()->getLine();
         result->pos = ctx->getStart()->getCharPositionInLine();
-        result->pred.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->cond()).as<Cond *>());
-        result->body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->stmt(0)).as<Stmt *>());
+        result->cond.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->cond()).as<Cond *>());
+        result->do_body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->stmt(0)).as<Stmt *>());
         return static_cast<Stmt *>(result);
     }
         // stmt : SEMICOLON
@@ -297,9 +298,9 @@ antlrcpp::Any ASTBuilder::visitLVal(NyarParser::LValContext *ctx) {
     //    result->name = ctx->IDENTIFIER()->getText();
     if (ctx->expr()) {
         auto expressions = ctx->expr();
-        result->array_index.reset(antlr4::tree::AbstractParseTreeVisitor::visit(expressions).as<Expr *>());
+        result->arr_index.reset(antlr4::tree::AbstractParseTreeVisitor::visit(expressions).as<Expr *>());
     } else {
-        result->array_index = nullptr;
+        result->arr_index = nullptr;
     }
 //    printf("LVal\n");
     return static_cast<LValExpr *>(result);
@@ -376,12 +377,12 @@ antlrcpp::Any ASTBuilder::visitExpr(NyarParser::ExprContext *ctx) {
         if (ctx->lVal()) {
             return static_cast<Expr *>(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->lVal()).as<LValExpr *>());
         }
-        auto result = new Interger;
-        auto number = ctx->NUMBER();
+        auto result = new Number;
+        auto num = ctx->NUMBER();
         // If `Number` exists as a child, we can say it's a literal integer expression.
-        result->line = number->getSymbol()->getLine();
-        result->pos = number->getSymbol()->getCharPositionInLine();
-        auto text = number->getSymbol()->getText();
+        result->line = num->getSymbol()->getLine();
+        result->pos = num->getSymbol()->getCharPositionInLine();
+        auto text = num->getSymbol()->getText();
         // consider to enable 0x
         result->number = std::stoi(text, nullptr, 10);
         return static_cast<Expr *>(result);
@@ -395,8 +396,6 @@ nyar::ast::ptr<nyar::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *
     //    return ast::ptr<ast::Node>();
     if (result.is<CompUnit *>())
         return ptr<Node>(result.as<CompUnit *>());
-    if (result.is<GlobalDef *>())
-        return ptr<Node>(result.as<GlobalDef *>());
     if (result.is<FuncDef *>())
         return ptr<Node>(result.as<FuncDef *>());
     if (result.is<Cond *>())
@@ -409,8 +408,8 @@ nyar::ast::ptr<nyar::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *
         return ptr<Node>(result.as<UnaryopExpr *>());
     if (result.is<LValExpr *>())
         return ptr<Node>(result.as<LValExpr *>());
-    if (result.is<Interger *>())
-        return ptr<Node>(result.as<Interger *>());
+    if (result.is<Number *>())
+        return ptr<Node>(result.as<Number *>());
     if (result.is<Stmt *>())
         return ptr<Node>(result.as<Stmt *>());
     if (result.is<VarDefStmt *>())
@@ -427,6 +426,3 @@ nyar::ast::ptr<nyar::ast::Node> ASTBuilder::operator()(antlr4::tree::ParseTree *
         return ptr<Node>(result.as<WhileStmt *>());
     return nullptr;
 }
-// ASTBuilder::ASTBuilder(silly::ErrorReporter &e) :
-//     err(e) {
-// }

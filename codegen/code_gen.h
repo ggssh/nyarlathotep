@@ -49,7 +49,7 @@ private:
 
     void visit(nyar::ast::IfStmt *node) override;
 
-    void visit(nyar::ast::Interger *node) override;
+    void visit(nyar::ast::Number *node) override;
 
     void visit(nyar::ast::WhileStmt *node) override;
 
