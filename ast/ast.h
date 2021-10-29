@@ -39,164 +39,194 @@ namespace nyar::ast {
         SUB
     };
 
-    struct Node;
-    struct CompUnit;
-    struct GlobalDef;
-    struct FuncDef;
-    struct Cond;
-    struct Expr;
-    struct BinopExpr;
-    struct UnaryopExpr;
-    struct LValExpr;
-    struct Interger;
-    struct Stmt;
-    struct VarDefStmt;
-    struct AssignStmt;
-    struct FuncCallStmt;
-    struct Block;
-    struct IfStmt;
-    struct WhileStmt;
-    struct EmptyStmt;
-    struct AstVisitor;
+    class Node;
 
-// Virtual base of all kinds nodes
-    struct Node {
+    class CompUnit;
+
+    class FuncDef;
+
+    class Cond;
+
+    class Expr;
+
+    class BinopExpr;
+
+    class UnaryopExpr;
+
+    class LValExpr;
+
+    class Interger;
+
+    class Stmt;
+
+    class VarDefStmt;
+
+    class AssignStmt;
+
+    class FuncCallStmt;
+
+    class Block;
+
+    class IfStmt;
+
+    class WhileStmt;
+
+    class EmptyStmt;
+
+    class AstVisitor;
+
+// 所有类的基类
+    class Node {
+    public:
         int line;
         int pos;
 
         virtual void accept(AstVisitor &visitor) = 0;
     };
 
-// Root node of ordinary ast
-    struct CompUnit : Node {
-        std::string source_name;
-        ptr_list<GlobalDef> global_defs;
+// 语法树的根节点
+    class CompUnit : public Node {
+    public:
+        ptr_list<Node> body;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
 // Virtual base of global definitions, function or variable one
-    struct GlobalDef : virtual Node {
-        virtual void accept(AstVisitor &visitor) override = 0;
-    };
+//    class GlobalDef : virtual Node {
+//        virtual void accept(AstVisitor &visitor) override = 0;
+//    };
 
 // 函数定义
-    struct FuncDef : GlobalDef {
+    class FuncDef : public Node {
+    public:
         std::string name;
         ptr<Block> body;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
 // Condition expression (but not actually treated as expression)
-    struct Cond : public Node {
+    class Cond : public Node {
+    public:
         relop op;
         ptr<Expr> lhs, rhs;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// Virtual base of expression
-    struct Expr : virtual Node {
-        virtual void accept(AstVisitor &visitor) override = 0;
+// 表达式基类
+    class Expr : public Node {
+    public:
+        void accept(AstVisitor &visitor) override = 0;
     };
 
-// Binary expression
-    struct BinopExpr : Expr {
+// 二元表达式
+    class BinopExpr : public Expr {
     public:
         binop op;
         ptr<Expr> lhs, rhs;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// Unary expression
-    struct UnaryopExpr : public Expr {
+// 一元表达式
+    class UnaryopExpr : public Expr {
     public:
         unaryop op;
         ptr<Expr> rhs;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// Expression like 'IDENTIFIER' or 'IDENTIFIER[EXPR]'
-    struct LValExpr : public Expr {
+// 左值表达式
+    class LValExpr : public Expr {
     public:
         std::string name;
         // 如果不是数组的话则为空
-        ptr<Expr> array_index;
+        ptr<Expr> arr_index;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// Interger
-    struct Interger : public Expr {
+// 数值
+    class Number : public Expr {
     public:
-        int number;
+        int number = 0;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// Virtual base for statement
-    struct Stmt : virtual Node {
+// 语句基类
+    class Stmt : public Node {
     public:
-        virtual void accept(AstVisitor &visitor) override = 0;
+        void accept(AstVisitor &visitor) override = 0;
     };
 
 // Variable definition
 // Multiple of this would be both a statement and a global definition
 // however, itself only represents a single variable definition
-    struct VarDefStmt : Stmt, GlobalDef {
-        bool is_constant;
-        std::string name;
-        ptr<Expr> arr_len;//数组长度
-        ptr_list<Expr> initializers;//数组初始化
 
-        virtual void accept(AstVisitor &visitor) override final;
+// 将Define和Declaration合到一起,在分析声明的过程中进行define的分析
+    class VarDefStmt : public Stmt {
+    public:
+        bool is_const;
+        std::string name;
+        // 如果
+        ptr<Expr> arr_length;//数组长度
+        ptr_list<Expr> init_value;//数组初始化
+
+        void accept(AstVisitor &visitor) final;
     };
 
 // Assignment statement
-    struct AssignStmt : Stmt {
-        ptr<LValExpr> target;//左值
-        ptr<Expr> value;//右值
+    class AssignStmt : public Stmt {
+    public:
+        ptr<LValExpr> lhs;//左值
+        ptr<Expr> rhs;//右值
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
 // 函数调用
-    struct FuncCallStmt : Stmt {
+    class FuncCallStmt : public Stmt {
+    public:
         std::string name;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
 // Base of Block
-    struct Block : Stmt {
+    class Block : public Stmt {
+    public:
         ptr_list<Stmt> body;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// If statement
-    struct IfStmt : Stmt {
-        ptr<Cond> pred;
+// If else 语句
+    class IfStmt : public Stmt {
+    public:
+        ptr<Cond> cond;
         ptr<Stmt> then_body;
         ptr<Stmt> else_body;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// While statement
-    struct WhileStmt : Stmt {
-        ptr<Cond> pred;
-        ptr<Stmt> body;
+// While 语句
+    class WhileStmt : public Stmt {
+    public:
+        ptr<Cond> cond;
+        ptr<Stmt> do_body;
 
-        virtual void accept(AstVisitor &visitor) override final;
+        void accept(AstVisitor &visitor) final;
     };
 
-// Empty statement (such as a single ';')
-    struct EmptyStmt : Stmt {
-        virtual void accept(AstVisitor &visitor) override final;
+// 空语句(只有一个 ';')
+    class EmptyStmt : public Stmt {
+    public:
+        void accept(AstVisitor &visitor) final;
     };
 
 // Visitor base type
@@ -220,7 +250,7 @@ namespace nyar::ast {
 
         virtual void visit(IfStmt *node) = 0;
 
-        virtual void visit(Interger *node) = 0;
+        virtual void visit(Number *node) = 0;
 
         virtual void visit(WhileStmt *node) = 0;
 

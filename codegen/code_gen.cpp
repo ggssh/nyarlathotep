@@ -13,13 +13,15 @@ void CodeGenerator::visit(CompUnit *node) {
     //随机初始化避免段错误
     value_result = ConstantInt::get(Type::getInt32Ty(context), 0);
     bb_count = 1;
-    for (const auto &ptr_def: node->global_defs) {
+    for (const auto &ptr_def: node->body) {
+        // 调用全局变量和函数定义codegen
         ptr_def->accept(*this);
     }
     printf("codegen success!\n");
 }
 
 void CodeGenerator::visit(FuncDef *node) {
+    // 进入函数定义后,其内部所有变量均为非global
     in_global = false;
     if (functions.find(node->name) == functions.end()) {
         // todo 错误处理
@@ -33,6 +35,7 @@ void CodeGenerator::visit(FuncDef *node) {
     // return
     builder.CreateRetVoid();
     builder.ClearInsertionPoint();
+    // 该函数定义结点生成结束重新设为global
     in_global = true;
 }
 
@@ -55,7 +58,7 @@ void CodeGenerator::visit(LValExpr *node) {
     bool is_array = std::get<2>(var_tuple);
 
     if (!is_array) {
-        if (node->array_index) {// 类型不符
+        if (node->arr_index) {// 类型不符
             return;
         }
         if (lval_as_rval) {// 作为右值
@@ -67,13 +70,13 @@ void CodeGenerator::visit(LValExpr *node) {
             value_result = lval;// 取出其地址存入
         }
     } else {//是数组
-        if (!node->array_index) {// 类型不符
+        if (!node->arr_index) {// 类型不符
             return;
         }
         // 保存现场
         bool temp_lval_as_rval = lval_as_rval;
         lval_as_rval = true;
-        node->array_index->accept(*this);
+        node->arr_index->accept(*this);
         lval_as_rval = temp_lval_as_rval;
         std::vector<Value *> index;
         index.push_back((Value *) ConstantInt::get(Type::getInt32Ty(context), 0));
@@ -156,17 +159,17 @@ void CodeGenerator::visit(VarDefStmt *node) {
         return;
     }
     // 单个变量
-    if (!node->arr_len) {
+    if (!node->arr_length) {
         const_result = 0;// 未在定义时赋值则默认为0
         Value *value;
         // 全局变量定义
         if (in_global) {
             constexpr_expected = true;
-            if (!node->initializers.empty())
-                node->initializers[0]->accept(*this);
+            if (!node->init_value.empty())
+                node->init_value[0]->accept(*this);
             value = new GlobalVariable(*module,
                                        Type::getInt32Ty(module->getContext()),
-                                       node->is_constant,
+                                       node->is_const,
                                        GlobalValue::ExternalLinkage,
                                        ConstantInt::get(Type::getInt32Ty(module->getContext()), const_result),
                                        node->name);
@@ -175,19 +178,19 @@ void CodeGenerator::visit(VarDefStmt *node) {
         else {
             constexpr_expected = false;
             value = builder.CreateAlloca(Type::getInt32Ty(context), nullptr, node->name);
-            if (!node->initializers.empty()) {
-                node->initializers[0]->accept(*this);
+            if (!node->init_value.empty()) {
+                node->init_value[0]->accept(*this);
                 builder.CreateStore(value_result, value);
             }
         }
-        declare_variable(node->name, value, node->is_constant, false);
+        declare_variable(node->name, value, node->is_const, false);
     }
         // 数组变量定义
     else {
         constexpr_expected = true;
-        node->arr_len->accept(*this);// 计算数组长度
+        node->arr_length->accept(*this);// 计算数组长度
         unsigned array_len = const_result;
-        unsigned init_len = node->initializers.size();
+        unsigned init_len = node->init_value.size();
 
         if (array_len < 0) {
             // todo
@@ -203,7 +206,7 @@ void CodeGenerator::visit(VarDefStmt *node) {
             for (int len = 0; len < array_len; ++len) {
                 // 初始化赋值部分
                 if (len < init_len) {
-                    node->initializers[len]->accept(*this);
+                    node->init_value[len]->accept(*this);
                     init_array.push_back(ConstantInt::get(Type::getInt32Ty(context), const_result));
                 }
                     // 未在初始化时赋值的部分
@@ -213,7 +216,7 @@ void CodeGenerator::visit(VarDefStmt *node) {
             }
             array = new GlobalVariable(*module,
                                        ArrayType::get(Type::getInt32Ty(context), array_len),
-                                       node->is_constant,
+                                       node->is_const,
                                        GlobalValue::ExternalLinkage,
                                        ConstantArray::get(ArrayType::get(Type::getInt32Ty(context), array_len),
                                                           init_array),
@@ -229,13 +232,13 @@ void CodeGenerator::visit(VarDefStmt *node) {
             Value *element;// 数组元素地址
             std::vector<Value *> index;
             index.push_back((Value *) ConstantInt::get(Type::getInt32Ty(context), 0));
-            for (int len = 0; len < array_len && !node->initializers.empty(); ++len) {
+            for (int len = 0; len < array_len && !node->init_value.empty(); ++len) {
                 // get index
                 index.push_back((Value *) ConstantInt::get(Type::getInt32Ty(context), len));
                 element = builder.CreateGEP(array, index);
                 index.pop_back();
                 if (len < init_len) {
-                    node->initializers[len]->accept(*this);
+                    node->init_value[len]->accept(*this);
                     builder.CreateStore(value_result, element);
                 } else {
                     builder.CreateStore(ConstantInt::get(Type::getInt32Ty(context), 0), element);
@@ -243,18 +246,18 @@ void CodeGenerator::visit(VarDefStmt *node) {
             }
         }
 
-        declare_variable(node->name, array, node->is_constant, true);
+        declare_variable(node->name, array, node->is_const, true);
     }
 }
 
 void CodeGenerator::visit(AssignStmt *node) {
     constexpr_expected = false;
     lval_as_rval = false;
-    node->target->accept(*this);
+    node->lhs->accept(*this);
     auto target = value_result;
     constexpr_expected = false;
     lval_as_rval = false;
-    node->value->accept(*this);
+    node->rhs->accept(*this);
     auto value = value_result;
     // 将value存入target
     builder.CreateStore(value, target);
@@ -263,15 +266,15 @@ void CodeGenerator::visit(AssignStmt *node) {
 void CodeGenerator::visit(IfStmt *node) {
     // if then else
     if (node->else_body) {
-        auto pred_block = BasicBlock::Create(context, "if_pred_b" + std::to_string(bb_count++), current_funciton);
+        auto cond_block = BasicBlock::Create(context, "if_cond_b" + std::to_string(bb_count++), current_funciton);
         auto then_block = BasicBlock::Create(context, "if_then_b" + std::to_string(bb_count++), current_funciton);
         auto else_block = BasicBlock::Create(context, "if_else_b" + std::to_string(bb_count++), current_funciton);
         auto next_block = BasicBlock::Create(context, "if_next_b" + std::to_string(bb_count++), current_funciton);
-        builder.CreateBr(pred_block);
+        builder.CreateBr(cond_block);
 
-        // pred_block
-        builder.SetInsertPoint(pred_block);
-        node->pred->accept(*this);
+        // cond_block
+        builder.SetInsertPoint(cond_block);
+        node->cond->accept(*this);
         builder.CreateCondBr(value_result, then_block, else_block);
 
         // then_block
@@ -289,14 +292,14 @@ void CodeGenerator::visit(IfStmt *node) {
     }
         // if then
     else {
-        auto pred_block = BasicBlock::Create(context, "if_pred_b" + std::to_string(bb_count++), current_funciton);
+        auto cond_block = BasicBlock::Create(context, "if_cond_b" + std::to_string(bb_count++), current_funciton);
         auto then_block = BasicBlock::Create(context, "if_then_b" + std::to_string(bb_count++), current_funciton);
         auto next_block = BasicBlock::Create(context, "if_next_b" + std::to_string(bb_count++), current_funciton);
 
-        // pred_block
-        builder.CreateBr(pred_block);
-        builder.SetInsertPoint(pred_block);
-        node->pred->accept(*this);
+        // cond_block
+        builder.CreateBr(cond_block);
+        builder.SetInsertPoint(cond_block);
+        node->cond->accept(*this);
         builder.CreateCondBr(value_result, then_block, next_block);// value_result为false直接跳转到if语句结束
 
         // then_block
@@ -309,7 +312,7 @@ void CodeGenerator::visit(IfStmt *node) {
     }
 }
 
-void CodeGenerator::visit(Interger *node) {
+void CodeGenerator::visit(Number *node) {
     if (!constexpr_expected)
         value_result = ConstantInt::get(Type::getInt32Ty(context), node->number);
     else
@@ -317,20 +320,20 @@ void CodeGenerator::visit(Interger *node) {
 }
 
 void CodeGenerator::visit(WhileStmt *node) {
-    auto pred_block = BasicBlock::Create(context, "while_pred_b" + std::to_string(bb_count++), current_funciton);
+    auto cond_block = BasicBlock::Create(context, "while_cond_b" + std::to_string(bb_count++), current_funciton);
     auto true_block = BasicBlock::Create(context, "while_true_b" + std::to_string(bb_count++), current_funciton);
     auto next_block = BasicBlock::Create(context, "while_next_b" + std::to_string(bb_count++), current_funciton);
 
-    builder.CreateBr(pred_block);
+    builder.CreateBr(cond_block);
     // pre_block
-    builder.SetInsertPoint(pred_block);
-    node->pred->accept(*this);
+    builder.SetInsertPoint(cond_block);
+    node->cond->accept(*this);
 //    builder.CreateCondBr(pred_block, true_block, next_block);
     builder.CreateCondBr(value_result, true_block, next_block);
     // true_block
     builder.SetInsertPoint(true_block);
-    node->body->accept(*this);
-    builder.CreateBr(pred_block);
+    node->do_body->accept(*this);
+    builder.CreateBr(cond_block);
     // next_block
     builder.SetInsertPoint(next_block);
 }

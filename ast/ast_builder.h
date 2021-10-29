@@ -36,7 +36,7 @@ namespace nyar::ast {
 
         antlrcpp::Any visitExpr(NyarParser::ExprContext *ctx) override;
 
-        // override the operator
+        // 重载()
         ptr<Node> operator()(antlr4::tree::ParseTree *ctx);
 
         //    ASTBuilder(ErrorReporter &e);

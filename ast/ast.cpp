@@ -30,7 +30,7 @@ void LValExpr::accept(AstVisitor &visitor) {
     visitor.visit(this);
 }
 
-void Interger::accept(AstVisitor &visitor) {
+void Number::accept(AstVisitor &visitor) {
     visitor.visit(this);
 }
 
