@@ -181,6 +181,11 @@ antlrcpp::Any ASTBuilder::visitFuncDef(NyarParser::FuncDefContext *ctx) {
     auto result = new FuncDef;
     result->line = ctx->getStart()->getLine();
     result->pos = ctx->getStart()->getCharPositionInLine();
+    if (ctx->INT()){
+        result->type = functype::INT;
+    }else{
+        result->type = functype::VOID;
+    }
     // Function name
     result->name = ctx->IDENTIFIER()->getSymbol()->getText();
     auto block = ctx->block();
@@ -278,6 +283,14 @@ antlrcpp::Any ASTBuilder::visitStmt(NyarParser::StmtContext *ctx) {
         result->pos = ctx->getStart()->getCharPositionInLine();
         result->cond.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->cond()).as<Cond *>());
         result->do_body.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->stmt(0)).as<Stmt *>());
+        return static_cast<Stmt *>(result);
+    }
+        //返回值语句
+    else if (ctx->RETURN()) {
+        auto result = new ReturnStmt;
+        result->line = ctx->getStart()->getLine();
+        result->pos = ctx->getStart()->getCharPositionInLine();
+        result->expr.reset(antlr4::tree::AbstractParseTreeVisitor::visit(ctx->expr()).as<Expr *>());
         return static_cast<Stmt *>(result);
     }
         // stmt : SEMICOLON

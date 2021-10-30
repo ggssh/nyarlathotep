@@ -61,3 +61,7 @@ void WhileStmt::accept(AstVisitor &visitor) {
 void EmptyStmt::accept(AstVisitor &visitor) {
     visitor.visit(this);
 }
+
+void ReturnStmt::accept(AstVisitor &visitor) {
+    visitor.visit(this);
+}

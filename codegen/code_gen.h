@@ -41,6 +41,8 @@ private:
 
     void visit(nyar::ast::Block *node) override;
 
+    void visit(ReturnStmt *node) override;
+
     void visit(nyar::ast::BinopExpr *node) override;
 
     void visit(nyar::ast::VarDefStmt *node) override;

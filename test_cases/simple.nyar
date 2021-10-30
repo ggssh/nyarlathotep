@@ -1,9 +1,14 @@
 int i = 0;
 int a =2;
-void hello(){
-    int b = 3;
-    b = b + 1;
+
+int add(){
+    return (3*2+1*441);
 }
+int hello(){
+     int b = 3;
+     b = b + 2;
+     return b;
+ }
 void main()
 {
     i = 1;

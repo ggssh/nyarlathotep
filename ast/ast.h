@@ -39,6 +39,11 @@ namespace nyar::ast {
         SUB
     };
 
+    enum class functype {
+        VOID = 0,
+        INT
+    };
+
     class Node;
 
     class CompUnit;
@@ -92,14 +97,10 @@ namespace nyar::ast {
         void accept(AstVisitor &visitor) final;
     };
 
-// Virtual base of global definitions, function or variable one
-//    class GlobalDef : virtual Node {
-//        virtual void accept(AstVisitor &visitor) override = 0;
-//    };
-
 // 函数定义
     class FuncDef : public Node {
     public:
+        functype type;
         std::string name;
         ptr<Block> body;
 
@@ -179,7 +180,14 @@ namespace nyar::ast {
         void accept(AstVisitor &visitor) final;
     };
 
-// Assignment statement
+    // 返回语句
+    class ReturnStmt : public Stmt {
+    public:
+        ptr<Expr> expr;
+        void accept(AstVisitor &visitor) override;
+    };
+
+// 赋值语句
     class AssignStmt : public Stmt {
     public:
         ptr<LValExpr> lhs;//左值
@@ -196,7 +204,7 @@ namespace nyar::ast {
         void accept(AstVisitor &visitor) final;
     };
 
-// Base of Block
+// 块基类
     class Block : public Stmt {
     public:
         ptr_list<Stmt> body;
@@ -259,6 +267,8 @@ namespace nyar::ast {
         virtual void visit(EmptyStmt *node) = 0;
 
         virtual void visit(Cond *node) = 0;
+
+        virtual void visit(ReturnStmt *node) = 0;
     };
 
 } // namespace silly::ast

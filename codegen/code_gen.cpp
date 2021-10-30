@@ -26,14 +26,21 @@ void CodeGenerator::visit(FuncDef *node) {
     if (functions.find(node->name) == functions.end()) {
         // todo 错误处理
     }
-    FunctionType *FT = FunctionType::get(Type::getVoidTy(context), {}, false);
+    FunctionType *FT;
+    if (node->type==nyar::ast::functype::INT){
+        FT = FunctionType::get(Type::getInt32Ty(context),{}, false);
+    }else{
+        FT = FunctionType::get(Type::getVoidTy(context), {}, false);
+    }
+//    FunctionType *FT = FunctionType::get(Type::getVoidTy(context), {}, false);
     current_funciton = Function::Create(FT, GlobalValue::ExternalLinkage, node->name, module.get());
     functions[node->name] = current_funciton;
     auto func_entry = BasicBlock::Create(context, "func_entry_" + node->name, current_funciton);
     builder.SetInsertPoint(func_entry);
     node->body->accept(*this);
-    // return
-    builder.CreateRetVoid();
+
+//    builder.CreateRetVoid();
+    builder.CreateRet(value_result);
     builder.ClearInsertionPoint();
     // 该函数定义结点生成结束重新设为global
     in_global = true;
@@ -384,4 +391,11 @@ void CodeGenerator::visit(Cond *node) {
             break;
     }
     value_result = result;
+}
+
+void CodeGenerator::visit(ReturnStmt *node) {
+//    auto bb = BasicBlock::Create(context,"ret", this->current_funciton,BasicBlock::i)
+    constexpr_expected = false;
+    node->expr->accept(*this);
+
 }
