@@ -26,11 +26,15 @@ void CodeGenerator::visit(FuncDef *node) {
     if (functions.find(node->name) == functions.end()) {
         // todo 错误处理
     }
-    FunctionType *FT;
+    FunctionType *FT = nullptr;
     if (node->type==nyar::ast::functype::INT){
         FT = FunctionType::get(Type::getInt32Ty(context),{}, false);
-    }else{
+    }else if (node->type == nyar::ast::functype::VOID){
         FT = FunctionType::get(Type::getVoidTy(context), {}, false);
+    }else{
+        std::vector<Type*> Ints(2,Type::getInt32Ty(context));
+        FT = FunctionType::get(Type::getInt32Ty(context),Ints, false);
+
     }
 //    FunctionType *FT = FunctionType::get(Type::getVoidTy(context), {}, false);
     current_funciton = Function::Create(FT, GlobalValue::ExternalLinkage, node->name, module.get());
